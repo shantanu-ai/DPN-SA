@@ -53,16 +53,22 @@ class DataLoader:
             self.__convert_to_numpy_DCN(control_df_X, control_ps_score, control_df_Y_f,
                                         control_df_Y_cf)
 
-        tensor_treated = Utils.convert_to_tensor_DCN(np_treated_df_X,
-                                                     np_treated_ps_score,
-                                                     np_treated_df_Y_f,
-                                                     np_treated_df_Y_cf)
-        tensor_control = Utils.convert_to_tensor_DCN(np_control_df_X,
-                                                     np_control_ps_score,
-                                                     np_control_df_Y_f,
-                                                     np_control_df_Y_cf)
+        return {
+            "treated_data": (np_treated_df_X, np_treated_ps_score,
+                             np_treated_df_Y_f, np_treated_df_Y_cf),
+            "control_data": (np_control_df_X, np_control_ps_score,
+                             np_control_df_Y_f, np_control_df_Y_cf)
+        }
 
-        return tensor_treated, tensor_control
+    @staticmethod
+    def convert_to_tensor_DCN(np_df_X,
+                              np_ps_score,
+                              np_df_Y_f,
+                              np_df_Y_cf):
+        return Utils.convert_to_tensor_DCN(np_df_X,
+                                           np_ps_score,
+                                           np_df_Y_f,
+                                           np_df_Y_cf)
 
     @staticmethod
     def __convert_to_numpy(df):
@@ -82,9 +88,9 @@ class DataLoader:
     def __preprocess_data_for_DCN(df_X, treatment_index):
         df = df_X[df_X.iloc[:, -2] == treatment_index]
         df_X = df.iloc[:, 0:25]
-        ps_score = df_X.iloc[:, -1]
-        df_Y_f = df_X.iloc[:, -4:-3]
-        df_Y_cf = df_X.iloc[:, -3:-2]
+        ps_score = df.iloc[:, -1]
+        df_Y_f = df.iloc[:, -4:-3]
+        df_Y_cf = df.iloc[:, -3:-2]
 
         return df_X, ps_score, df_Y_f, df_Y_cf
 

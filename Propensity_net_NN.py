@@ -19,7 +19,6 @@ class Propensity_net_NN(nn.Module):
         else:
             x = x.float()
 
-        # shared conv
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = self.ps_out(x)

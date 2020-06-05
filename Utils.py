@@ -1,6 +1,9 @@
+import math
+
 import numpy as np
 import sklearn.model_selection as sklearn
 import torch
+from torch.distributions import Bernoulli
 
 
 class Utils:
@@ -40,3 +43,20 @@ class Utils:
     @staticmethod
     def get_num_correct(preds, labels):
         return preds.argmax(dim=1).eq(labels).sum().item()
+
+    @staticmethod
+    def get_shanon_entropy(prob):
+        if prob == 1:
+            return -(prob * math.log(prob))
+        elif prob == 0:
+            return -((1 - prob) * math.log(1 - prob))
+        else:
+            return -(prob * math.log(prob)) - ((1 - prob) * math.log(1 - prob))
+
+    @staticmethod
+    def get_dropout_probability(entropy, gama=1):
+        return 1 - (gama * 0.5) - (entropy * 0.5)
+
+    @staticmethod
+    def get_dropout_mask(prob, x):
+        return Bernoulli(torch.full_like(x, 1 - prob)).sample() / (1 - prob)
