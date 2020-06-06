@@ -12,16 +12,16 @@ class DataLoader:
         # data load
         df = pd.read_csv(os.path.join(os.path.dirname(__file__), csv_path), header=None)
         np_covariates_X, np_treatment_Y = self.__convert_to_numpy(df)
-        print("ps_np_covariates_X: {0}".format(np_covariates_X.shape))
-        print("ps_np_treatment_Y: {0}".format(np_treatment_Y.shape))
+        # print("ps_np_covariates_X: {0}".format(np_covariates_X.shape))
+        # print("ps_np_treatment_Y: {0}".format(np_treatment_Y.shape))
 
         np_covariates_X_train, np_covariates_X_test, np_covariates_Y_train, np_covariates_Y_test = \
             Utils.test_train_split(np_covariates_X, np_treatment_Y, split_size)
-        print("np_covariates_X_train: {0}".format(np_covariates_X_train.shape))
-        print("np_covariates_Y_train: {0}".format(np_covariates_Y_train.shape))
-        print("---" * 20)
-        print("np_covariates_X_test: {0}".format(np_covariates_X_test.shape))
-        print("np_covariates_Y_test: {0}".format(np_covariates_Y_test.shape))
+        # print("np_covariates_X_train: {0}".format(np_covariates_X_train.shape))
+        # print("np_covariates_Y_train: {0}".format(np_covariates_Y_train.shape))
+        # print("---" * 20)
+        # print("np_covariates_X_test: {0}".format(np_covariates_X_test.shape))
+        # print("np_covariates_Y_test: {0}".format(np_covariates_Y_test.shape))
         return np_covariates_X_train, np_covariates_X_test, np_covariates_Y_train, np_covariates_Y_test
 
     @staticmethod
@@ -29,13 +29,13 @@ class DataLoader:
         return Utils.convert_to_tensor(ps_np_covariates_X, ps_np_treatment_Y)
 
     def prepare_tensor_for_DCN(self, ps_np_covariates_X, ps_np_treatment_Y, ps_list):
-        print("ps_np_covariates_X: {0}".format(ps_np_covariates_X.shape))
-        print("ps_np_treatment_Y: {0}".format(ps_np_treatment_Y.shape))
+        # print("ps_np_covariates_X: {0}".format(ps_np_covariates_X.shape))
+        # print("ps_np_treatment_Y: {0}".format(ps_np_treatment_Y.shape))
         X = Utils.concat_np_arr(ps_np_covariates_X, ps_np_treatment_Y, axis=1)
 
         # col of X -> x1 .. x25, Y_f, Y_cf, T, Ps
         X = Utils.concat_np_arr(X, np.array([ps_list]).T, axis=1)
-        print("Big X: {0}".format(X.shape))
+        # print("Big X: {0}".format(X.shape))
         df_X = pd.DataFrame(X)
         treated_df_X, treated_ps_score, treated_df_Y_f, treated_df_Y_cf = \
             self.__preprocess_data_for_DCN(df_X, treatment_index=1)
@@ -43,12 +43,12 @@ class DataLoader:
         control_df_X, control_ps_score, control_df_Y_f, control_df_Y_cf = \
             self.__preprocess_data_for_DCN(df_X, treatment_index=0)
 
-        print(".. Treated Statistics ..")
+        # print(".. Treated Statistics ..")
         np_treated_df_X, np_treated_ps_score, np_treated_df_Y_f, np_treated_df_Y_cf = \
             self.__convert_to_numpy_DCN(treated_df_X, treated_ps_score, treated_df_Y_f,
                                         treated_df_Y_cf)
 
-        print(".. Control Statistics ..")
+        # print(".. Control Statistics ..")
         np_control_df_X, np_control_ps_score, np_control_df_Y_f, np_control_df_Y_cf = \
             self.__convert_to_numpy_DCN(control_df_X, control_ps_score, control_df_Y_f,
                                         control_df_Y_cf)
@@ -101,9 +101,9 @@ class DataLoader:
         np_df_Y_f = Utils.convert_df_to_np_arr(df_Y_f)
         np_df_Y_cf = Utils.convert_df_to_np_arr(df_Y_cf)
 
-        print("np_df_X: {0}".format(np_df_X.shape))
-        print("np_ps_score: {0}".format(np_ps_score.shape))
-        print("np_df_Y_f: {0}".format(np_df_Y_f.shape))
-        print("np_df_Y_cf: {0}".format(np_df_Y_cf.shape))
+        # print("np_df_X: {0}".format(np_df_X.shape))
+        # print("np_ps_score: {0}".format(np_ps_score.shape))
+        # print("np_df_Y_f: {0}".format(np_df_Y_f.shape))
+        # print("np_df_Y_cf: {0}".format(np_df_Y_cf.shape))
 
         return np_df_X, np_ps_score, np_df_Y_f, np_df_Y_cf

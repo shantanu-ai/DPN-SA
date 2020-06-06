@@ -42,14 +42,21 @@ class DCN(nn.Module):
         else:
             x = x.float()
 
-        # print(ps_score.item())
+        if self.training:
+            y1, y0 = self.__train_net(x, ps_score)
+        else:
+            y1, y0 = self.__eval_net(x)
+
+        return y1, y0
+
+    def __train_net(self, x, ps_score):
         entropy = Utils.get_shanon_entropy(ps_score.item())
         dropout_prob = Utils.get_dropout_probability(entropy, gama=1)
 
         # shared layers
         shared_mask = Utils.get_dropout_mask(dropout_prob, self.shared1(x))
         x = F.relu(shared_mask * self.shared1(x))
-        x = F.relu(self.shared2(x))
+        x = F.relu(shared_mask * self.shared2(x))
 
         # potential outcome1 Y(1)
         y1_mask = Utils.get_dropout_mask(dropout_prob, self.hidden1_Y1(x))
@@ -61,6 +68,23 @@ class DCN(nn.Module):
         y0_mask = Utils.get_dropout_mask(dropout_prob, self.hidden1_Y0(x))
         y0 = F.relu(y0_mask * self.hidden1_Y0(x))
         y0 = F.relu(y0_mask * self.hidden2_Y0(y0))
+        y0 = self.out_Y0(y0)
+
+        return y1, y0
+
+    def __eval_net(self, x):
+        # shared layers
+        x = F.relu(self.shared1(x))
+        x = F.relu(self.shared2(x))
+
+        # potential outcome1 Y(1)
+        y1 = F.relu(self.hidden1_Y1(x))
+        y1 = F.relu(self.hidden2_Y1(y1))
+        y1 = self.out_Y1(y1)
+
+        # potential outcome1 Y(0)
+        y0 = F.relu(self.hidden1_Y0(x))
+        y0 = F.relu(self.hidden2_Y0(y0))
         y0 = self.out_Y0(y0)
 
         return y1, y0

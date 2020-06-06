@@ -61,7 +61,8 @@ class DCN_network:
 
                     train_set_size += covariates_X.size(0)
                     treatment_pred = network(covariates_X, ps_score)
-
+                    # treatment_pred[0] -> y1
+                    # treatment_pred[1] -> y0
                     predicted_ITE = treatment_pred[0] - treatment_pred[1]
                     true_ITE = y_f - y_cf
                     if torch.cuda.is_available():
@@ -98,7 +99,8 @@ class DCN_network:
 
                     train_set_size += covariates_X.size(0)
                     treatment_pred = network(covariates_X, ps_score)
-
+                    # treatment_pred[0] -> y1
+                    # treatment_pred[1] -> y0
                     predicted_ITE = treatment_pred[0] - treatment_pred[1]
                     true_ITE = y_cf - y_f
                     if torch.cuda.is_available():
@@ -124,7 +126,7 @@ class DCN_network:
         treated_set = eval_parameters["treated_set"]
         control_set = eval_parameters["control_set"]
         model_path = eval_parameters["model_save_path"]
-        network = DCN(training_flag=True).to(device)
+        network = DCN(training_flag=False).to(device)
         network.load_state_dict(torch.load(model_path, map_location=device))
         network.eval()
         treated_data_loader = torch.utils.data.DataLoader(treated_set,
@@ -164,8 +166,8 @@ class DCN_network:
                 diff = true_ITE.float() - predicted_ITE.float()
             err_control_list.append(diff.item())
 
-        print(err_treated_list)
-        print(err_control_list)
+        # print(err_treated_list)
+        # print(err_control_list)
         return {
             "treated_err": err_treated_list,
             "control_err": err_control_list,
