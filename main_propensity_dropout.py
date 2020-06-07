@@ -120,7 +120,7 @@ def test_DCN(iter_id, np_covariates_X_test, np_covariates_Y_test, dL, device):
     pd.DataFrame.from_dict(
         ps_score_list_NN,
         orient='columns'
-    ).to_csv("./MSE/Prop_score_{0}.csv".format(iter_id))
+    ).to_csv("./MSE/NN_Prop_score_{0}.csv".format(iter_id))
 
     # testing using SAE
     ps_net_SAE = Propensity_socre_SAE()
@@ -132,7 +132,7 @@ def test_DCN(iter_id, np_covariates_X_test, np_covariates_Y_test, dL, device):
     pd.DataFrame.from_dict(
         ps_score_list_SAE,
         orient='columns'
-    ).to_csv("./MSE/Prop_score_{0}.csv".format(iter_id))
+    ).to_csv("./MSE/SAE_Prop_score_{0}.csv".format(iter_id))
 
     # load data for ITE network
     print("############### DCN Testing using NN ###############")
@@ -208,7 +208,7 @@ def main_propensity_dropout_BL():
 
     MSE_list_SAE = []
     MSE_set_SAE = []
-    for iter_id in range(1):
+    for iter_id in range(100):
         iter_id += 1
         print("--" * 20)
         print("iter_id: {0}".format(iter_id))
