@@ -92,7 +92,7 @@ class Propensity_socre_SAE:
             print("Epoch: {0}, loss: {1}".
                   format(epoch, epoch_loss))
 
-            return network
+        return network
 
     @staticmethod
     def sparse_loss(sparsity_probability, covariates, model_children, device):
@@ -114,6 +114,7 @@ class Propensity_socre_SAE:
         :param training_mode: "Classifier" for classifier training
         :return:
         """
+        print(epochs)
         print("----- Training classifier -----")
         network = Propensity_netSAE(training_mode=training_mode, device=device,
                                     init_weight_dict=init_weights).to(device)
@@ -144,7 +145,7 @@ class Propensity_socre_SAE:
             pred_accuracy = total_correct / train_set_size
             print("Epoch: {0}, loss: {1}, correct: {2}/{3}, accuracy: {4}".
                   format(epoch, total_loss, total_correct, train_set_size, pred_accuracy))
-            return network
+        return network
 
     @staticmethod
     def eval(eval_parameters, device, phase, training_mode="Classifier"):

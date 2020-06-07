@@ -15,7 +15,7 @@ def train_eval_DCN(iter_id, np_covariates_X_train, np_covariates_Y_train, dL, de
 
     # test set -> np_covariates_Y_train, np_covariates
     # train propensity network
-    train_parameters = {
+    train_parameters_NN = {
         "epochs": 100,
         "lr": 0.001,
         "batch_size": 32,
@@ -26,10 +26,10 @@ def train_eval_DCN(iter_id, np_covariates_X_train, np_covariates_Y_train, dL, de
     # ps using NN
     ps_net_NN = Propensity_socre_network()
     print("############### Propensity Score neural net Training ###############")
-    ps_net_NN.train(train_parameters, device, phase="train")
+    ps_net_NN.train(train_parameters_NN, device, phase="train")
 
     # ps using SAE
-    train_parameters = {
+    train_parameters_SAE = {
         "epochs": 100,
         "lr": 0.001,
         "batch_size": 32,
@@ -42,16 +42,16 @@ def train_eval_DCN(iter_id, np_covariates_X_train, np_covariates_Y_train, dL, de
     }
     ps_net_SAE = Propensity_socre_SAE()
     print("############### Propensity Score SAE net Training ###############")
-    ps_net_SAE.train(train_parameters, device, phase="train")
+    ps_net_SAE.train(train_parameters_SAE, device, phase="train")
 
     eval_parameters_NN = {
         "eval_set": ps_train_set,
         "model_path": "./Propensity_Model/NN_PS_model_iter_id_{0}_epoch_100_lr_0.001.pth".format(iter_id)
     }
-    # eval propensity network usig NN
+    # eval propensity network using NN
     ps_score_list_NN = ps_net_NN.eval(eval_parameters_NN, device, phase="eval")
 
-    # eval propensity network usig SAE
+    # eval propensity network using SAE
     eval_parameters_SAE = {
         "eval_set": ps_train_set,
         "model_path": "./Propensity_Model/SAE_PS_model_iter_id_{0}_epoch_100_lr_0.001.pth".format(iter_id)
