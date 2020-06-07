@@ -55,7 +55,7 @@ class Propensity_socre_network:
 
     @staticmethod
     def eval(eval_parameters, device, phase):
-        print(".. Evaluation started ..")
+        print(".. Propensity score evaluation started using NN..")
         eval_set = eval_parameters["eval_set"]
         model_path = eval_parameters["model_path"]
         network = Propensity_net_NN(phase).to(device)
@@ -75,4 +75,5 @@ class Propensity_socre_network:
             treatment_pred = treatment_pred.squeeze()
             prop_score_list.append(treatment_pred[1].item())
 
+        print(".. Propensity score evaluation completed using NN..")
         return prop_score_list

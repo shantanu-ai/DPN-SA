@@ -26,15 +26,17 @@ class DCN(nn.Module):
         nn.init.xavier_uniform_(self.hidden2_Y1.weight)
 
         self.out_Y1 = nn.Linear(in_features=200, out_features=1)
+        nn.init.xavier_uniform_(self.out_Y1.weight)
 
         # potential outcome1 Y(0)
         self.hidden1_Y0 = nn.Linear(in_features=200, out_features=200)
         nn.init.xavier_uniform_(self.hidden1_Y0.weight)
 
         self.hidden2_Y0 = nn.Linear(in_features=200, out_features=200)
-        nn.init.xavier_uniform_(self.hidden1_Y0.weight)
+        nn.init.xavier_uniform_(self.hidden2_Y0.weight)
 
         self.out_Y0 = nn.Linear(in_features=200, out_features=1)
+        nn.init.xavier_uniform_(self.out_Y0.weight)
 
     def forward(self, x, ps_score):
         if torch.cuda.is_available():

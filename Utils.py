@@ -3,6 +3,7 @@ import math
 import numpy as np
 import sklearn.model_selection as sklearn
 import torch
+import torch.nn.functional as F
 from torch.distributions import Bernoulli
 
 
@@ -46,6 +47,8 @@ class Utils:
 
     @staticmethod
     def get_shanon_entropy(prob):
+        if prob < 0:
+            return
         if prob == 1:
             return -(prob * math.log(prob))
         elif prob == 0:
@@ -60,3 +63,10 @@ class Utils:
     @staticmethod
     def get_dropout_mask(prob, x):
         return Bernoulli(torch.full_like(x, 1 - prob)).sample() / (1 - prob)
+
+    @staticmethod
+    def KL_divergence(rho, rho_hat, device):
+        # sigmoid because we need the probability distributions
+        rho_hat = torch.mean(torch.sigmoid(rho_hat), 1)
+        rho = torch.tensor([rho] * len(rho_hat)).to(device)
+        return torch.sum(rho * torch.log(rho / rho_hat) + (1 - rho) * torch.log((1 - rho) / (1 - rho_hat)))
