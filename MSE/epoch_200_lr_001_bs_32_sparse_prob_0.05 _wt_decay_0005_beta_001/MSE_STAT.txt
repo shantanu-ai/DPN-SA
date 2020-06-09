@@ -1,0 +1,14 @@
+train_parameters_SAE = {
+        "epochs": 50,
+        "lr": 0.001,
+        "batch_size": 32,
+        "shuffle": True,
+        "train_set": ps_train_set,
+        "sparsity_probability": 0.05,
+        "weight_decay": 0.0005,
+        "BETA": 0.001,
+        "model_save_path": "./Propensity_Model/SAE_PS_model_iter_id_" + str(iter_id) + "_epoch_{0}_lr_{1}.pth",
+    }
+
+Mean squared error using SAE: 1.915646294059548
+Mean squared error using NN: 2.0511007023080725

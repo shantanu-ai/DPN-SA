@@ -1,0 +1,5 @@
+Today 
+ee 
+Iter: 1, MSE_Sparse: 1, MSE_NN: 1
+Iter: 1, MSE_Sparse: 1, MSE_NN: 1
+Iter: 1, MSE_Sparse: 1, MSE_NN: 1

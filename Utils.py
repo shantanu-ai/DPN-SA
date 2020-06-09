@@ -5,7 +5,8 @@ import sklearn.model_selection as sklearn
 import torch
 import torch.nn.functional as F
 from torch.distributions import Bernoulli
-
+from collections import namedtuple
+from itertools import product
 
 class Utils:
     @staticmethod
@@ -70,3 +71,18 @@ class Utils:
         rho_hat = torch.mean(torch.sigmoid(rho_hat), 1)
         rho = torch.tensor([rho] * len(rho_hat)).to(device)
         return torch.sum(rho * torch.log(rho / rho_hat) + (1 - rho) * torch.log((1 - rho) / (1 - rho_hat)))
+
+    @staticmethod
+    def get_runs(params):
+        """
+        Gets the run parameters using cartesian products of the different parameters.
+        :param params: different parameters like batch size, learning rates
+        :return: iterable run set
+        """
+        Run = namedtuple("Run", params.keys())
+
+        runs = []
+        for v in product(*params.values()):
+            runs.append(Run(*v))
+
+        return runs

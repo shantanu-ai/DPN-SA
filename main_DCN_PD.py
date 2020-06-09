@@ -30,16 +30,16 @@ def train_eval_DCN(iter_id, np_covariates_X_train, np_covariates_Y_train, dL, de
 
     # ps using SAE
     # train_parameters_SAE = {
-#     "epochs": 20,
-#     "lr": 0.001,
-#     "batch_size": 32,
-#     "shuffle": True,
-#     "train_set": ps_train_set,
-#     "sparsity_probability": 0.05,
-#     "weight_decay": 0.0003,
-#     "BETA": 3,
-#     "model_save_path": "./Propensity_Model/SAE_PS_model_iter_id_" + str(1) + "_epoch_{0}_lr_{1}.pth"
-# }
+    #     "epochs": 20,
+    #     "lr": 0.001,
+    #     "batch_size": 32,
+    #     "shuffle": True,
+    #     "train_set": ps_train_set,
+    #     "sparsity_probability": 0.05,
+    #     "weight_decay": 0.0003,
+    #     "BETA": 3,
+    #     "model_save_path": "./Propensity_Model/SAE_PS_model_iter_id_" + str(1) + "_epoch_{0}_lr_{1}.pth"
+    # }
 
     train_parameters_SAE = {
         "epochs": 50,
@@ -52,6 +52,7 @@ def train_eval_DCN(iter_id, np_covariates_X_train, np_covariates_Y_train, dL, de
         "BETA": 0.001,
         "model_save_path": "./Propensity_Model/SAE_PS_model_iter_id_" + str(iter_id) + "_epoch_{0}_lr_{1}.pth",
     }
+
     # Running laptop
     # train_parameters_SAE = {
     #     "epochs": 200,
@@ -238,62 +239,72 @@ def main_propensity_dropout_BL():
     MSE_list_SAE = []
     MSE_set_SAE = []
     file1 = open("Details.txt", "a")
-    for iter_id in range(100):
-        iter_id += 1
-        print("--" * 20)
-        print("iter_id: {0}".format(iter_id))
-        print("--" * 20)
-        # load data for propensity network
-        dL = DataLoader()
-        np_covariates_X_train, np_covariates_X_test, np_covariates_Y_train, np_covariates_Y_test = \
-            dL.preprocess_data_from_csv(csv_path, split_size)
+    train_parameters_SAE = OrderedDict(
+        epochs=[20, 30, 40, 50],
+        lr=[0.01, 0.001, 0.1],
+        # BETA=[0.4, 0.001, 3, 4, 2, 1, 5],
+        # sparsity_probability=[0.05, 0.08, 0.2, 0.04, 0.03, 0.06, 0.1, 0.5],
+        # weight_decay=[0.0003, 0.0005, 0.0001]
+    )
+    run_list = Utils.get_runs(train_parameters_SAE)
+    print(len(run_list))
 
-        sparse_classifier = train_eval_DCN(iter_id, np_covariates_X_train, np_covariates_Y_train, dL, device)
-
-        # test DCN network
-        MSE_NN, MSE_SAE = test_DCN(iter_id, np_covariates_X_test,
-                                   np_covariates_Y_test, dL, sparse_classifier, device)
-        file1.write("Iter: {0}, MSE_Sparse: {1}, MSE_NN: {2}\n".format(iter_id, MSE_SAE, MSE_NN))
-        MSE_dict_NN = OrderedDict()
-        MSE_dict_NN[iter_id] = MSE_NN
-        MSE_set_NN.append(MSE_NN)
-        MSE_list_NN.append(MSE_dict_NN)
-
-        MSE_dict_SAE = OrderedDict()
-        MSE_dict_SAE[iter_id] = MSE_SAE
-        MSE_set_SAE.append(MSE_SAE)
-        MSE_list_SAE.append(MSE_dict_SAE)
-
-    print("---> NN statistics: <--- ")
-    print("--" * 20)
-    for _dict in MSE_list_NN:
-        print(_dict)
-    print("--" * 20)
-
-    print("---> SAE statistics: <--- ")
-    print("--" * 20)
-    for _dict in MSE_list_SAE:
-        print(_dict)
-    print("--" * 20)
-
-    print("---> Overall statistics: <--- ")
-    print("--" * 20)
-    MSE_total_NN = sum(MSE_set_NN) / len(MSE_set_NN)
-    print("Mean squared error using NN: {0}".format(MSE_total_NN))
-
-    MSE_total_SAE = sum(MSE_set_SAE) / len(MSE_set_SAE)
-    print("Mean squared error using SAE: {0}".format(MSE_total_SAE))
-    print("--" * 20)
-
-    pd.DataFrame.from_dict(
-        MSE_set_NN,
-        orient='columns'
-    ).to_csv("./MSE/MSE_dict_NN.csv")
-
-    pd.DataFrame.from_dict(
-        MSE_set_NN,
-        orient='columns'
-    ).to_csv("./MSE/MSE_dict_SAE.csv")
+    # for iter_id in range(100):
+    #     iter_id += 1
+    #     print("--" * 20)
+    #     print("iter_id: {0}".format(iter_id))
+    #     print("--" * 20)
+    #     # load data for propensity network
+    #     dL = DataLoader()
+    #     np_covariates_X_train, np_covariates_X_test, np_covariates_Y_train, np_covariates_Y_test = \
+    #         dL.preprocess_data_from_csv(csv_path, split_size)
+    #
+    #     sparse_classifier = train_eval_DCN(iter_id, np_covariates_X_train, np_covariates_Y_train, dL, device)
+    #
+    #     # test DCN network
+    #     MSE_NN, MSE_SAE = test_DCN(iter_id, np_covariates_X_test,
+    #                                np_covariates_Y_test, dL, sparse_classifier, device)
+    #     file1.write("Iter: {0}, MSE_Sparse: {1}, MSE_NN: {2}\n".format(iter_id, MSE_SAE, MSE_NN))
+    #     MSE_dict_NN = OrderedDict()
+    #     MSE_dict_NN[iter_id] = MSE_NN
+    #     MSE_set_NN.append(MSE_NN)
+    #     MSE_list_NN.append(MSE_dict_NN)
+    #
+    #     MSE_dict_SAE = OrderedDict()
+    #     MSE_dict_SAE[iter_id] = MSE_SAE
+    #     MSE_set_SAE.append(MSE_SAE)
+    #     MSE_list_SAE.append(MSE_dict_SAE)
+    #
+    # print("---> NN statistics: <--- ")
+    # print("--" * 20)
+    # for _dict in MSE_list_NN:
+    #     print(_dict)
+    # print("--" * 20)
+    #
+    # print("---> SAE statistics: <--- ")
+    # print("--" * 20)
+    # for _dict in MSE_list_SAE:
+    #     print(_dict)
+    # print("--" * 20)
+    #
+    # print("---> Overall statistics: <--- ")
+    # print("--" * 20)
+    # MSE_total_NN = sum(MSE_set_NN) / len(MSE_set_NN)
+    # print("Mean squared error using NN: {0}".format(MSE_total_NN))
+    #
+    # MSE_total_SAE = sum(MSE_set_SAE) / len(MSE_set_SAE)
+    # print("Mean squared error using SAE: {0}".format(MSE_total_SAE))
+    # print("--" * 20)
+    #
+    # pd.DataFrame.from_dict(
+    #     MSE_set_NN,
+    #     orient='columns'
+    # ).to_csv("./MSE/MSE_dict_NN.csv")
+    #
+    # pd.DataFrame.from_dict(
+    #     MSE_set_NN,
+    #     orient='columns'
+    # ).to_csv("./MSE/MSE_dict_SAE.csv")
 
 
 if __name__ == '__main__':

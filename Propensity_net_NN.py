@@ -18,10 +18,10 @@ class Propensity_net_NN(nn.Module):
         self.ps_out = nn.Linear(in_features=25, out_features=2)
 
     def forward(self, x):
-        if torch.cuda.is_available():
-            x = x.float().cuda()
-        else:
-            x = x.float()
+        # if torch.cuda.is_available():
+        #     x = x.float().cuda()
+        # else:
+        #     x = x.float()
 
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))

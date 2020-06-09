@@ -19,7 +19,7 @@ class Propensity_socre_network:
 
         network = Propensity_net_NN(phase).to(device)
 
-        data_loader = torch.utils.data.DataLoader(train_set, batch_size=batch_size,
+        data_loader = torch.utils.data.DataLoader(train_set, batch_size=32,
                                                   shuffle=shuffle, num_workers=4)
 
         optimizer = optim.Adam(network.parameters(), lr=lr)
@@ -71,9 +71,17 @@ class Propensity_socre_network:
             covariates = covariates[:, :-2]
             treatment = treatment.squeeze().to(device)
 
+            eval_set_size += covariates.size(0)
+
             treatment_pred = network(covariates)
+            total_correct += Utils.get_num_correct(treatment_pred, treatment)
+
             treatment_pred = treatment_pred.squeeze()
             prop_score_list.append(treatment_pred[1].item())
+
+        # pred_accuracy = total_correct / eval_set_size
+        # print("correct: {0}/{1}, accuracy: {2}".
+        #           format(total_correct, eval_set_size, pred_accuracy))
 
         print(".. Propensity score evaluation completed using NN..")
         return prop_score_list
