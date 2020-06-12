@@ -3,3 +3,4 @@ ee
 Iter: 1, MSE_Sparse: 1, MSE_NN: 1
 Iter: 1, MSE_Sparse: 1, MSE_NN: 1
 Iter: 1, MSE_Sparse: 1, MSE_NN: 1
+{'epochs': 50, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'train_set': <torch.utils.data.dataset.TensorDataset object at 0x7fd71f78e3c8>, 'sparsity_probability': 0.05, 'weight_decay': 0.0003, 'BETA': 0.1, 'model_save_path': './Propensity_Model/SAE_PS_model_iter_id_1_epoch_{0}_lr_{1}.pth'}Iter: 1, MSE_Sparse: 1, MSE_NN: 1
