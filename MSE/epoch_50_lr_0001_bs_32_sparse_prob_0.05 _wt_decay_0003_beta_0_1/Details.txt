@@ -1,0 +1,5 @@
+{'BETA': 0.1, 'sparsity_probability': 0.05, 'shuffle': True,
+'model_save_path': './Propensity_Model/SAE_PS_model_iter_id_1_epoch_{0}_lr_{1}.pth', 'epochs': 50, 'batch_size': 32,
+'weight_decay': 0.0003, 'lr': 0.0001}Iter: 1,
+Mean squared error using NN: 2.0155019770533373
+Mean squared error using SAE: 1.9852255633869194
