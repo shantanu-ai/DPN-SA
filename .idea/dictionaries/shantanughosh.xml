@@ -3,6 +3,8 @@
     <words>
       <w>autoencoder</w>
       <w>covariates</w>
+      <w>liblinear</w>
+      <w>proba</w>
     </words>
   </dictionary>
 </component>

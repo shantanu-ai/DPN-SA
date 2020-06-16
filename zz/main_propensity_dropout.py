@@ -29,16 +29,29 @@ def train_eval_DCN(iter_id, np_covariates_X_train, np_covariates_Y_train, dL, de
     ps_net_NN.train(train_parameters_NN, device, phase="train")
 
     # ps using SAE
+    # !!! best parameter list
+    # train_parameters_SAE = {
+    #     "epochs": 200,
+    #     "lr": 0.0001,
+    #     "batch_size": 32,
+    #     "shuffle": True,
+    #     "train_set": ps_train_set,
+    #     "sparsity_probability": 0.08,
+    #     "weight_decay": 0.0003,
+    #     "BETA": 0.4,
+    #     "model_save_path": "./Propensity_Model/SAE_PS_model_iter_id_" + str(1) + "_epoch_{0}_lr_{1}.pth"
+    # }
+
     # Running on server
     train_parameters_SAE = {
         "epochs": 100,
-        "lr": 0.0001,
+        "lr": 0.00001,
         "batch_size": 32,
         "shuffle": True,
-        "train_set": ps_train_set,
-        "sparsity_probability": 0.09,
+        "sparsity_probability": 0.1,
         "weight_decay": 0.0003,
-        "BETA": 0.5,
+        "BETA": 0.4,
+        "train_set": ps_train_set,
         "model_save_path": "./Propensity_Model/SAE_PS_model_iter_id_" + str(1) + "_epoch_{0}_lr_{1}.pth"
     }
 
@@ -241,17 +254,19 @@ def main_propensity_dropout_BL():
     MSE_set_SAE = []
     train_parameters_SAE = {
         "epochs": 100,
-        "lr": 0.0001,
+        "lr": 0.00001,
         "batch_size": 32,
         "shuffle": True,
-        "sparsity_probability": 0.09,
+        "sparsity_probability": 0.1,
         "weight_decay": 0.0003,
-        "BETA": 0.5,
+        "BETA": 0.4,
         "model_save_path": "./Propensity_Model/SAE_PS_model_iter_id_" + str(1) + "_epoch_{0}_lr_{1}.pth"
     }
+
     print(str(train_parameters_SAE))
     file1 = open("Details.txt", "a")
     file1.write(str(train_parameters_SAE))
+    file1.write("\n")
 
     for iter_id in range(100):
         iter_id += 1

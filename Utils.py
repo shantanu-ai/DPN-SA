@@ -7,6 +7,7 @@ import torch.nn.functional as F
 from torch.distributions import Bernoulli
 from collections import namedtuple
 from itertools import product
+import pandas as pd
 
 class Utils:
     @staticmethod
@@ -86,3 +87,10 @@ class Utils:
             runs.append(Run(*v))
 
         return runs
+
+    @staticmethod
+    def write_to_csv(file_name, list_to_write):
+        pd.DataFrame.from_dict(
+            list_to_write,
+            orient='columns'
+        ).to_csv(file_name)
