@@ -7,6 +7,10 @@ from Utils import Utils
 
 
 class DataLoader:
+    def preprocess_for_graphs(self, csv_path):
+        df = pd.read_csv(os.path.join(os.path.dirname(__file__), csv_path), header=None)
+        return self.__convert_to_numpy(df)
+
     def preprocess_data_from_csv(self, csv_path, split_size):
         print(".. Data Loading ..")
         # data load
