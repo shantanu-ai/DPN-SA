@@ -26,6 +26,10 @@ class Graphs:
         self.draw_ps_scatter_plots(ps_list_LR, "LR")
         self.draw_ps_scatter_plots(ps_list_LR_lasso, "LR Lasso")
 
+        self.draw_ps_scatter_plots_sae(ps_list_nn, ps_list_SAE, x_label="PD", y_label="SAE")
+        self.draw_ps_scatter_plots_sae(ps_list_LR, ps_list_SAE, x_label="LR", y_label="SAE")
+        self.draw_ps_scatter_plots_sae(ps_list_LR_lasso, ps_list_SAE, x_label="LR_Lasso", y_label="SAE")
+
     @staticmethod
     def __train_propensity_net_NN(ps_train_set, device):
         train_parameters_NN = {
@@ -114,4 +118,13 @@ class Graphs:
         plt.scatter(X, Y, c="black", alpha=1, label=title)
         plt.legend(loc=1, facecolor='white', framealpha=0.85)
         fig.savefig(title + ".jpg")
+        plt.show()
+
+    @staticmethod
+    def draw_ps_scatter_plots_sae(ps_list_X, ps_list_Y, x_label="", y_label="SAE"):
+        fig = plt.figure()
+        plt.scatter(ps_list_X, ps_list_Y, marker="x", c="black", alpha=1)
+        plt.xlabel(x_label)
+        plt.ylabel(y_label)
+        fig.savefig(x_label + " vs " + y_label + ".jpg")
         plt.show()
