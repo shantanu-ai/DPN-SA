@@ -9,10 +9,13 @@
     #     "BETA": 0.4,
     #     "model_save_path": "./Propensity_Model/SAE_PS_model_iter_id_" + str(1) + "_epoch_{0}_lr_{1}.pth"
     # }
+    ------------------------------------------------
 
-Mean squared error using SAE: 1.9056462940595 SD: 0.14407351466176913
-Mean squared error using LR :  SD:
-Mean squared error using LR Lasso: 2.533587618002 SD: 0.40950776469062217
+    Mean squared error using SAE: 1.9056462940595 SD: 0.14407351466176913
+    Mean squared error using LR : 2.8215700259044 SD: 0.49985590264627267
+    Mean squared error using LR Lasso: 2.533587618002 SD: 0.40950776469062217
+
+    ------------------------------------------------
 
 Iter: 1, MSE_Sparse: 2.11293416954517, MSE_NN: 1.9577485144975242
 Iter: 2, MSE_Sparse: 1.9156299745241283, MSE_NN: 1.885806642856708

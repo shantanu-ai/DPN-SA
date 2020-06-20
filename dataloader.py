@@ -16,16 +16,16 @@ class DataLoader:
         # data load
         df = pd.read_csv(os.path.join(os.path.dirname(__file__), csv_path), header=None)
         np_covariates_X, np_treatment_Y = self.__convert_to_numpy(df)
-        # print("ps_np_covariates_X: {0}".format(np_covariates_X.shape))
-        # print("ps_np_treatment_Y: {0}".format(np_treatment_Y.shape))
+        print("ps_np_covariates_X: {0}".format(np_covariates_X.shape))
+        print("ps_np_treatment_Y: {0}".format(np_treatment_Y.shape))
 
         np_covariates_X_train, np_covariates_X_test, np_covariates_Y_train, np_covariates_Y_test = \
             Utils.test_train_split(np_covariates_X, np_treatment_Y, split_size)
-        # print("np_covariates_X_train: {0}".format(np_covariates_X_train.shape))
-        # print("np_covariates_Y_train: {0}".format(np_covariates_Y_train.shape))
-        # print("---" * 20)
-        # print("np_covariates_X_test: {0}".format(np_covariates_X_test.shape))
-        # print("np_covariates_Y_test: {0}".format(np_covariates_Y_test.shape))
+        print("np_covariates_X_train: {0}".format(np_covariates_X_train.shape))
+        print("np_covariates_Y_train: {0}".format(np_covariates_Y_train.shape))
+        print("---" * 20)
+        print("np_covariates_X_test: {0}".format(np_covariates_X_test.shape))
+        print("np_covariates_Y_test: {0}".format(np_covariates_Y_test.shape))
         return np_covariates_X_train, np_covariates_X_test, np_covariates_Y_train, np_covariates_Y_test
 
     @staticmethod
