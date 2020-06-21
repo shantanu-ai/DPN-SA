@@ -53,10 +53,10 @@ def compare_2_groups(arr_1, arr_2, alpha, sample_size):
 
 
 sample_size = 15
-sae_np = genfromtxt('./MSE/25-1-25/Stat/MSE_dict_SAE.csv')
-# lr_lasso_np = genfromtxt('./MSE/25-1-25/Stat/MSE_dict_LR_lasso.csv')
 
-lr_lasso_np = [2.11293416954517,
+lr_lasso_np = genfromtxt('./MSE/25-1-25/Stat/MSE_dict_LR_lasso.csv')
+
+sae_np = [2.11293416954517,
                1.9156299745241283,
                1.8842843368988917,
                1.893848187427988,
@@ -158,5 +158,5 @@ lr_lasso_np = [2.11293416954517,
                2.063163972776114
                ]
 
-
+# sae_np = genfromtxt('./MSE/25-1-25/Stat/MSE_dict_SAE.csv')
 compare_2_groups(sae_np, lr_lasso_np, 0.05, sample_size)

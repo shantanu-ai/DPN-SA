@@ -111,4 +111,8 @@ Mean squared error using NN: 2.053095756823691
 Mean squared error using SAE: 2.3241969861967577
 Mean squared error using Logistic Regression: 2.776532012634112
 Mean squared error using Lasso Logistic Regression: 2.548059844344819
-------------------------------------------------
+------------------------------------------------{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}

@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -128,8 +130,7 @@ class DCN_network:
                     min_loss = dataset_loss
                     torch.save(network.state_dict(), model_save_path)
 
-    @staticmethod
-    def eval(eval_parameters, device):
+    def eval(self, eval_parameters, device):
         print(".. Evaluation started ..")
         treated_set = eval_parameters["treated_set"]
         control_set = eval_parameters["control_set"]
@@ -144,6 +145,10 @@ class DCN_network:
 
         err_treated_list = []
         err_control_list = []
+        true_ITE_list = []
+        predicted_ITE_list = []
+
+        ITE_dict_list = []
 
         for batch in treated_data_loader:
             covariates_X, ps_score, y_f, y_cf = batch
@@ -158,7 +163,15 @@ class DCN_network:
             else:
                 diff = true_ITE.float() - predicted_ITE.float()
 
+            ITE_dict_list.append(self.create_ITE_Dict(covariates_X,
+                                                      ps_score.item(), y_f.item(),
+                                                      y_cf.item(),
+                                                      true_ITE.item(),
+                                                      predicted_ITE.item(),
+                                                      diff.item()))
             err_treated_list.append(diff.item())
+            true_ITE_list.append(true_ITE.item())
+            predicted_ITE_list.append(predicted_ITE.item())
 
         for batch in control_data_loader:
             covariates_X, ps_score, y_f, y_cf = batch
@@ -172,11 +185,42 @@ class DCN_network:
                 diff = true_ITE.float().cuda() - predicted_ITE.float().cuda()
             else:
                 diff = true_ITE.float() - predicted_ITE.float()
+
+            ITE_dict_list.append(self.create_ITE_Dict(covariates_X,
+                                                      ps_score.item(), y_f.item(),
+                                                      y_cf.item(),
+                                                      true_ITE.item(),
+                                                      predicted_ITE.item(),
+                                                      diff.item()))
             err_control_list.append(diff.item())
+            true_ITE_list.append(true_ITE.item())
+            predicted_ITE_list.append(predicted_ITE.item())
 
         # print(err_treated_list)
         # print(err_control_list)
         return {
             "treated_err": err_treated_list,
             "control_err": err_control_list,
+            "true_ITE": true_ITE_list,
+            "predicted_ITE": predicted_ITE_list,
+            "ITE_dict_list": ITE_dict_list
         }
+
+    @staticmethod
+    def create_ITE_Dict(covariates_X, ps_score, y_f, y_cf, true_ITE,
+                        predicted_ITE, diff):
+        result_dict = OrderedDict()
+        covariate_list = [element.item() for element in covariates_X.flatten()]
+        idx = 0
+        for item in covariate_list:
+            idx += 1
+            result_dict["X" + str(idx)] = item
+
+        result_dict["ps_score"] = ps_score
+        result_dict["factual"] = y_f
+        result_dict["counter_factual"] = y_cf
+        result_dict["true_ITE"] = true_ITE
+        result_dict["predicted_ITE"] = predicted_ITE
+        result_dict["diff"] = diff
+
+        return result_dict
