@@ -85,3 +85,39 @@ class Propensity_socre_network:
 
         print(".. Propensity score evaluation completed using NN..")
         return prop_score_list
+
+    @staticmethod
+    def eval_return_complete_list(eval_parameters, device, phase):
+        print(".. Propensity score evaluation started using NN..")
+        eval_set = eval_parameters["eval_set"]
+        model_path = eval_parameters["model_path"]
+        network = Propensity_net_NN(phase).to(device)
+        network.load_state_dict(torch.load(model_path, map_location=device))
+        network.eval()
+        data_loader = torch.utils.data.DataLoader(eval_set, shuffle=False, num_workers=4)
+        total_correct = 0
+        eval_set_size = 0
+        prop_score_list = []
+        for batch in data_loader:
+            prop_dict = {}
+            covariates, treatment = batch
+            covariates = covariates.to(device)
+            covariates = covariates[:, :-2]
+            treatment = treatment.squeeze().to(device)
+
+            eval_set_size += covariates.size(0)
+
+            treatment_pred = network(covariates)
+            total_correct += Utils.get_num_correct(treatment_pred, treatment)
+
+            treatment_pred = treatment_pred.squeeze()
+            prop_dict["treatment"] = treatment.item()
+            prop_dict["prop_score"] = treatment_pred[1].item()
+            prop_score_list.append(prop_dict)
+
+        # pred_accuracy = total_correct / eval_set_size
+        # print("correct: {0}/{1}, accuracy: {2}".
+        #           format(total_correct, eval_set_size, pred_accuracy))
+
+        print(".. Propensity score evaluation completed using NN..")
+        return prop_score_list

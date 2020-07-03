@@ -4,55 +4,144 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 from Sparse_Propensity_net import Sparse_Propensity_net
+from Sparse_Propensity_net_shallow import Sparse_Propensity_net_shallow
 from Utils import Utils
 
 
 class Sparse_Propensity_score:
+    @staticmethod
+    def eval(eval_set, device, phase, sparse_classifier):
+        print(".. Propensity score evaluation started using Sparse AE ..")
+        sparse_classifier.eval()
+        data_loader = torch.utils.data.DataLoader(eval_set, shuffle=False, num_workers=4)
+        total_correct = 0
+        eval_set_size = 0
+        prop_score_list = []
+        total_correct = 0
+
+        for batch in data_loader:
+            covariates, treatment = batch
+            covariates = covariates.to(device)
+            covariates = covariates[:, :-2]
+            treatment = treatment.squeeze().to(device)
+
+            eval_set_size += covariates.size(0)
+
+            treatment_pred = sparse_classifier(covariates).to(device)
+            treatment_pred_prob = F.softmax(treatment_pred, dim=1)
+            # print(treatment_pred_prob)
+            treatment_pred_prob = treatment_pred_prob.squeeze()
+            prop_score_list.append(treatment_pred_prob[1].item())
+
+            _, preds = torch.max(treatment_pred.data, 1)
+            total_correct += torch.sum(preds == treatment.data)
+
+        pred_accuracy = total_correct.item() / eval_set_size
+        # print("Accuracy: {0}".format(total_correct))
+        # print("correct: {0}, accuracy: {1}".format(total_correct, pred_accuracy))
+        print(".. Propensity score evaluation completed Sparse AE ..")
+        return prop_score_list
+
     def train(self, train_parameters, device, phase):
         print(".. Training started ..")
         epochs = train_parameters["epochs"]
         batch_size = train_parameters["batch_size"]
         lr = train_parameters["lr"]
         shuffle = train_parameters["shuffle"]
-        model_save_path = train_parameters["model_save_path"].format(epochs, lr)
         train_set = train_parameters["train_set"]
 
         sparsity_probability = train_parameters["sparsity_probability"],
         weight_decay = train_parameters["weight_decay"]
         BETA = train_parameters["weight_decay"]
-        print("Saved model path: {0}".format(model_save_path))
+
 
         data_loader = torch.utils.data.DataLoader(train_set, batch_size=batch_size,
                                                   shuffle=shuffle, num_workers=4)
-        sae_network = self.train_SAE(epochs, device, data_loader, lr, weight_decay, sparsity_probability, BETA,
-                                     phase)
 
-        sparse_classifier = nn.Sequential(*list(sae_network.children())[:-1])
+        print("##### train e2e #########")
+        sparse_classifier = self.__end_to_end_train_SAE(phase, device, epochs, data_loader, lr,
+                                                        weight_decay,
+                                                        sparsity_probability, BETA,
+                                                        train_set)
+
+        print("########## train layer wise all layer active ############")
+        sae_classifier_stacked_all_layer_active = self.__layer_wise_train_SAE(phase, device, epochs, data_loader,
+                                                                              lr, weight_decay,
+                                                                              sparsity_probability, BETA,
+                                                                              train_set, train_cur_layer=False)
+
+        print("########## train layer wise only newly stacked layer active ############")
+        sae_classifier_stacked_cur_layer_active = self.__layer_wise_train_SAE(phase, device, epochs, data_loader,
+                                                                              lr, weight_decay,
+                                                                              sparsity_probability, BETA,
+                                                                              train_set, train_cur_layer=True)
+        print("Training completed..")
+        return sparse_classifier, sae_classifier_stacked_all_layer_active, sae_classifier_stacked_cur_layer_active
+
+    def __end_to_end_train_SAE(self, phase, device, epochs, data_loader, lr, weight_decay,
+                               sparsity_probability, BETA,
+                               train_set):
+        model = Sparse_Propensity_net(training_mode=phase, device=device).to(device)
+        sae_network_e2e = self.__train_SAE(epochs, device, data_loader, model, lr, weight_decay,
+                                           sparsity_probability, BETA)
+
+        sparse_classifier = nn.Sequential(*list(sae_network_e2e.children())[:-1])
         sparse_classifier.add_module('classifier',
                                      nn.Sequential(nn.Linear(in_features=10, out_features=2),
                                                    nn.LogSoftmax(dim=1)))
         sparse_classifier = sparse_classifier.to(device)
-        sparse_classifier = self.train_classifier(train_set, device, phase, sparse_classifier)
-
-
-        # print("Saving model..")
-        # saved_parameters = sae_network.state_dict()
-        # del saved_parameters['decoder1.weight']
-        # del saved_parameters['decoder2.weight']
-        # # del saved_parameters['decoder3.weight']
-        # del saved_parameters['decoder1.bias']
-        # del saved_parameters['decoder2.bias']
-        # # del saved_parameters['decoder3.bias']
-        # torch.save(saved_parameters, model_save_path)
-
-        print("Training completed..")
+        sparse_classifier = self.__train_classifier(train_set, device, phase, sparse_classifier)
         return sparse_classifier
 
-    def train_SAE(self, epochs, device, data_loader, lr, weight_decay=0.0005,
-                  sparsity_probability=0.03,
-                  BETA=0.001, training_mode="train"):
+    def __layer_wise_train_SAE(self, phase, device, epochs, data_loader, lr, weight_decay,
+                               sparsity_probability, BETA,
+                               train_set, train_cur_layer=False):
+        model = Sparse_Propensity_net_shallow(training_mode=phase, device=device).to(device)
+        sae_network = self.__train_SAE(epochs, device, data_loader, model, lr, weight_decay,
+                                       sparsity_probability, BETA)
+        sae_network.encoder.add_module('New_Encoder_Layer',
+                                       nn.Sequential(nn.Linear(in_features=20,
+                                                               out_features=10)
+                                                     , nn.Tanh()
+                                                     , nn.BatchNorm1d(num_features=10)
+                                                     ))
+        sae_network.encoder.add_module('New_Decoder_Layer',
+                                       nn.Sequential(nn.Linear(in_features=10,
+                                                               out_features=20)
+                                                     , nn.Tanh()
+                                                     , nn.BatchNorm1d(num_features=20)
+                                                     ))
+        sae_network = sae_network.to(device)
+        # print(sae_network)
+        if train_cur_layer:
+            sae_network.encoder[0].weight.requires_grad = False
+            sae_network.encoder[0].bias.requires_grad = False
+        sae_network = self.__train_SAE(epochs, device, data_loader,
+                                       sae_network, lr, weight_decay,
+                                       sparsity_probability, BETA)
+
+        classifier = nn.Sequential(*list(sae_network.children())[:-1])
+        net = classifier
+        classifier = nn.Sequential(*list(net[0].children())[:-1])
+        sae_classifier = classifier
+        sae_classifier.add_module('classifier',
+                                  nn.Sequential(nn.Linear(in_features=10, out_features=2),
+                                                nn.LogSoftmax(dim=1)))
+        sae_classifier = sae_classifier.to(device)
+        if train_cur_layer:
+            sae_classifier[0].weight.requires_grad = True
+            sae_classifier[0].bias.requires_grad = True
+        sae_classifier = self.__train_classifier(train_set, device, phase,
+                                                 sae_classifier)
+
+        # print(sae_classifier)
+        return sae_network
+
+    def __train_SAE(self, epochs, device, data_loader, network, lr, weight_decay=0.0005,
+                    sparsity_probability=0.03,
+                    BETA=0.001):
         print("----- Training SAE -----")
-        network = Sparse_Propensity_net(training_mode=training_mode, device=device).to(device)
+
         criterion = nn.MSELoss()
         # the optimizer
         optimizer = optim.Adam(network.parameters(), lr=lr, weight_decay=weight_decay)
@@ -73,7 +162,7 @@ class Sparse_Propensity_score:
 
                 treatment_pred = network(covariates)
                 mse_loss = criterion(treatment_pred, covariates)
-                sparsity = self.sparse_loss(sparsity_probability, covariates, model_children, device)
+                sparsity = self.__sparse_loss(sparsity_probability, covariates, model_children, device)
                 loss = mse_loss + BETA * sparsity
                 # loss = mse_loss
                 optimizer.zero_grad()
@@ -89,7 +178,7 @@ class Sparse_Propensity_score:
         return network
 
     @staticmethod
-    def train_classifier(train_set, device, phase, sparse_classifier):
+    def __train_classifier(train_set, device, phase, sparse_classifier):
         print(device)
         # sparse_classifier[0][0].weight.requires_grad = False
         # sparse_classifier[0][0].bias.requires_grad = False
@@ -133,43 +222,16 @@ class Sparse_Propensity_score:
         return sparse_classifier
 
     @staticmethod
-    def sparse_loss(sparsity_probability, covariates, model_children, device):
+    def __sparse_loss(sparsity_probability, covariates, model_children, device):
         values = covariates
         loss = 0
-        for i in range(len(model_children)):
-            values = model_children[i](values)
-            loss += Utils.KL_divergence(sparsity_probability, values, device)
+        encoder = list(model_children[0].children())
+        if len(encoder) == 2:
+            # only last encoder layer
+            values = model_children[0](values)
+        elif len(encoder) == 4:
+            # only last encoder layer
+            values = encoder[2](encoder[1](encoder[0](values)))
+
+        loss += Utils.KL_divergence(sparsity_probability, values, device)
         return loss
-
-    @staticmethod
-    def eval(eval_set, device, phase, sparse_classifier):
-        print(".. Propensity score evaluation started using Sparse AE ..")
-        sparse_classifier.eval()
-        data_loader = torch.utils.data.DataLoader(eval_set, shuffle=False, num_workers=4)
-        total_correct = 0
-        eval_set_size = 0
-        prop_score_list = []
-        total_correct = 0
-
-        for batch in data_loader:
-            covariates, treatment = batch
-            covariates = covariates.to(device)
-            covariates = covariates[:, :-2]
-            treatment = treatment.squeeze().to(device)
-
-            eval_set_size += covariates.size(0)
-
-            treatment_pred = sparse_classifier(covariates).to(device)
-            treatment_pred_prob = F.softmax(treatment_pred, dim=1)
-            # print(treatment_pred_prob)
-            treatment_pred_prob = treatment_pred_prob.squeeze()
-            prop_score_list.append(treatment_pred_prob[1].item())
-
-            _, preds = torch.max(treatment_pred.data, 1)
-            total_correct += torch.sum(preds == treatment.data)
-
-        pred_accuracy = total_correct.item() / eval_set_size
-        # print("Accuracy: {0}".format(total_correct))
-        # print("correct: {0}, accuracy: {1}".format(total_correct, pred_accuracy))
-        print(".. Propensity score evaluation completed Sparse AE ..")
-        return prop_score_list

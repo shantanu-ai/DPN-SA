@@ -1,0 +1,38 @@
+start_time: 2020-07-01 02:07:38.565022------------------
+{'weight_decay': 0.0003, 'shuffle': True, 'lr': 0.0001, 'epochs': 200, 'batch_size': 32, 'sparsity_probability': 0.08, 'BETA': 0.4}
+With batch norm
+Iter: 100, MSE_Sparse_e2e: 1.8825531236948112, MSE_Sparse_stacked_all_layer_active: 2.0717345359132997, MSE_Sparse_stacked_cur_layer_active: 2.332335674696758, MSE_NN: 2.25605541438396, MSE_LR: 3.1626962634025078, MSE_LR_Lasso: 2.391652560972164
+
+##################################################
+
+Using NN, MSE: 2.25605541438396, SD: 0.0
+Using NN, true ATE: 4.168688582333334, SD: 0.0
+Using NN, predicted ATE: 4.454021791617076, SD: 0.0
+-------------------------------------------------
+Using SAE E2E, MSE: 1.8825531236948112, SD: 0.0
+Using SAE E2E, true ATE: 4.168688582333334, SD: 0.0
+Using SAE E2E, predicted ATE: 4.254185333251953, SD: 0.0
+-------------------------------------------------
+
+-------------------------------------------------
+Using SAE stacked all layer active, MSE: 2.0717345359132997, SD: 0.0
+Using SAE stacked all layer active, true ATE: 4.168688582333334, SD: 0.0
+Using SAE, stacked all layer active predicted ATE: 3.897817602157593, SD: 0.0
+-------------------------------------------------
+
+-------------------------------------------------
+Using SAE stacked cur layer active, MSE: 2.332335674696758, SD: 0.0
+Using SAE stacked cur layer active, true ATE: 4.168688582333334, SD: 0.0
+Using SAE stacked cur layer active, predicted ATE: 3.663162090778351, SD: 0.0
+-------------------------------------------------
+Using Logistic Regression, MSE: 3.1626962634025078, SD: 0.0
+Using Logistic Regression, true ATE: 4.168688582333334, SD: 0.0
+Using Logistic Regression, predicted ATE: 3.021915998458862, SD: 0.0
+-------------------------------------------------
+Using Lasso Logistic Regression, MSE: 2.391652560972164, SD: 0.0
+Using Lasso Logistic Regression, true ATE: 4.168688582333334, SD: 0.0
+Using Lasso Logistic Regression, predicted ATE: 3.378206205368042, SD: 0.0
+##################################################
+end time: 2020-07-01 02:37:50.316790
+-----------------------------
+Duration : 0:30:11.751768

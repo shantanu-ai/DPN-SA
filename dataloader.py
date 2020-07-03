@@ -11,11 +11,33 @@ class DataLoader:
         df = pd.read_csv(os.path.join(os.path.dirname(__file__), csv_path), header=None)
         return self.__convert_to_numpy(df)
 
+    def prep_process_all_data(self, csv_path):
+        df = pd.read_csv(os.path.join(os.path.dirname(__file__), csv_path), header=None)
+        np_covariates_X, np_treatment_Y = self.__convert_to_numpy(df)
+        return np_covariates_X, np_treatment_Y
+
     def preprocess_data_from_csv(self, csv_path, split_size):
         print(".. Data Loading ..")
         # data load
         df = pd.read_csv(os.path.join(os.path.dirname(__file__), csv_path), header=None)
         np_covariates_X, np_treatment_Y = self.__convert_to_numpy(df)
+        print("ps_np_covariates_X: {0}".format(np_covariates_X.shape))
+        print("ps_np_treatment_Y: {0}".format(np_treatment_Y.shape))
+
+        np_covariates_X_train, np_covariates_X_test, np_covariates_Y_train, np_covariates_Y_test = \
+            Utils.test_train_split(np_covariates_X, np_treatment_Y, split_size)
+        print("np_covariates_X_train: {0}".format(np_covariates_X_train.shape))
+        print("np_covariates_Y_train: {0}".format(np_covariates_Y_train.shape))
+        print("---" * 20)
+        print("np_covariates_X_test: {0}".format(np_covariates_X_test.shape))
+        print("np_covariates_Y_test: {0}".format(np_covariates_Y_test.shape))
+        return np_covariates_X_train, np_covariates_X_test, np_covariates_Y_train, np_covariates_Y_test
+
+    def preprocess_data_from_csv_augmented(self, csv_path, split_size):
+        print(".. Data Loading ..")
+        # data load
+        df = pd.read_csv(os.path.join(os.path.dirname(__file__), csv_path), header=None)
+        np_covariates_X, np_treatment_Y = self.__convert_to_numpy_augmented(df)
         print("ps_np_covariates_X: {0}".format(np_covariates_X.shape))
         print("ps_np_treatment_Y: {0}".format(np_treatment_Y.shape))
 
@@ -84,6 +106,34 @@ class DataLoader:
         np_outcomes_Y = Utils.convert_df_to_np_arr(outcomes_Y)
         np_X = Utils.concat_np_arr(np_covariates_X, np_outcomes_Y, axis=1)
 
+        np_treatment_Y = Utils.convert_df_to_np_arr(treatment_Y)
+
+        return np_X, np_treatment_Y
+
+    @staticmethod
+    def __convert_to_numpy_augmented(df):
+        covariates_X = df.iloc[:, 5:]
+        treatment_Y = df.iloc[:, 0:1]
+        outcomes_Y = df.iloc[:, 1:3]
+
+        np_covariates_X = Utils.convert_df_to_np_arr(covariates_X)
+
+        print("std dev")
+        np_std = np.reshape(np.std(np_covariates_X, axis=0), (-1, 1))
+        np_outcomes_Y = Utils.convert_df_to_np_arr(outcomes_Y)
+
+        noise = np.empty([747, 25])
+        id = -1
+        for std in np_std:
+            id += 1
+            noise[:, id] = np.random.normal(0, 1.96 * std)
+
+        random_correlated = np_covariates_X + noise
+
+        random_X = np.random.random((747, 25))
+        np_covariates_X = np.concatenate((np_covariates_X, random_X), axis=1)
+        np_covariates_X = np.concatenate((np_covariates_X, random_correlated), axis=1)
+        np_X = Utils.concat_np_arr(np_covariates_X, np_outcomes_Y, axis=1)
         np_treatment_Y = Utils.convert_df_to_np_arr(treatment_Y)
 
         return np_X, np_treatment_Y
