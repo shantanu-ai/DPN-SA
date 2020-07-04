@@ -3,12 +3,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 
-from Sparse_Propensity_net import Sparse_Propensity_net
-from Sparse_Propensity_net_shallow import Sparse_Propensity_net_shallow
+from shallow_net import shallow_net
 from Utils import Utils
 
 
-class Sparse_Propensity_score:
+class shallow_train:
     @staticmethod
     def eval(eval_set, device, phase, sparse_classifier):
         print(".. Propensity score evaluation started using Sparse AE ..")
@@ -49,7 +48,6 @@ class Sparse_Propensity_score:
         lr = train_parameters["lr"]
         shuffle = train_parameters["shuffle"]
         train_set = train_parameters["train_set"]
-        input_nodes = train_parameters["input_nodes"]
 
         sparsity_probability = train_parameters["sparsity_probability"],
         weight_decay = train_parameters["weight_decay"]
@@ -62,82 +60,24 @@ class Sparse_Propensity_score:
         sparse_classifier = self.__end_to_end_train_SAE(phase, device, epochs, data_loader, lr,
                                                         weight_decay,
                                                         sparsity_probability, BETA,
-                                                        train_set, input_nodes)
+                                                        train_set)
 
-        print("########## train layer wise all layer active ############")
-        sae_classifier_stacked_all_layer_active = self.__layer_wise_train_SAE(phase, device, epochs, data_loader,
-                                                                              lr, weight_decay,
-                                                                              sparsity_probability, BETA,
-                                                                              train_set, input_nodes,
-                                                                              train_cur_layer=False)
-
-        print("########## train layer wise only newly stacked layer active ############")
-        sae_classifier_stacked_cur_layer_active = self.__layer_wise_train_SAE(phase, device, epochs, data_loader,
-                                                                              lr, weight_decay,
-                                                                              sparsity_probability, BETA,
-                                                                              train_set, input_nodes,
-                                                                              train_cur_layer=True)
-        print("Training completed..")
-        return sparse_classifier, sae_classifier_stacked_all_layer_active, sae_classifier_stacked_cur_layer_active
+        return sparse_classifier
 
     def __end_to_end_train_SAE(self, phase, device, epochs, data_loader, lr, weight_decay,
                                sparsity_probability, BETA,
-                               train_set, input_nodes):
-        model = Sparse_Propensity_net(training_mode=phase, device=device, input_nodes=input_nodes).to(device)
+                               train_set):
+        model = shallow_net(training_mode=phase, device=device).to(device)
         sae_network_e2e = self.__train_SAE(epochs, device, data_loader, model, lr, weight_decay,
                                            sparsity_probability, BETA)
 
         sparse_classifier = nn.Sequential(*list(sae_network_e2e.children())[:-1])
         sparse_classifier.add_module('classifier',
-                                     nn.Sequential(nn.Linear(in_features=10, out_features=2),
+                                     nn.Sequential(nn.Linear(in_features=1, out_features=2),
                                                    nn.LogSoftmax(dim=1)))
         sparse_classifier = sparse_classifier.to(device)
         sparse_classifier = self.__train_classifier(train_set, device, phase, sparse_classifier)
         return sparse_classifier
-
-    def __layer_wise_train_SAE(self, phase, device, epochs, data_loader, lr, weight_decay,
-                               sparsity_probability, BETA,
-                               train_set, input_nodes, train_cur_layer=False):
-        model = Sparse_Propensity_net_shallow(training_mode=phase, device=device, input_nodes=input_nodes).to(device)
-        sae_network = self.__train_SAE(epochs, device, data_loader, model, lr, weight_decay,
-                                       sparsity_probability, BETA)
-        sae_network.encoder.add_module('New_Encoder_Layer',
-                                       nn.Sequential(nn.Linear(in_features=20,
-                                                               out_features=10)
-                                                     , nn.Tanh()
-                                                     , nn.BatchNorm1d(num_features=10)
-                                                     ))
-        sae_network.encoder.add_module('New_Decoder_Layer',
-                                       nn.Sequential(nn.Linear(in_features=10,
-                                                               out_features=20)
-                                                     , nn.Tanh()
-                                                     , nn.BatchNorm1d(num_features=20)
-                                                     ))
-        sae_network = sae_network.to(device)
-        # print(sae_network)
-        if train_cur_layer:
-            sae_network.encoder[0].weight.requires_grad = False
-            sae_network.encoder[0].bias.requires_grad = False
-        sae_network = self.__train_SAE(epochs, device, data_loader,
-                                       sae_network, lr, weight_decay,
-                                       sparsity_probability, BETA)
-
-        classifier = nn.Sequential(*list(sae_network.children())[:-1])
-        net = classifier
-        classifier = nn.Sequential(*list(net[0].children())[:-1])
-        sae_classifier = classifier
-        sae_classifier.add_module('classifier',
-                                  nn.Sequential(nn.Linear(in_features=10, out_features=2),
-                                                nn.LogSoftmax(dim=1)))
-        sae_classifier = sae_classifier.to(device)
-        if train_cur_layer:
-            sae_classifier[0].weight.requires_grad = True
-            sae_classifier[0].bias.requires_grad = True
-        sae_classifier = self.__train_classifier(train_set, device, phase,
-                                                 sae_classifier)
-
-        # print(sae_classifier)
-        return sae_network
 
     def __train_SAE(self, epochs, device, data_loader, network, lr, weight_decay=0.0005,
                     sparsity_probability=0.03,

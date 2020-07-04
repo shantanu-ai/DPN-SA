@@ -1,2 +1,0 @@
-,iter_id,MSE_NN,MSE_SAE,MSE_LR,MSE_LR_lasso,true_ATE_NN,true_ATE_SAE,true_ATE_LR,true_ATE_LR_Lasso,predicted_ATE_NN,predicted_ATE_SAE,predicted_ATE_LR,predicted_ATE_LR_Lasso
-0,1,2.294833560259606,0,0,0,4.168688582333334,0,0,0,3.6405976859728497,0,0,0

@@ -15,9 +15,10 @@ class Propensity_socre_network:
         shuffle = train_parameters["shuffle"]
         model_save_path = train_parameters["model_save_path"].format(epochs, lr)
         train_set = train_parameters["train_set"]
+        input_nodes = train_parameters["input_nodes"]
         print("Saved model path: {0}".format(model_save_path))
 
-        network = Propensity_net_NN(phase).to(device)
+        network = Propensity_net_NN(phase, input_nodes).to(device)
 
         data_loader = torch.utils.data.DataLoader(train_set, batch_size=32,
                                                   shuffle=shuffle, num_workers=4)
@@ -58,7 +59,9 @@ class Propensity_socre_network:
         print(".. Propensity score evaluation started using NN..")
         eval_set = eval_parameters["eval_set"]
         model_path = eval_parameters["model_path"]
-        network = Propensity_net_NN(phase).to(device)
+        input_nodes = eval_parameters["input_nodes"]
+
+        network = Propensity_net_NN(phase, input_nodes).to(device)
         network.load_state_dict(torch.load(model_path, map_location=device))
         network.eval()
         data_loader = torch.utils.data.DataLoader(eval_set, shuffle=False, num_workers=4)
@@ -90,8 +93,9 @@ class Propensity_socre_network:
     def eval_return_complete_list(eval_parameters, device, phase):
         print(".. Propensity score evaluation started using NN..")
         eval_set = eval_parameters["eval_set"]
+        input_nodes = eval_parameters["input_nodes"]
         model_path = eval_parameters["model_path"]
-        network = Propensity_net_NN(phase).to(device)
+        network = Propensity_net_NN(phase, input_nodes).to(device)
         network.load_state_dict(torch.load(model_path, map_location=device))
         network.eval()
         data_loader = torch.utils.data.DataLoader(eval_set, shuffle=False, num_workers=4)
