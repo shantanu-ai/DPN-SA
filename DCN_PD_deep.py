@@ -175,7 +175,7 @@ class DCN_PD_Deep_Experiments:
         Mean_ATE_NN_predicted = np.mean(np.array(predicted_ATE_NN_set))
         std_ATE_NN_predicted = statistics.pstdev(predicted_ATE_NN_set)
 
-        print("\nWithout Batch norm\n")
+        print("\nWith Batch norm\n")
         print("\n-------------------------------------------------\n")
         print("Using NN, MSE: {0}, SD: {1}".format(MSE_total_NN, std_MSE_NN))
         print("Using NN, true ATE: {0}, SD: {1}".format(Mean_ATE_NN_true, std_ATE_NN_true))
