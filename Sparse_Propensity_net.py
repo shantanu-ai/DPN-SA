@@ -12,20 +12,20 @@ class Sparse_Propensity_net(nn.Module):
         # encoder
         self.encoder = nn.Sequential(nn.Linear(in_features=input_nodes, out_features=20)
                                      , nn.Tanh()
-                                     , nn.BatchNorm1d(num_features=20)
+                                     # , nn.BatchNorm1d(num_features=20)
                                      , nn.Linear(in_features=20, out_features=10)
                                      , nn.Tanh()
-                                     , nn.BatchNorm1d(num_features=10)
+                                     # , nn.BatchNorm1d(num_features=10)
                                      )
 
         if self.training_mode == "train":
             # decoder
             self.decoder = nn.Sequential(nn.Linear(in_features=10, out_features=20)
                                          , nn.Tanh()
-                                         , nn.BatchNorm1d(num_features=20)
+                                         # , nn.BatchNorm1d(num_features=20)
                                          , nn.Linear(in_features=20, out_features=input_nodes)
                                          , nn.Tanh()
-                                         , nn.BatchNorm1d(num_features=input_nodes)
+                                         # , nn.BatchNorm1d(num_features=input_nodes)
                                          , nn.Linear(in_features=input_nodes, out_features=input_nodes)
                                          )
 

@@ -1,19 +1,15 @@
-import statistics
 from collections import OrderedDict
 
 import numpy as np
 
-from DCN_network import DCN_network
 from DPN_SA_Deep import DPN_SA_Deep
-from Propensity_score_LR import Propensity_socre_LR
-from Propensity_socre_network import Propensity_socre_network
-from Sparse_Propensity_score import Sparse_Propensity_score
 from Utils import Utils
 from dataloader import DataLoader
 
 
 class Experiments:
     def run_all_experiments(self, iterations, running_mode):
+
         csv_path = "Dataset/ihdp_sample.csv"
         split_size = 0.8
         device = Utils.get_device()
@@ -25,9 +21,11 @@ class Experiments:
             "lr": 0.0001,
             "batch_size": 32,
             "shuffle": True,
-            "sparsity_probability": 0.08,
+            # "train_set": ps_train_set,
+            "sparsity_probability": 0.8,
             "weight_decay": 0.0003,
-            "BETA": 0.4
+            "BETA": 0.1,
+            # "input_nodes": input_nodes
         }
         run_parameters = self.__get_run_parameters(running_mode)
 
@@ -35,7 +33,7 @@ class Experiments:
         file1 = open(run_parameters["summary_file_name"], "a")
         file1.write(str(train_parameters_SAE))
         file1.write("\n")
-        file1.write("Without batch norm")
+        file1.write("With batch norm")
         file1.write("\n")
         for iter_id in range(iterations):
             iter_id += 1
@@ -44,17 +42,16 @@ class Experiments:
             print("--" * 20)
             # load data for propensity network
             dL = DataLoader()
-            if running_mode == "original_data":
-                np_covariates_X_train, np_covariates_X_test, np_covariates_Y_train, np_covariates_Y_test = \
-                    dL.preprocess_data_from_csv(csv_path, split_size)
-            elif running_mode == "synthetic_data":
-                np_covariates_X_train, np_covariates_X_test, np_covariates_Y_train, np_covariates_Y_test = \
-                    dL.preprocess_data_from_csv_augmented(csv_path, split_size)
+
+            np_covariates_X_train, np_covariates_X_test, np_covariates_Y_train, np_covariates_Y_test \
+                = self.load_data(running_mode, dL, csv_path, split_size)
+
             dp_sa = DPN_SA_Deep()
             trained_models = dp_sa.train_eval_DCN(iter_id,
-                                                        np_covariates_X_train,
-                                                        np_covariates_Y_train,
-                                                        dL, device, run_parameters)
+                                                  np_covariates_X_train,
+                                                  np_covariates_Y_train,
+                                                  dL, device, run_parameters,
+                                                  is_synthetic=run_parameters["is_synthetic"])
 
             sparse_classifier = trained_models["sparse_classifier"]
             LR_model = trained_models["LR_model"]
@@ -64,15 +61,15 @@ class Experiments:
 
             # test DCN network
             reply = dp_sa.test_DCN(iter_id,
-                                         np_covariates_X_test,
-                                         np_covariates_Y_test,
-                                         dL,
-                                         sparse_classifier,
-                                         sae_classifier_stacked_all_layer_active,
-                                         sae_classifier_stacked_cur_layer_active,
-                                         LR_model,
-                                         LR_model_lasso,
-                                         device, run_parameters)
+                                   np_covariates_X_test,
+                                   np_covariates_Y_test,
+                                   dL,
+                                   sparse_classifier,
+                                   sae_classifier_stacked_all_layer_active,
+                                   sae_classifier_stacked_cur_layer_active,
+                                   LR_model,
+                                   LR_model_lasso,
+                                   device, run_parameters)
 
             MSE_SAE_e2e = reply["MSE_SAE_e2e"]
             MSE_SAE_stacked_all_layer_active = reply["MSE_SAE_stacked_all_layer_active"]
@@ -183,11 +180,11 @@ class Experiments:
         print("\n-------------------------------------------------\n")
 
         MSE_total_SAE_e2e = np.mean(np.array(MSE_set_SAE_e2e))
-        std_MSE_SAE_e2e = statistics.pstdev(MSE_set_SAE_e2e)
+        std_MSE_SAE_e2e = np.std(MSE_set_SAE_e2e)
         Mean_ATE_SAE_true_e2e = np.mean(np.array(true_ATE_SAE_set_e2e))
-        std_ATE_SAE_true_e2e = statistics.pstdev(true_ATE_SAE_set_e2e)
+        std_ATE_SAE_true_e2e = np.std(true_ATE_SAE_set_e2e)
         Mean_ATE_SAE_predicted_e2e = np.mean(np.array(predicted_ATE_SAE_set_e2e))
-        std_ATE_SAE_predicted_e2e = statistics.pstdev(predicted_ATE_SAE_set_e2e)
+        std_ATE_SAE_predicted_e2e = np.std(predicted_ATE_SAE_set_e2e)
 
         print("Using SAE E2E, MSE: {0}, SD: {1}".format(MSE_total_SAE_e2e, std_MSE_SAE_e2e))
         print("Using SAE E2E, true ATE: {0}, SD: {1}".format(Mean_ATE_SAE_true_e2e, std_ATE_SAE_true_e2e))
@@ -196,11 +193,11 @@ class Experiments:
         print("\n-------------------------------------------------\n")
 
         MSE_total_SAE_stacked_all_layer_active = np.mean(np.array(MSE_set_SAE_stacked_all_layer_active))
-        std_MSE_SAE_stacked_all_layer_active = statistics.pstdev(MSE_set_SAE_stacked_all_layer_active)
+        std_MSE_SAE_stacked_all_layer_active = np.std(MSE_set_SAE_stacked_all_layer_active)
         Mean_ATE_SAE_true_stacked_all_layer_active = np.mean(np.array(true_ATE_SAE_set_stacked_all_layer_active))
-        std_ATE_SAE_true_stacked_all_layer_active = statistics.pstdev(true_ATE_SAE_set_stacked_all_layer_active)
+        std_ATE_SAE_true_stacked_all_layer_active = np.std(true_ATE_SAE_set_stacked_all_layer_active)
         Mean_ATE_SAE_predicted_all_layer_active = np.mean(np.array(predicted_ATE_SAE_set_all_layer_active))
-        std_ATE_SAE_predicted_all_layer_active = statistics.pstdev(predicted_ATE_SAE_set_all_layer_active)
+        std_ATE_SAE_predicted_all_layer_active = np.std(predicted_ATE_SAE_set_all_layer_active)
 
         print("Using SAE stacked all layer active, MSE: {0}, SD: {1}".format(MSE_total_SAE_stacked_all_layer_active,
                                                                              std_MSE_SAE_stacked_all_layer_active))
@@ -214,11 +211,11 @@ class Experiments:
         print("\n-------------------------------------------------\n")
 
         MSE_total_SAE_stacked_cur_layer_active = np.mean(np.array(MSE_set_SAE_stacked_cur_layer_active))
-        std_MSE_SAE_stacked_cur_layer_active = statistics.pstdev(MSE_set_SAE_stacked_cur_layer_active)
+        std_MSE_SAE_stacked_cur_layer_active = np.std(MSE_set_SAE_stacked_cur_layer_active)
         Mean_ATE_SAE_true_stacked_cur_layer_active = np.mean(np.array(true_ATE_SAE_set_stacked_cur_layer_active))
-        std_ATE_SAE_true_stacked_cur_layer_active = statistics.pstdev(true_ATE_SAE_set_stacked_cur_layer_active)
+        std_ATE_SAE_true_stacked_cur_layer_active = np.std(true_ATE_SAE_set_stacked_cur_layer_active)
         Mean_ATE_SAE_predicted_cur_layer_active = np.mean(np.array(predicted_ATE_SAE_set_cur_layer_active))
-        std_ATE_SAE_predicted_cur_layer_active = statistics.pstdev(predicted_ATE_SAE_set_cur_layer_active)
+        std_ATE_SAE_predicted_cur_layer_active = np.std(predicted_ATE_SAE_set_cur_layer_active)
 
         print("Using SAE stacked cur layer active, MSE: {0}, SD: {1}".format(MSE_total_SAE_stacked_cur_layer_active,
                                                                              std_MSE_SAE_stacked_cur_layer_active))
@@ -245,11 +242,11 @@ class Experiments:
         print("\n-------------------------------------------------\n")
 
         MSE_total_LR_lasso = np.mean(np.array(MSE_set_LR_Lasso))
-        std_MSE_LR_lasso = statistics.pstdev(MSE_set_LR_Lasso)
+        std_MSE_LR_lasso = np.std(MSE_set_LR_Lasso)
         Mean_ATE_LR_lasso_true = np.mean(np.array(true_ATE_LR_Lasso_set))
-        std_ATE_LR_lasso_true = statistics.pstdev(true_ATE_LR_Lasso_set)
+        std_ATE_LR_lasso_true = np.std(true_ATE_LR_Lasso_set)
         Mean_ATE_LR_lasso_predicted = np.mean(np.array(predicted_ATE_LR_Lasso_set))
-        std_ATE_LR_lasso_predicted = statistics.pstdev(predicted_ATE_LR_Lasso_set)
+        std_ATE_LR_lasso_predicted = np.std(predicted_ATE_LR_Lasso_set)
         print("Using Lasso Logistic Regression, MSE: {0}, SD: {1}".format(MSE_total_LR_lasso, std_MSE_LR_lasso))
         print("Using Lasso Logistic Regression, true ATE: {0}, SD: {1}".format(Mean_ATE_LR_lasso_true,
                                                                                std_ATE_LR_lasso_true))
@@ -331,6 +328,7 @@ class Experiments:
             run_parameters["lr_prop_file"] = "./MSE/LR_lasso_Prop_score_{0}.csv"
             run_parameters["lr_iter_file"] = "./MSE/ITE/ITE_LR_Lasso_iter_{0}.csv"
             run_parameters["summary_file_name"] = "Details_original.txt"
+            run_parameters["is_synthetic"] = False
 
         elif running_mode == "synthetic_data":
             run_parameters["input_nodes"] = 75
@@ -355,7 +353,14 @@ class Experiments:
             run_parameters["lr_prop_file"] = "./MSE_Augmented/LR_lasso_Prop_score_{0}.csv"
             run_parameters["lr_iter_file"] = "./MSE_Augmented/ITE/ITE_LR_Lasso_iter_{0}.csv"
             run_parameters["summary_file_name"] = "Details_augmented.txt"
+            run_parameters["is_synthetic"] = True
 
         return run_parameters
 
+    @staticmethod
+    def load_data(running_mode, dL, csv_path, split_size):
+        if running_mode == "original_data":
+            return dL.preprocess_data_from_csv(csv_path, split_size)
 
+        elif running_mode == "synthetic_data":
+            return dL.preprocess_data_from_csv_augmented(csv_path, split_size)

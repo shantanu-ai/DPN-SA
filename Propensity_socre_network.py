@@ -15,22 +15,27 @@ class Propensity_socre_network:
         shuffle = train_parameters["shuffle"]
         model_save_path = train_parameters["model_save_path"].format(epochs, lr)
         train_set = train_parameters["train_set"]
+
         input_nodes = train_parameters["input_nodes"]
         print("Saved model path: {0}".format(model_save_path))
 
         network = Propensity_net_NN(phase, input_nodes).to(device)
 
-        data_loader = torch.utils.data.DataLoader(train_set, batch_size=32,
-                                                  shuffle=shuffle, num_workers=4)
+        data_loader_train = torch.utils.data.DataLoader(train_set, batch_size=32,
+                                                        shuffle=shuffle, num_workers=4)
+
+        min_accuracy = 0
+        phases = ['train', 'val']
 
         optimizer = optim.Adam(network.parameters(), lr=lr)
         for epoch in range(epochs):
-            network.train()
+            epoch += 1
+            network.train()  # Set model to training mode
             total_loss = 0
             total_correct = 0
             train_set_size = 0
 
-            for batch in data_loader:
+            for batch in data_loader_train:
                 covariates, treatment = batch
                 covariates = covariates.to(device)
                 treatment = treatment.squeeze().to(device)
@@ -48,10 +53,10 @@ class Propensity_socre_network:
                 total_correct += Utils.get_num_correct(treatment_pred, treatment)
 
             pred_accuracy = total_correct / train_set_size
-            print("Epoch: {0}, loss: {1}, correct: {2}/{3}, accuracy: {4}".
-                  format(epoch, total_loss, total_correct, train_set_size, pred_accuracy))
-
-        print("Saving model..")
+            if epoch % 10 == 0:
+                print("Epoch: {0}, loss: {1}, correct: {2}/{3}, accuracy: {4}".
+                      format(epoch, total_loss, total_correct, train_set_size, pred_accuracy))
+        print("Saved model..")
         torch.save(network.state_dict(), model_save_path)
 
     @staticmethod

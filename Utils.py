@@ -16,7 +16,7 @@ class Utils:
 
     @staticmethod
     def test_train_split(covariates_X, treatment_Y, split_size=0.8):
-        return sklearn.train_test_split(covariates_X, treatment_Y, train_size=split_size, random_state=42)
+        return sklearn.train_test_split(covariates_X, treatment_Y, train_size=split_size)
 
     @staticmethod
     def convert_to_tensor(X, Y):

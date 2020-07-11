@@ -1,0 +1,133 @@
+{'epochs': 50, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+With batch norm
+Iter: 1, MSE_Sparse_e2e: 1.8571331982356776, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.0937020498635754, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 2, MSE_Sparse_e2e: 2.092806263000075, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.2342556232504354, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 3, MSE_Sparse_e2e: 2.333831925873999, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.7541521109907405, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 4, MSE_Sparse_e2e: 2.2173308036258934, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.4023816647250094, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 5, MSE_Sparse_e2e: 2.167493757761643, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.2521045725464357, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 6, MSE_Sparse_e2e: 2.284361735035418, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.279860980943037, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 7, MSE_Sparse_e2e: 2.1350011626709655, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.462429095327386, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 8, MSE_Sparse_e2e: 2.2649831497579793, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.441488639446705, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 9, MSE_Sparse_e2e: 1.8144129888467708, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.967900922334514, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 10, MSE_Sparse_e2e: 2.4503705031340446, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.8811113159830626, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 11, MSE_Sparse_e2e: 2.420053101375923, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.8639309801540995, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 12, MSE_Sparse_e2e: 2.006358573654183, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.9011236187263467, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 13, MSE_Sparse_e2e: 2.240010129992041, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.358792824552529, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 14, MSE_Sparse_e2e: 2.0106920393760737, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.109050776244548, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 15, MSE_Sparse_e2e: 1.7667232616156616, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.0635581813977164, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 16, MSE_Sparse_e2e: 2.5176407959094287, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.543635715235264, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 17, MSE_Sparse_e2e: 1.7262213557301498, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.2236029732420075, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 18, MSE_Sparse_e2e: 2.3877256957280966, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.3524969817650443, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 19, MSE_Sparse_e2e: 2.2632481506237263, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.3427934023818393, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 20, MSE_Sparse_e2e: 2.348888311564269, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.6548966578579853, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 21, MSE_Sparse_e2e: 2.7580958457292484, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.760858700954403, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 22, MSE_Sparse_e2e: 1.806055191908892, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.8882652766595907, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 23, MSE_Sparse_e2e: 2.164112501975332, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.510277902447202, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 24, MSE_Sparse_e2e: 2.110901731638431, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.278100146218992, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 25, MSE_Sparse_e2e: 1.7304287631014885, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.8965116620077833, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 26, MSE_Sparse_e2e: 1.8678570888027424, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.0053972446910184, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 27, MSE_Sparse_e2e: 2.140095915180984, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.1035663206200046, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 28, MSE_Sparse_e2e: 1.8335774040376036, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.3159982500271705, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 29, MSE_Sparse_e2e: 2.027148129906624, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.8591282122095374, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 30, MSE_Sparse_e2e: 2.4121519063760535, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.4759287009089546, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 31, MSE_Sparse_e2e: 1.8400949098204435, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.960241296229677, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 32, MSE_Sparse_e2e: 1.6328346346271871, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.9701528155332506, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 33, MSE_Sparse_e2e: 2.291641765187198, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.558363727680015, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 34, MSE_Sparse_e2e: 2.8905415128453553, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 3.024905534872745, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 35, MSE_Sparse_e2e: 2.033101094962161, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.0564983422914453, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 36, MSE_Sparse_e2e: 2.0973278476049018, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.1391105691363492, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 37, MSE_Sparse_e2e: 1.9893690236463142, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.3214187059296805, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 38, MSE_Sparse_e2e: 2.6763543167997916, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.6406722586863305, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 39, MSE_Sparse_e2e: 1.870723347434869, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.3308646468235064, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 40, MSE_Sparse_e2e: 1.9466626035838863, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.319972540528459, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 41, MSE_Sparse_e2e: 1.9380776995625675, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.008871286814007, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 42, MSE_Sparse_e2e: 1.9075100956173658, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.195713137481754, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 43, MSE_Sparse_e2e: 1.6019767568687404, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.870187240971342, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 44, MSE_Sparse_e2e: 1.888523346137246, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.0076251060087587, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 45, MSE_Sparse_e2e: 2.407835582090661, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.2557788274124824, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 46, MSE_Sparse_e2e: 1.938898485930188, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.7189512638149256, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 47, MSE_Sparse_e2e: 2.660828895133495, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.7545550040903333, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 48, MSE_Sparse_e2e: 2.279769679928479, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.2479857090734705, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 49, MSE_Sparse_e2e: 2.005510198825141, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.186791003788388, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 50, MSE_Sparse_e2e: 1.9467672581733773, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.9419641835057022, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 51, MSE_Sparse_e2e: 2.0345008845513735, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.2169619459999987, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 52, MSE_Sparse_e2e: 1.8945831476985253, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.117106726977375, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 53, MSE_Sparse_e2e: 1.9241247028012438, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.570103668097271, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 54, MSE_Sparse_e2e: 1.8827344955145138, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.8586240526446673, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 55, MSE_Sparse_e2e: 2.0682529197286725, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.137854996523469, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 56, MSE_Sparse_e2e: 2.315729313609606, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.2596058035843445, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 57, MSE_Sparse_e2e: 2.0817727049340515, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.6099333340108233, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 58, MSE_Sparse_e2e: 1.9042753440658433, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.9952462958437673, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 59, MSE_Sparse_e2e: 1.891425050063416, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.1693556418893736, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 60, MSE_Sparse_e2e: 1.7502079335972105, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.2852599445734065, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 61, MSE_Sparse_e2e: 1.8932957723690387, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 3.0294285452083836, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 62, MSE_Sparse_e2e: 2.1779612884303896, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.3480461177588206, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 63, MSE_Sparse_e2e: 2.033242337061442, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.3097045668274685, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 64, MSE_Sparse_e2e: 1.976096649391429, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.8405638738161432, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 65, MSE_Sparse_e2e: 2.0965953555862247, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.230541466101657, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 66, MSE_Sparse_e2e: 2.1408483244717633, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.4498604037224143, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 67, MSE_Sparse_e2e: 2.321543457894573, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.8489358205528403, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 68, MSE_Sparse_e2e: 2.162308454795993, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.3667833976036734, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 69, MSE_Sparse_e2e: 2.0032718546913006, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.3420114036986956, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 70, MSE_Sparse_e2e: 1.799873596702067, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.6591071402694464, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 71, MSE_Sparse_e2e: 2.1445355351786484, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.745943156367317, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 72, MSE_Sparse_e2e: 2.137468458979447, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.320481268105473, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 73, MSE_Sparse_e2e: 2.297029138235965, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.9584089701217517, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 74, MSE_Sparse_e2e: 2.1758537217154013, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.3616693042439323, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 75, MSE_Sparse_e2e: 2.2093152488794856, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.1673012504076525, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 76, MSE_Sparse_e2e: 2.383465700154189, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.155269243739131, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 77, MSE_Sparse_e2e: 2.580985887321022, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.546086162007703, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 78, MSE_Sparse_e2e: 2.0891831373866876, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.5948157342504286, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 79, MSE_Sparse_e2e: 1.8685938743319366, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.77268730650528, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 80, MSE_Sparse_e2e: 2.4287445500432407, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.6020625469569465, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 81, MSE_Sparse_e2e: 1.8978060906950076, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.2561424288424234, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 82, MSE_Sparse_e2e: 2.036765611588878, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.2715660345387234, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 83, MSE_Sparse_e2e: 1.8941006057522478, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.149362161792316, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 84, MSE_Sparse_e2e: 2.164998029844654, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.255201955552456, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 85, MSE_Sparse_e2e: 1.5867904205832168, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.7893349751121619, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 86, MSE_Sparse_e2e: 2.2425551609204124, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.785062193913441, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 87, MSE_Sparse_e2e: 2.0143071821435106, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.3313912173695455, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 88, MSE_Sparse_e2e: 1.7947068854600767, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.143127719155285, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 89, MSE_Sparse_e2e: 2.465686957553336, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.10048389515059, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 90, MSE_Sparse_e2e: 2.146670465403849, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.155812690291791, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 91, MSE_Sparse_e2e: 1.9129589082147826, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.7974055689692443, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 92, MSE_Sparse_e2e: 2.454693356590025, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.339446982305108, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 93, MSE_Sparse_e2e: 2.0647916180930252, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 1.9520515262856184, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 94, MSE_Sparse_e2e: 2.091678283776589, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.2832699045451026, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 95, MSE_Sparse_e2e: 2.1900057469367424, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.5174315266094798, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 96, MSE_Sparse_e2e: 2.5844583751157835, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.70959619505595, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 97, MSE_Sparse_e2e: 1.9976200745871089, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.2044764358988087, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 98, MSE_Sparse_e2e: 2.3939721880215736, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.3526471457981857, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 99, MSE_Sparse_e2e: 2.5615452546276094, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.7905583766273834, MSE_LR: 0, MSE_LR_Lasso: 0
+Iter: 100, MSE_Sparse_e2e: 2.0641681272688817, MSE_Sparse_stacked_all_layer_active: 0, MSE_Sparse_stacked_cur_layer_active: 0, MSE_NN: 2.102601938047048, MSE_LR: 0, MSE_LR_Lasso: 0
+
+##################################################
+
+Using NN, MSE: 2.299446556646559, SD: 0.29544047307888155
+Using NN, true ATE: 4.013576644458933, SD: 0.11377727592345503
+Using NN, predicted ATE: 3.9567365976830318, SD: 0.21796253647429042
+-------------------------------------------------
+Using SAE E2E, MSE: 2.1122815862031077, SD: 0.2587960288701015
+Using SAE E2E, true ATE: 4.013576644458933, SD: 0.11377727592345503
+Using SAE E2E, predicted ATE: 3.9631991867462797, SD: 0.14686672455010757
+-------------------------------------------------
+
+-------------------------------------------------
+Using SAE stacked all layer active, MSE: 0.0, SD: 0.0
+Using SAE stacked all layer active, true ATE: 0.0, SD: 0.0
+Using SAE, stacked all layer active predicted ATE: 0.0, SD: 0.0
+-------------------------------------------------
+
+-------------------------------------------------
+Using SAE stacked cur layer active, MSE: 0.0, SD: 0.0
+Using SAE stacked cur layer active, true ATE: 0.0, SD: 0.0
+Using SAE stacked cur layer active, predicted ATE: 0.0, SD: 0.0
+-------------------------------------------------
+Using Logistic Regression, MSE: 0.0, SD: 0.0
+Using Logistic Regression, true ATE: 0.0, SD: 0.0
+Using Logistic Regression, predicted ATE: 0.0, SD: 0.0
+-------------------------------------------------
+Using Lasso Logistic Regression, MSE: 0.0, SD: 0.0
+Using Lasso Logistic Regression, true ATE: 0.0, SD: 0.0
+Using Lasso Logistic Regression, predicted ATE: 0.0, SD: 0.0
+##################################################

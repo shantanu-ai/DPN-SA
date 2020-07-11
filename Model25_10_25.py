@@ -28,7 +28,7 @@ class Model_25_1_25:
         }
 
         print(str(train_parameters_SAE))
-        file1 = open("Details_original.txt", "a")
+        file1 = open("Details_original_1.txt", "a")
         file1.write(str(train_parameters_SAE))
         file1.write("\n")
         file1.write("Without batch norm")

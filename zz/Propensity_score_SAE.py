@@ -103,7 +103,8 @@ class Propensity_socre_SAE:
             loss += Utils.KL_divergence(sparsity_probability, values, device)
         return loss
 
-    def train_classifier(self, init_weights, epochs, device, data_loader, lr, training_mode="Classifier"):
+    def train_classifier(self, init_weights, epochs, device, data_loader, lr,
+                         training_mode="Classifier"):
         """
 
         :param init_weights:

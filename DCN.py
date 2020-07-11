@@ -7,12 +7,12 @@ from Utils import Utils
 
 
 class DCN(nn.Module):
-    def __init__(self, training_flag):
+    def __init__(self, training_flag, input_nodes):
         super(DCN, self).__init__()
         self.training = training_flag
 
         # shared layer
-        self.shared1 = nn.Linear(in_features=25, out_features=200)
+        self.shared1 = nn.Linear(in_features=input_nodes, out_features=200)
         nn.init.xavier_uniform_(self.shared1.weight)
 
         self.shared2 = nn.Linear(in_features=200, out_features=200)

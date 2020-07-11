@@ -8,10 +8,10 @@ class Propensity_net_NN(nn.Module):
         super(Propensity_net_NN, self).__init__()
         self.phase = phase
         self.fc1 = nn.Linear(in_features=input_nodes, out_features=25)
-        nn.init.xavier_uniform_(self.fc1.weight)
+        # nn.init.xavier_uniform_(self.fc1.weight)
 
         self.fc2 = nn.Linear(in_features=25, out_features=25)
-        nn.init.xavier_uniform_(self.fc2.weight)
+        # nn.init.xavier_uniform_(self.fc2.weight)
 
         self.ps_out = nn.Linear(in_features=25, out_features=2)
 

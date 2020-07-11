@@ -8,7 +8,6 @@ if __name__ == '__main__':
     print("Using original data")
     Experiments().run_all_experiments(iterations=100, running_mode="original_data")
     print("Using synthetic data")
-    Experiments().run_all_experiments(iterations=100, running_mode="synthetic_data")
+    # Experiments().run_all_experiments(iterations=100, running_mode="synthetic_data")
     # Model_25_1_25().run_all_expeiments()
     # Graphs().draw_scatter_plots()
-

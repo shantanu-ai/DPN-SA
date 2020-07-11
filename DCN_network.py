@@ -15,21 +15,26 @@ class DCN_network:
         lr = train_parameters["lr"]
         shuffle = train_parameters["shuffle"]
         model_save_path = train_parameters["model_save_path"].format(epochs, lr)
-        treated_set = train_parameters["treated_set"]
-        control_set = train_parameters["control_set"]
+        treated_set_train = train_parameters["treated_set_train"]
+        control_set_train = train_parameters["control_set_train"]
+
+        input_nodes = train_parameters["input_nodes"]
+
+        phases = ['train', 'val']
 
         print("Saved model path: {0}".format(model_save_path))
 
-        treated_data_loader = torch.utils.data.DataLoader(treated_set,
-                                                          batch_size=treated_batch_size,
-                                                          shuffle=shuffle,
-                                                          num_workers=1)
+        treated_data_loader_train = torch.utils.data.DataLoader(treated_set_train,
+                                                                batch_size=treated_batch_size,
+                                                                shuffle=shuffle,
+                                                                num_workers=1)
 
-        control_data_loader = torch.utils.data.DataLoader(control_set,
-                                                          batch_size=control_batch_size,
-                                                          shuffle=shuffle,
-                                                          num_workers=1)
-        network = DCN(training_flag=True).to(device)
+        control_data_loader_train = torch.utils.data.DataLoader(control_set_train,
+                                                                batch_size=control_batch_size,
+                                                                shuffle=shuffle,
+                                                                num_workers=1)
+
+        network = DCN(training_flag=True, input_nodes=input_nodes).to(device)
         optimizer = optim.Adam(network.parameters(), lr=lr)
         lossF = nn.MSELoss()
         min_loss = 100000.0
@@ -58,7 +63,7 @@ class DCN_network:
                 network.out_Y0.weight.requires_grad = False
                 network.out_Y0.bias.requires_grad = False
 
-                for batch in treated_data_loader:
+                for batch in treated_data_loader_train:
                     covariates_X, ps_score, y_f, y_cf = batch
                     covariates_X = covariates_X.to(device)
                     ps_score = ps_score.squeeze().to(device)
@@ -97,7 +102,7 @@ class DCN_network:
                 network.out_Y0.weight.requires_grad = True
                 network.out_Y0.bias.requires_grad = True
 
-                for batch in control_data_loader:
+                for batch in control_data_loader_train:
                     covariates_X, ps_score, y_f, y_cf = batch
                     covariates_X = covariates_X.to(device)
                     ps_score = ps_score.squeeze().to(device)
@@ -120,22 +125,22 @@ class DCN_network:
                     total_loss += loss.item()
                 dataset_loss = dataset_loss + total_loss
 
-            print("epoch: {0}, train_set_size: {1} loss: {2}".
-                  format(epoch, train_set_size, total_loss))
+            # print("epoch: {0}, train_set_size: {1} loss: {2}".
+            #       format(epoch, train_set_size, total_loss))
             if epoch % 2 == 1:
-                print("Treated + Control loss: {0}".format(dataset_loss))
-                if dataset_loss < min_loss:
-                    print("Current loss: {0}, over previous: {1}, Saving model".
-                          format(dataset_loss, min_loss))
-                    min_loss = dataset_loss
-                    torch.save(network.state_dict(), model_save_path)
+                print("epoch: {0}, Treated + Control loss: {1}".format(epoch, dataset_loss))
+                # if dataset_loss < min_loss:
+                #     print("Current loss: {0}, over previous: {1}, Saving model".
+                #           format(dataset_loss, min_loss))
+                #     min_loss = dataset_loss
+        torch.save(network.state_dict(), model_save_path)
 
-    def eval(self, eval_parameters, device):
+    def eval(self, eval_parameters, device, input_nodes):
         print(".. Evaluation started ..")
         treated_set = eval_parameters["treated_set"]
         control_set = eval_parameters["control_set"]
         model_path = eval_parameters["model_save_path"]
-        network = DCN(training_flag=False).to(device)
+        network = DCN(training_flag=False, input_nodes=input_nodes).to(device)
         network.load_state_dict(torch.load(model_path, map_location=device))
         network.eval()
         treated_data_loader = torch.utils.data.DataLoader(treated_set,
