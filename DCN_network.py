@@ -127,8 +127,10 @@ class DCN_network:
 
             # print("epoch: {0}, train_set_size: {1} loss: {2}".
             #       format(epoch, train_set_size, total_loss))
-            if epoch % 2 == 1:
+            if epoch % 10 == 9:
                 print("epoch: {0}, Treated + Control loss: {1}".format(epoch, dataset_loss))
+            # if epoch % 2 == 1:
+            #     print("epoch: {0}, Treated + Control loss: {1}".format(epoch, dataset_loss))
                 # if dataset_loss < min_loss:
                 #     print("Current loss: {0}, over previous: {1}, Saving model".
                 #           format(dataset_loss, min_loss))

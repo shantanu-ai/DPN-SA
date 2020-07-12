@@ -6,7 +6,8 @@ from Utils import Utils
 
 
 class DPN_SA_Deep:
-    def train_eval_DCN(self, iter_id, np_covariates_X_train, np_covariates_Y_train,
+    def train_eval_DCN(self, iter_id, np_covariates_X_train,
+                       np_covariates_Y_train,
                        dL, device,
                        run_parameters,
                        is_synthetic=False):
@@ -15,15 +16,11 @@ class DPN_SA_Deep:
 
         # using NN
         self.__train_propensity_net_NN(ps_train_set,
-                                       np_covariates_X_train, np_covariates_Y_train,
+                                       np_covariates_X_train,
+                                       np_covariates_Y_train,
                                        dL,
                                        iter_id, device, run_parameters["input_nodes"],
                                        is_synthetic)
-        sparse_classifier = None
-        sae_classifier_stacked_all_layer_active = None
-        sae_classifier_stacked_cur_layer_active = None
-        LR_model = None
-        LR_model_lasso = None
 
         # using SAE
         sparse_classifier, \
@@ -35,22 +32,20 @@ class DPN_SA_Deep:
                                             iter_id, device,
                                             run_parameters["input_nodes"],
                                             is_synthetic)
-        # # using Logistic Regression
-        # LR_model = self.__train_propensity_net_LR(np_covariates_X_train, np_covariates_Y_train,
-        #                                           np_covariates_X_val, np_covariates_Y_val,
-        #                                           dL,
-        #                                           iter_id, device,
-        #                                           run_parameters["input_nodes"],
-        #                                           is_synthetic)
-        #
-        # # using Logistic Regression Lasso
-        # LR_model_lasso = self.__train_propensity_net_LR_Lasso(np_covariates_X_train,
-        #                                                       np_covariates_Y_train,
-        #                                                       np_covariates_X_val, np_covariates_Y_val,
-        #                                                       dL,
-        #                                                       iter_id, device,
-        #                                                       run_parameters["input_nodes"],
-        #                                                       is_synthetic)
+        # using Logistic Regression
+        LR_model = self.__train_propensity_net_LR(np_covariates_X_train, np_covariates_Y_train,
+                                                  dL,
+                                                  iter_id, device,
+                                                  run_parameters["input_nodes"],
+                                                  is_synthetic)
+
+        # using Logistic Regression Lasso
+        LR_model_lasso = self.__train_propensity_net_LR_Lasso(np_covariates_X_train,
+                                                              np_covariates_Y_train,
+                                                              dL,
+                                                              iter_id, device,
+                                                              run_parameters["input_nodes"],
+                                                              is_synthetic)
 
         return {
             "sparse_classifier": sparse_classifier,
@@ -83,9 +78,9 @@ class DPN_SA_Deep:
 
         # using SAE
         model_path_e2e = "./DCNModel/SAE_E2E_DCN_model_iter_id_{0}_epoch_100_lr_0.0001.pth".format(iter_id)
-        model_path_stacked_all = "./DCNModel/SAE_stacked_all_DCN_model_iter_id_{0}_epoch_100_lr_0.001.pth".format(
+        model_path_stacked_all = "./DCNModel/SAE_stacked_all_DCN_model_iter_id_{0}_epoch_100_lr_0.0001.pth".format(
             iter_id)
-        model_path_stacked_cur = "./DCNModel/SAE_stacked_cur_DCN_model_iter_id_{0}_epoch_100_lr_0.001.pth".format(
+        model_path_stacked_cur = "./DCNModel/SAE_stacked_cur_DCN_model_iter_id_{0}_epoch_100_lr_0.0001.pth".format(
             iter_id)
 
         propensity_score_save_path_e2e = run_parameters["sae_e2e_prop_file"]
@@ -96,28 +91,24 @@ class DPN_SA_Deep:
         ITE_save_path_stacked_all = run_parameters["sae_stacked_all_iter_file"]
         ITE_save_path_stacked_cur = run_parameters["sae_stacked_cur_iter_file"]
 
-        # MSE_NN = 0
-        # true_ATE_NN = 0
-        # predicted_ATE_NN = 0
-
-        MSE_SAE_e2e = 0
-        true_ATE_SAE_e2e = 0
-        predicted_ATE_SAE_e2e = 0
-
-        MSE_SAE_stacked_all_layer_active = 0
-        true_ATE_SAE_stacked_all_layer_active = 0
-        predicted_ATE_SAE_stacked_all_layer_active = 0
-
-        MSE_SAE_stacked_cur_layer_active = 0
-        true_ATE_SAE_stacked_cur_layer_active = 0
-        predicted_ATE_SAE_stacked_cur_layer_active = 0
-
-        MSE_LR = 0
-        true_ATE_LR = 0
-        predicted_ATE_LR = 0
-        MSE_LR_Lasso = 0
-        true_ATE_LR_Lasso = 0
-        predicted_ATE_LR_Lasso = 0
+        # MSE_SAE_e2e = 0
+        # true_ATE_SAE_e2e = 0
+        # predicted_ATE_SAE_e2e = 0
+        #
+        # MSE_SAE_stacked_all_layer_active = 0
+        # true_ATE_SAE_stacked_all_layer_active = 0
+        # predicted_ATE_SAE_stacked_all_layer_active = 0
+        #
+        # MSE_SAE_stacked_cur_layer_active = 0
+        # true_ATE_SAE_stacked_cur_layer_active = 0
+        # predicted_ATE_SAE_stacked_cur_layer_active = 0
+        #
+        # MSE_LR = 0
+        # true_ATE_LR = 0
+        # predicted_ATE_LR = 0
+        # MSE_LR_Lasso = 0
+        # true_ATE_LR_Lasso = 0
+        # predicted_ATE_LR_Lasso = 0
 
         print("############### DCN Testing using SAE E2E ###############")
         MSE_SAE_e2e, true_ATE_SAE_e2e, predicted_ATE_SAE_e2e = \
@@ -129,51 +120,51 @@ class DPN_SA_Deep:
                                 run_parameters["input_nodes"])
 
         print("############### DCN Testing using SAE Stacked all layer active ###############")
-        # MSE_SAE_stacked_all_layer_active, true_ATE_SAE_stacked_all_layer_active, \
-        # predicted_ATE_SAE_stacked_all_layer_active = \
-        #     self.__test_DCN_SAE(iter_id, np_covariates_X_test,
-        #                         np_covariates_Y_test, dL, device,
-        #                         ps_test_set,
-        #                         sae_classifier_stacked_all_layer_active, model_path_stacked_all,
-        #                         propensity_score_save_path_stacked_all,
-        #                         ITE_save_path_stacked_all,
-        #                         run_parameters["is_synthetic"],
-        #                         run_parameters["input_nodes"])
+        MSE_SAE_stacked_all_layer_active, true_ATE_SAE_stacked_all_layer_active, \
+        predicted_ATE_SAE_stacked_all_layer_active = \
+            self.__test_DCN_SAE(iter_id, np_covariates_X_test,
+                                np_covariates_Y_test, dL, device,
+                                ps_test_set,
+                                sae_classifier_stacked_all_layer_active, model_path_stacked_all,
+                                propensity_score_save_path_stacked_all,
+                                ITE_save_path_stacked_all,
+                                run_parameters["is_synthetic"],
+                                run_parameters["input_nodes"])
 
         print("############### DCN Testing using SAE cur layer active ###############")
-        # MSE_SAE_stacked_cur_layer_active, true_ATE_SAE_stacked_cur_layer_active, \
-        # predicted_ATE_SAE_stacked_cur_layer_active = \
-        #     self.__test_DCN_SAE(iter_id, np_covariates_X_test,
-        #                         np_covariates_Y_test, dL, device,
-        #                         ps_test_set,
-        #                         sae_classifier_stacked_cur_layer_active, model_path_stacked_cur,
-        #                         propensity_score_save_path_stacked_cur,
-        #                         ITE_save_path_stacked_cur,
-        #                         run_parameters["is_synthetic"],
-        #                         run_parameters["input_nodes"])
+        MSE_SAE_stacked_cur_layer_active, true_ATE_SAE_stacked_cur_layer_active, \
+        predicted_ATE_SAE_stacked_cur_layer_active = \
+            self.__test_DCN_SAE(iter_id, np_covariates_X_test,
+                                np_covariates_Y_test, dL, device,
+                                ps_test_set,
+                                sae_classifier_stacked_cur_layer_active, model_path_stacked_cur,
+                                propensity_score_save_path_stacked_cur,
+                                ITE_save_path_stacked_cur,
+                                run_parameters["is_synthetic"],
+                                run_parameters["input_nodes"])
 
         # using LR
-        # MSE_LR, true_ATE_LR, predicted_ATE_LR = self.__test_DCN_LR(np_covariates_X_test, np_covariates_Y_test,
-        #                                                            LR_model,
-        #                                                            iter_id, dL, device,
-        #                                                            run_parameters["lr_prop_file"],
-        #                                                            run_parameters["lr_iter_file"],
-        #                                                            run_parameters["is_synthetic"],
-        #                                                            run_parameters["input_nodes"])
+        MSE_LR, true_ATE_LR, predicted_ATE_LR = self.__test_DCN_LR(np_covariates_X_test, np_covariates_Y_test,
+                                                                   LR_model,
+                                                                   iter_id, dL, device,
+                                                                   run_parameters["lr_prop_file"],
+                                                                   run_parameters["lr_iter_file"],
+                                                                   run_parameters["is_synthetic"],
+                                                                   run_parameters["input_nodes"])
 
         # using LR Lasso
-        # MSE_LR_Lasso, true_ATE_LR_Lasso, predicted_ATE_LR_Lasso = self.__test_DCN_LR_Lasso(np_covariates_X_test,
-        #                                                                                    np_covariates_Y_test,
-        #                                                                                    LR_model_lasso,
-        #                                                                                    iter_id, dL, device,
-        #                                                                                    run_parameters[
-        #                                                                                        "lr_prop_file"],
-        #                                                                                    run_parameters[
-        #                                                                                        "lr_iter_file"],
-        #                                                                                    run_parameters[
-        #                                                                                        "is_synthetic"],
-        #                                                                                    run_parameters[
-        #                                                                                        "input_nodes"])
+        MSE_LR_Lasso, true_ATE_LR_Lasso, predicted_ATE_LR_Lasso = self.__test_DCN_LR_Lasso(np_covariates_X_test,
+                                                                                           np_covariates_Y_test,
+                                                                                           LR_model_lasso,
+                                                                                           iter_id, dL, device,
+                                                                                           run_parameters[
+                                                                                               "lr_prop_file"],
+                                                                                           run_parameters[
+                                                                                               "lr_iter_file"],
+                                                                                           run_parameters[
+                                                                                               "is_synthetic"],
+                                                                                           run_parameters[
+                                                                                               "input_nodes"])
 
         return {
             "MSE_NN": MSE_NN,
@@ -257,24 +248,23 @@ class DPN_SA_Deep:
             "input_nodes": input_nodes
         }
 
-        train_parameters_SAE = {
-            "epochs": 2000,
-            "lr": 0.001,
-            "batch_size": 32,
-            "shuffle": True,
-            "train_set": ps_train_set,
-            "sparsity_probability": 0.8,
-            "weight_decay": 0.0003,
-            "BETA": 0.1,
-            "input_nodes": input_nodes
-        }
-
-
+        # train_parameters_SAE = {
+        #     "epochs": 2000,
+        #     "lr": 0.001,
+        #     "batch_size": 32,
+        #     "shuffle": True,
+        #     "train_set": ps_train_set,
+        #     "sparsity_probability": 0.8,
+        #     "weight_decay": 0.0003,
+        #     "BETA": 0.1,
+        #     "input_nodes": input_nodes
+        # }
 
         print(str(train_parameters_SAE))
         ps_net_SAE = Sparse_Propensity_score()
         print("############### Propensity Score SAE net Training ###############")
-        sparse_classifier = ps_net_SAE.train(train_parameters_SAE, device, phase="train")
+        sparse_classifier, sae_classifier_stacked_all_layer_active, \
+        sae_classifier_stacked_cur_layer_active = ps_net_SAE.train(train_parameters_SAE, device, phase="train")
 
         # eval propensity network using SAE
         model_path_e2e = "./DCNModel/SAE_E2E_DCN_model_iter_id_" + str(iter_id) + "_epoch_{0}_lr_{1}.pth"
@@ -282,27 +272,31 @@ class DPN_SA_Deep:
                                  str(iter_id) + "_epoch_{0}_lr_{1}.pth"
         model_path_stacked_cur = "./DCNModel/SAE_stacked_cur_DCN_model_iter_id_" + \
                                  str(iter_id) + "_epoch_{0}_lr_{1}.pth"
-        print("----------End to End SAE training----------")
+        print("---" * 25)
+        print("End to End SAE training")
+        print("---" * 25)
 
         self.__train_DCN_SAE(ps_net_SAE, ps_train_set, device, np_covariates_X_train,
                              np_covariates_Y_train,
                              iter_id, dL, sparse_classifier,
                              model_path_e2e, input_nodes, is_synthetic)
+        print("---" * 25)
         print("----------Layer wise greedy stacked SAE training - All layers----------")
+        print("---" * 25)
 
-        # self.__train_DCN_SAE(ps_net_SAE, ps_train_set, device, np_covariates_X_train,
-        #                      np_covariates_Y_train, iter_id, dL,
-        #                      sae_classifier_stacked_all_layer_active,
-        #                      model_path_stacked_all, input_nodes, is_synthetic)
-        # print("----------Layer wise greedy stacked SAE training - Current layers----------")
-        #
-        # self.__train_DCN_SAE(ps_net_SAE, ps_train_set, device, np_covariates_X_train,
-        #                      np_covariates_Y_train, iter_id, dL,
-        #                      sae_classifier_stacked_cur_layer_active,
-        #                      model_path_stacked_cur, input_nodes, is_synthetic)
+        self.__train_DCN_SAE(ps_net_SAE, ps_train_set, device, np_covariates_X_train,
+                             np_covariates_Y_train, iter_id, dL,
+                             sae_classifier_stacked_all_layer_active,
+                             model_path_stacked_all, input_nodes, is_synthetic)
+        print("---" * 25)
+        print("Layer wise greedy stacked SAE training - Current layers")
+        print("---" * 25)
 
-        sae_classifier_stacked_all_layer_active = None
-        sae_classifier_stacked_cur_layer_active = None
+        self.__train_DCN_SAE(ps_net_SAE, ps_train_set, device, np_covariates_X_train,
+                             np_covariates_Y_train, iter_id, dL,
+                             sae_classifier_stacked_cur_layer_active,
+                             model_path_stacked_cur, input_nodes, is_synthetic)
+
         return sparse_classifier, sae_classifier_stacked_all_layer_active, sae_classifier_stacked_cur_layer_active
 
     def __train_DCN_SAE(self, ps_net_SAE, ps_train_set,
@@ -453,7 +447,7 @@ class DPN_SA_Deep:
                                                          ps_score_list_LR,
                                                          is_synthetic)
         print("############### DCN Testing using LR ###############")
-        model_path = "./DCNModel/LR_DCN_model_iter_id_{0}_epoch_100_lr_0.001.pth".format(iter_id)
+        model_path = "./DCNModel/LR_DCN_model_iter_id_{0}_epoch_100_lr_0.0001.pth".format(iter_id)
         MSE_LR, true_ATE_LR, predicted_ATE_LR, ITE_dict_list = self.__do_test_DCN(data_loader_dict_SAE, dL,
                                                                                   device, model_path,
                                                                                   input_nodes)
@@ -476,7 +470,7 @@ class DPN_SA_Deep:
                                                          ps_score_list_LR_lasso,
                                                          is_synthetic)
         print("############### DCN Testing using LR Lasso ###############")
-        model_path = "./DCNModel/LR_Lasso_DCN_model_iter_id_{0}_epoch_100_lr_0.001.pth".format(iter_id)
+        model_path = "./DCNModel/LR_Lasso_DCN_model_iter_id_{0}_epoch_100_lr_0.0001.pth".format(iter_id)
 
         MSE_LR_Lasso, true_ATE_LR_Lasso, predicted_ATE_LR_Lasso, ITE_dict_list = \
             self.__do_test_DCN(data_loader_dict_SAE, dL,

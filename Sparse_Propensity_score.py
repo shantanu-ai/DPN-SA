@@ -70,22 +70,23 @@ class Sparse_Propensity_score:
                                                         train_set,
                                                         input_nodes)
 
-        # print("########## train layer wise all layer active ############")
-        # sae_classifier_stacked_all_layer_active = self.__layer_wise_train_SAE(phase, device, epochs, data_loader,
-        #                                                                       lr, weight_decay,
-        #                                                                       sparsity_probability, BETA,
-        #                                                                       train_set, input_nodes,
-        #                                                                       train_cur_layer=False)
-        #
-        # print("########## train layer wise only newly stacked layer active ############")
-        # sae_classifier_stacked_cur_layer_active = self.__layer_wise_train_SAE(phase, device, epochs, data_loader,
-        #                                                                       lr, weight_decay,
-        #                                                                       sparsity_probability, BETA,
-        #                                                                       train_set, input_nodes,
-        #                                                                       train_cur_layer=True)
-        # print("Training completed..")
-        return sparse_classifier
-        # , sae_classifier_stacked_all_layer_active, sae_classifier_stacked_cur_layer_active
+        print("########## train layer wise all layer active ############")
+        sae_classifier_stacked_all_layer_active = self.__layer_wise_train_SAE(phase, device, epochs,
+                                                                              data_loader_train,
+                                                                              lr, weight_decay,
+                                                                              sparsity_probability, BETA,
+                                                                              train_set, input_nodes,
+                                                                              train_cur_layer=False)
+
+        print("########## train layer wise only newly stacked layer active ############")
+        sae_classifier_stacked_cur_layer_active = self.__layer_wise_train_SAE(phase, device, epochs,
+                                                                              data_loader_train,
+                                                                              lr, weight_decay,
+                                                                              sparsity_probability, BETA,
+                                                                              train_set, input_nodes,
+                                                                              train_cur_layer=True)
+        print("Training completed..")
+        return sparse_classifier, sae_classifier_stacked_all_layer_active, sae_classifier_stacked_cur_layer_active
 
     def __end_to_end_train_SAE(self, phase, device, epochs, data_loader_train,
                                lr, weight_decay,
@@ -147,7 +148,7 @@ class Sparse_Propensity_score:
                                                  sae_classifier)
 
         # print(sae_classifier)
-        return sae_network
+        return sae_classifier
 
     def __train_SAE(self, epochs, device, data_loader, network, lr, weight_decay=0.0005,
                     sparsity_probability=0.03,
@@ -185,7 +186,7 @@ class Sparse_Propensity_score:
                 total_loss += loss.item()
 
             epoch_loss = total_loss / counter
-            if epoch % 500 == 0:
+            if epoch % 100 == 0:
                 print("Epoch: {0}, loss: {1}".
                       format(epoch, epoch_loss))
 

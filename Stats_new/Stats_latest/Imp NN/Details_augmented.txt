@@ -1,0 +1,2 @@
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+With batch norm

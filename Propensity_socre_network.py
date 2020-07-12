@@ -53,7 +53,7 @@ class Propensity_socre_network:
                 total_correct += Utils.get_num_correct(treatment_pred, treatment)
 
             pred_accuracy = total_correct / train_set_size
-            if epoch % 10 == 0:
+            if epoch % 25 == 0:
                 print("Epoch: {0}, loss: {1}, correct: {2}/{3}, accuracy: {4}".
                       format(epoch, total_loss, total_correct, train_set_size, pred_accuracy))
         print("Saved model..")

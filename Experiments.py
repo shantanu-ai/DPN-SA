@@ -17,15 +17,13 @@ class Experiments:
         results_list = []
 
         train_parameters_SAE = {
-            "epochs": 200,
-            "lr": 0.0001,
+            "epochs": 400,
+            "lr": 0.001,
             "batch_size": 32,
             "shuffle": True,
-            # "train_set": ps_train_set,
             "sparsity_probability": 0.8,
             "weight_decay": 0.0003,
             "BETA": 0.1,
-            # "input_nodes": input_nodes
         }
         run_parameters = self.__get_run_parameters(running_mode)
 
@@ -36,6 +34,7 @@ class Experiments:
         file1.write("With batch norm")
         file1.write("\n")
         for iter_id in range(iterations):
+            print("########### 400 epochs ###########")
             iter_id += 1
             print("--" * 20)
             print("iter_id: {0}".format(iter_id))
@@ -166,11 +165,11 @@ class Experiments:
             predicted_ATE_LR_Lasso_set.append(result["predicted_ATE_LR_Lasso"])
 
         MSE_total_NN = np.mean(np.array(MSE_set_NN))
-        std_MSE_NN = statistics.pstdev(MSE_set_NN)
+        std_MSE_NN = np.std(MSE_set_NN)
         Mean_ATE_NN_true = np.mean(np.array(true_ATE_NN_set))
-        std_ATE_NN_true = statistics.pstdev(true_ATE_NN_set)
+        std_ATE_NN_true = np.std(true_ATE_NN_set)
         Mean_ATE_NN_predicted = np.mean(np.array(predicted_ATE_NN_set))
-        std_ATE_NN_predicted = statistics.pstdev(predicted_ATE_NN_set)
+        std_ATE_NN_predicted = np.std(predicted_ATE_NN_set)
 
         print("\nWith Batch norm\n")
         print("\n-------------------------------------------------\n")
@@ -230,11 +229,11 @@ class Experiments:
         print("\n-------------------------------------------------\n")
 
         MSE_total_LR = np.mean(np.array(MSE_set_LR))
-        std_MSE_LR = statistics.pstdev(MSE_set_LR)
+        std_MSE_LR = np.std(MSE_set_LR)
         Mean_ATE_LR_true = np.mean(np.array(true_ATE_LR_set))
-        std_ATE_LR_true = statistics.pstdev(true_ATE_LR_set)
+        std_ATE_LR_true = np.std(true_ATE_LR_set)
         Mean_ATE_LR_predicted = np.mean(np.array(predicted_ATE_LR_set))
-        std_ATE_LR_predicted = statistics.pstdev(predicted_ATE_LR_set)
+        std_ATE_LR_predicted = np.std(predicted_ATE_LR_set)
         print("Using Logistic Regression, MSE: {0}, SD: {1}".format(MSE_total_LR, std_MSE_LR))
         print("Using Logistic Regression, true ATE: {0}, SD: {1}".format(Mean_ATE_LR_true, std_ATE_LR_true))
         print("Using Logistic Regression, predicted ATE: {0}, SD: {1}".format(Mean_ATE_LR_predicted,
