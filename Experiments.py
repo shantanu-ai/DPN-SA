@@ -323,9 +323,10 @@ class Experiments:
             # LR
             run_parameters["lr_prop_file"] = "./MSE/LR_Prop_score_{0}.csv"
             run_parameters["lr_iter_file"] = "./MSE/ITE/ITE_LR_iter_{0}.csv"
+
             # LR Lasso
-            run_parameters["lr_prop_file"] = "./MSE/LR_lasso_Prop_score_{0}.csv"
-            run_parameters["lr_iter_file"] = "./MSE/ITE/ITE_LR_Lasso_iter_{0}.csv"
+            run_parameters["lr_lasso_prop_file"] = "./MSE/LR_lasso_Prop_score_{0}.csv"
+            run_parameters["lr_lasso_iter_file"] = "./MSE/ITE/ITE_LR_Lasso_iter_{0}.csv"
             run_parameters["summary_file_name"] = "Details_original.txt"
             run_parameters["is_synthetic"] = False
 

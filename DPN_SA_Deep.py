@@ -158,9 +158,9 @@ class DPN_SA_Deep:
                                                                                            LR_model_lasso,
                                                                                            iter_id, dL, device,
                                                                                            run_parameters[
-                                                                                               "lr_prop_file"],
+                                                                                               "lr_lasso_prop_file"],
                                                                                            run_parameters[
-                                                                                               "lr_iter_file"],
+                                                                                               "lr_lasso_iter_file"],
                                                                                            run_parameters[
                                                                                                "is_synthetic"],
                                                                                            run_parameters[

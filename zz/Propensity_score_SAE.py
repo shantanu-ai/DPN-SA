@@ -25,7 +25,7 @@ class Propensity_socre_SAE:
         print("Saved model path: {0}".format(model_save_path))
 
         data_loader = torch.utils.data.DataLoader(train_set, batch_size=batch_size,
-                                                  shuffle=shuffle, num_workers=4)
+                                                  shuffle=shuffle, num_workers=1)
         sae_network = self.train_SAE(phase, epochs, device, data_loader, lr, weight_decay, sparsity_probability, BETA,
                                      "SAE")
         init_weights_dict = {

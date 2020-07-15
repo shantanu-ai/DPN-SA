@@ -22,7 +22,7 @@ class Propensity_socre_network:
         network = Propensity_net_NN(phase, input_nodes).to(device)
 
         data_loader_train = torch.utils.data.DataLoader(train_set, batch_size=32,
-                                                        shuffle=shuffle, num_workers=4)
+                                                        shuffle=shuffle, num_workers=1)
 
         min_accuracy = 0
         phases = ['train', 'val']
@@ -69,7 +69,7 @@ class Propensity_socre_network:
         network = Propensity_net_NN(phase, input_nodes).to(device)
         network.load_state_dict(torch.load(model_path, map_location=device))
         network.eval()
-        data_loader = torch.utils.data.DataLoader(eval_set, shuffle=False, num_workers=4)
+        data_loader = torch.utils.data.DataLoader(eval_set, shuffle=False, num_workers=1)
         total_correct = 0
         eval_set_size = 0
         prop_score_list = []
@@ -103,7 +103,7 @@ class Propensity_socre_network:
         network = Propensity_net_NN(phase, input_nodes).to(device)
         network.load_state_dict(torch.load(model_path, map_location=device))
         network.eval()
-        data_loader = torch.utils.data.DataLoader(eval_set, shuffle=False, num_workers=4)
+        data_loader = torch.utils.data.DataLoader(eval_set, shuffle=False, num_workers=1)
         total_correct = 0
         eval_set_size = 0
         prop_score_list = []
