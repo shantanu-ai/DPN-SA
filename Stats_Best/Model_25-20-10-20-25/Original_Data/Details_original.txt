@@ -1,0 +1,33 @@
+
+{'batch_size': 32, 'weight_decay': 0.0003, 'lr': 0.001, 'sparsity_probability': 0.8, 'epochs': 2000, 'shuffle': True, 'BETA': 0.1}
+
+
+Using NN, MSE: 	2.22385076044, SD: 0.21009534654454
+Using NN, true ATE: 4.02284368879, SD: 0.11266462686742
+Using NN, predicted ATE: 3.83214897547 , SD: 0.1769813213337
+-------------------------------------------------
+-------------------------------------------------
+Using SAE E2E, MSE: 2.0904303975195035, SD: 0.2215699290211687
+Using SAE E2E, true ATE: 4.021455693944934, SD: 0.1107592873878856
+Using SAE E2E, predicted ATE: 3.8354459592928487, SD: 0.2055198147009625
+-------------------------------------------------
+
+-------------------------------------------------
+Using SAE stacked all layer active, MSE: 2.098888862156189, SD: 0.1946676619544233
+Using SAE stacked all layer active, true ATE: 4.021455693944934, SD: 0.1107592873878856
+Using SAE, stacked all layer active predicted ATE: 4.004035617117086, SD: 0.19111472283885686
+-------------------------------------------------
+
+-------------------------------------------------
+Using SAE stacked cur layer active, MSE: 2.1057810963122665, SD: 0.20161829711777193
+Using SAE stacked cur layer active, true ATE: 4.021455693944934, SD: 0.1107592873878856
+Using SAE stacked cur layer active, predicted ATE: 4.022886713154117, SD: 0.19143721211034176
+-------------------------------------------------
+Using Logistic Regression, MSE: 6.017665851559434, SD: 1.1796549390425874
+Using Logistic Regression, true ATE: 4.021455693944934, SD: 0.1107592873878856
+Using Logistic Regression, predicted ATE: 2.1009673353826006, SD: 0.2937567843824025
+-------------------------------------------------
+Using Lasso Logistic Regression, MSE: 5.885933472119564, SD: 1.2102616859072808
+Using Lasso Logistic Regression, true ATE: 4.021455693944934, SD: 0.1107592873878856
+Using Lasso Logistic Regression, predicted ATE: 2.1382624552230043, SD: 0.29121300698641717
+##################################################
