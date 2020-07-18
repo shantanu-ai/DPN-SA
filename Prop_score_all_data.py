@@ -23,17 +23,18 @@ phase = "train"
 #                                                        np_treatment_Y)
 
 
-# 25-10-25
+# 25-1-25
 
 train_parameters_SAE = {
-    'epochs': 400,
+    'epochs': 2000,
     'lr': 0.001,
     "batch_size": 32,
     "shuffle": True,
     "train_set": ps_train_set,
-    "sparsity_probability": 0.08,
+    "sparsity_probability": 0.8,
     "weight_decay": 0.0003,
-    "BETA": 0.4
+    "BETA": 0.1,
+    "input_nodes": 25
 }
 ps_net_SAE = shallow_train()
 print("############### Propensity Score SAE net Training ###############")

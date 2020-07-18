@@ -73,7 +73,7 @@ class shallow_train:
 
         sparse_classifier = nn.Sequential(*list(sae_network_e2e.children())[:-1])
         sparse_classifier.add_module('classifier',
-                                     nn.Sequential(nn.Linear(in_features=10, out_features=2),
+                                     nn.Sequential(nn.Linear(in_features=1, out_features=2),
                                                    nn.LogSoftmax(dim=1)))
         sparse_classifier = sparse_classifier.to(device)
         sparse_classifier = self.__train_classifier(train_set, device, phase, sparse_classifier)
@@ -132,7 +132,7 @@ class shallow_train:
                                                   shuffle=True, num_workers=4)
         criterion = nn.NLLLoss()
         optimizer = optim.Adam(sparse_classifier.parameters(), lr=0.01)
-        for epoch in range(100):
+        for epoch in range(50):
             sparse_classifier.train()
             total_loss = 0
             total_correct = 0
@@ -150,7 +150,7 @@ class shallow_train:
                 loss = criterion(treatment_pred, treatment)
 
                 optimizer.zero_grad()
-                loss.backward(retain_graph=True)
+                loss.backward()
                 optimizer.step()
 
                 total_loss += loss.item()
