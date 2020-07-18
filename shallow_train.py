@@ -73,7 +73,7 @@ class shallow_train:
 
         sparse_classifier = nn.Sequential(*list(sae_network_e2e.children())[:-1])
         sparse_classifier.add_module('classifier',
-                                     nn.Sequential(nn.Linear(in_features=1, out_features=2),
+                                     nn.Sequential(nn.Linear(in_features=10, out_features=2),
                                                    nn.LogSoftmax(dim=1)))
         sparse_classifier = sparse_classifier.to(device)
         sparse_classifier = self.__train_classifier(train_set, device, phase, sparse_classifier)

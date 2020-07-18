@@ -75,14 +75,12 @@ class Model_25_1_25:
 
             results_list.append(result_dict)
 
-
         MSE_set_SAE_e2e = []
 
         true_ATE_SAE_set_e2e = []
         predicted_ATE_SAE_set_e2e = []
 
         for result in results_list:
-
             MSE_set_SAE_e2e.append(result["MSE_SAE_e2e"])
             true_ATE_SAE_set_e2e.append(result["true_ATE_SAE_e2e"])
 
@@ -134,8 +132,8 @@ class Model_25_1_25:
                                    iter_id, device):
         # !!! best parameter list
         train_parameters_SAE = {
-            "epochs": 200,
-            "lr": 0.0001,
+            'epochs': 400,
+            'lr': 0.001,
             "batch_size": 32,
             "shuffle": True,
             "train_set": ps_train_set,
