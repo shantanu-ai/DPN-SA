@@ -15,7 +15,7 @@ Repository of Deep Propensity Network - Stacked Autoencoder (DPN-SA) to calculat
 To reproduce the experiments mentioned in the paper for DCN-PD, Logistic regression, Logistic regression Lasso 
 and all the SAE variants of 25-20-10- (greedy and end to end) for both the
 original and synthetic dataset, type the following
-command 
+command: 
 
 <b>python3 main_propensity_dropout.py</b>
 
