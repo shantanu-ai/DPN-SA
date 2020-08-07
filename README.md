@@ -1,6 +1,9 @@
 ## Description
 Repository of Deep Propensity Network - Stacked Autoencoder (DPN-SA) to calculate propensity score using sparse autoencoder.
 
+## Keywords
+causal AI, biomedical informatics, deep learning, multitask learning, sparse autoencoder
+
 ## Dependencies
 [python 3.7.7](https://www.python.org/downloads/release/python-374/)
 
