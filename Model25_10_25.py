@@ -110,7 +110,6 @@ class Model_25_1_25:
 
             predicted_ATE_SAE_set_e2e.append(result["predicted_ATE_SAE_e2e"])
 
-        print("\nWith Batch norm\n")
         print("\n-------------------------------------------------\n")
 
         MSE_total_SAE_e2e = np.mean(np.array(MSE_set_SAE_e2e))

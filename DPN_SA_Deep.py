@@ -21,6 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
+from datetime import datetime
 
 from DCN_network import DCN_network
 from Propensity_score_LR import Propensity_socre_LR
@@ -39,14 +40,23 @@ class DPN_SA_Deep:
         ps_train_set = dL.convert_to_tensor(np_covariates_X_train, np_covariates_Y_train)
 
         # using NN
+        start = datetime.now()
         self.__train_propensity_net_NN(ps_train_set,
                                        np_covariates_X_train,
                                        np_covariates_Y_train,
                                        dL,
                                        iter_id, device, run_parameters["input_nodes"],
                                        is_synthetic)
+        end = datetime.now()
+        print("Neural Net start time: =", start)
+        print("Neural Net end time: =", end)
+        # diff = start - end
+        # diff_minutes = divmod(diff.seconds, 60)
+        # print('Time to train: ', diff_minutes[0], 'minutes',
+        #       diff_minutes[1], 'seconds')
 
         # using SAE
+        start = datetime.now()
         sparse_classifier, \
         sae_classifier_stacked_all_layer_active, sae_classifier_stacked_cur_layer_active = \
             self.__train_propensity_net_SAE(ps_train_set,
@@ -56,20 +66,37 @@ class DPN_SA_Deep:
                                             iter_id, device,
                                             run_parameters["input_nodes"],
                                             is_synthetic)
+
         # using Logistic Regression
+        start = datetime.now()
         LR_model = self.__train_propensity_net_LR(np_covariates_X_train, np_covariates_Y_train,
                                                   dL,
                                                   iter_id, device,
                                                   run_parameters["input_nodes"],
                                                   is_synthetic)
+        end = datetime.now()
+        print("Logistic Regression start time: =", start)
+        print("Logistic Regression end time: =", end)
+        diff = start - end
+        # diff_minutes = divmod(diff.seconds, 60)
+        # print('Time to train: ', diff_minutes[0], 'minutes',
+        #       diff_minutes[1], 'seconds')
 
         # using Logistic Regression Lasso
+        start = datetime.now()
         LR_model_lasso = self.__train_propensity_net_LR_Lasso(np_covariates_X_train,
                                                               np_covariates_Y_train,
                                                               dL,
                                                               iter_id, device,
                                                               run_parameters["input_nodes"],
                                                               is_synthetic)
+        end = datetime.now()
+        print("Logistic Regression Lasso start time: =", start)
+        print("Logistic Regression Lasso end time: =", end)
+        diff = start - end
+        # diff_minutes = divmod(diff.seconds, 60)
+        # print('Time to train: ', diff_minutes[0], 'minutes',
+        #       diff_minutes[1], 'seconds')
 
         return {
             "sparse_classifier": sparse_classifier,
@@ -300,26 +327,52 @@ class DPN_SA_Deep:
         print("End to End SAE training")
         print("---" * 25)
 
+        start = datetime.now()
         self.__train_DCN_SAE(ps_net_SAE, ps_train_set, device, np_covariates_X_train,
                              np_covariates_Y_train,
                              iter_id, dL, sparse_classifier,
                              model_path_e2e, input_nodes, is_synthetic)
+        end = datetime.now()
+        print("SAE E2E start time: =", start)
+        print("SAE E2E end time: =", end)
+        # diff = start - end
+        # diff_minutes = divmod(diff.seconds, 60)
+        # print('Time to train: ', diff_minutes[0], 'minutes',
+        #       diff_minutes[1], 'seconds')
+
         print("---" * 25)
         print("----------Layer wise greedy stacked SAE training - All layers----------")
         print("---" * 25)
-
+        start = datetime.now()
         self.__train_DCN_SAE(ps_net_SAE, ps_train_set, device, np_covariates_X_train,
                              np_covariates_Y_train, iter_id, dL,
                              sae_classifier_stacked_all_layer_active,
                              model_path_stacked_all, input_nodes, is_synthetic)
+
+        end = datetime.now()
+        print("SAE all layer active start time: =", start)
+        print("SAE all layer active end time: =", end)
+        # diff = start - end
+        # diff_minutes = divmod(diff.seconds, 60)
+        # print('Time to train: ', diff_minutes[0], 'minutes',
+        #       diff_minutes[1], 'seconds')
+
         print("---" * 25)
         print("Layer wise greedy stacked SAE training - Current layers")
         print("---" * 25)
-
+        start = datetime.now()
         self.__train_DCN_SAE(ps_net_SAE, ps_train_set, device, np_covariates_X_train,
                              np_covariates_Y_train, iter_id, dL,
                              sae_classifier_stacked_cur_layer_active,
                              model_path_stacked_cur, input_nodes, is_synthetic)
+
+        end = datetime.now()
+        print("SAE cur layer active start time: =", start)
+        print("SAE all layer active end time: =", end)
+        # diff = start - end
+        # diff_minutes = divmod(diff.seconds, 60)
+        # print('Time to train: ', diff_minutes[0], 'minutes',
+        #       diff_minutes[1], 'seconds')
 
         return sparse_classifier, sae_classifier_stacked_all_layer_active, sae_classifier_stacked_cur_layer_active
 

@@ -55,7 +55,6 @@ class Experiments:
         file1 = open(run_parameters["summary_file_name"], "a")
         file1.write(str(train_parameters_SAE))
         file1.write("\n")
-        file1.write("With batch norm")
         file1.write("\n")
         for iter_id in range(iterations):
             print("########### 400 epochs ###########")
@@ -195,7 +194,6 @@ class Experiments:
         Mean_ATE_NN_predicted = np.mean(np.array(predicted_ATE_NN_set))
         std_ATE_NN_predicted = np.std(predicted_ATE_NN_set)
 
-        print("\nWith Batch norm\n")
         print("\n-------------------------------------------------\n")
         print("Using NN, MSE: {0}, SD: {1}".format(MSE_total_NN, std_MSE_NN))
         print("Using NN, true ATE: {0}, SD: {1}".format(Mean_ATE_NN_true, std_ATE_NN_true))
