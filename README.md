@@ -18,10 +18,6 @@ causal AI, biomedical informatics, deep learning, multitask learning, sparse aut
 
 [pytorch 1.3.1](https://pytorch.org/get-started/previous-versions/)
 
-## Contributors
-[Shantanu Ghosh](https://www.linkedin.com/in/shantanu-ghosh-b369783a/)
-
-[Mattia Prosperi](https://epidemiology.phhp.ufl.edu/research/disl/)
 
 ## How to run
 To reproduce the experiments mentioned in the paper for DCN-PD, Logistic regression, Logistic regression Lasso 
@@ -31,11 +27,7 @@ command:
 
 <b>python3 main_propensity_dropout.py</b>
 
-## Contact
-beingshantanu2406@gmail.com <br/>
-shantanu.ghosh@ufl.edu
-
 ## License & copyright
-© Shantanu Ghosh, DISL, University of Florida
+© DISL, University of Florida
 
 Licensed under the [MIT License](LICENSE)
