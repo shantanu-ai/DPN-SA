@@ -1,6 +1,15 @@
 ## Description
 Repository of Deep Propensity Network - Sparse Autoencoder (DPN-SA) to calculate propensity score using sparse autoencoder.
 
+## Requirements and setup
+pytorch - 1.3.1 <br/>
+numpy - 1.17.2 <br/>
+pandas - 0.25.1 <br/>
+scikit - 0.21.3 <br/>
+matplotlib: 3.1.1 <br/>
+python -  3.7.4 <br/>
+
+
 ## Keywords
 causal AI, biomedical informatics, deep learning, multitask learning, sparse autoencoder
 
