@@ -27,6 +27,19 @@ command:
 
 <b>python3 main_propensity_dropout.py</b>
 
+## Output
+After the run, the outputs will be generated in the following location:
+
+<b>[IHDP](https://github.com/Shantanu48114860/DPN-SA/tree/master/MSE) </b>
+
+Consolidated results will be available in textfile in /Details_original.txt and /Details_augmented.txt files.
+
+The details of each run will be avalable in csv files in the following locations:
+
+/MSE/Results_consolidated.csv and /MSE_Augmented/Results_consolidated_NN.csv
+
+
+
 ## License & copyright
 © DISL, University of Florida
 
