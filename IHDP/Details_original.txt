@@ -1,0 +1,103 @@
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+With batch norm
+Iter: 1, MSE_Sparse_e2e: 2.3022147672935938, MSE_Sparse_stacked_all_layer_active: 2.1785347511963837, MSE_Sparse_stacked_cur_layer_active: 2.3564273834284153, MSE_NN: 2.2405240993039395, MSE_LR: 5.469837071808553, MSE_LR_Lasso: 7.4721251606002
+
+##################################################
+
+Using NN, MSE: 2.2405240993039395, SD: 0.0
+Using NN, true ATE: 4.184252291646665, SD: 0.0
+Using NN, predicted ATE: 3.975634271899859, SD: 0.0
+-------------------------------------------------
+Using SAE E2E, MSE: 2.3022147672935938, SD: 0.0
+Using SAE E2E, true ATE: 4.184252291646665, SD: 0.0
+Using SAE E2E, predicted ATE: 3.7634984479347864, SD: 0.0
+-------------------------------------------------
+
+-------------------------------------------------
+Using SAE stacked all layer active, MSE: 2.1785347511963837, SD: 0.0
+Using SAE stacked all layer active, true ATE: 4.184252291646665, SD: 0.0
+Using SAE, stacked all layer active predicted ATE: 4.2882126009464265, SD: 0.0
+-------------------------------------------------
+
+-------------------------------------------------
+Using SAE stacked cur layer active, MSE: 2.3564273834284153, SD: 0.0
+Using SAE stacked cur layer active, true ATE: 4.184252291646665, SD: 0.0
+Using SAE stacked cur layer active, predicted ATE: 4.060693066517512, SD: 0.0
+-------------------------------------------------
+Using Logistic Regression, MSE: 5.469837071808553, SD: 0.0
+Using Logistic Regression, true ATE: 4.184252291646665, SD: 0.0
+Using Logistic Regression, predicted ATE: 2.4022046740849814, SD: 0.0
+-------------------------------------------------
+Using Lasso Logistic Regression, MSE: 7.4721251606002, SD: 0.0
+Using Lasso Logistic Regression, true ATE: 4.184252291646665, SD: 0.0
+Using Lasso Logistic Regression, predicted ATE: 1.9268650364875795, SD: 0.0
+##################################################{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+With batch norm
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+With batch norm
+Iter: 1, MSE_Sparse_e2e: 2.057599015319264, MSE_Sparse_stacked_all_layer_active: 2.140900898145028, MSE_Sparse_stacked_cur_layer_active: 2.1116243921022444, MSE_NN: 1.9654788843718007, MSE_LR: 6.610869096085984, MSE_LR_Lasso: 7.077304826013163
+
+##################################################
+
+Using NN, MSE: 1.9654788843718007, SD: 0.0
+Using NN, true ATE: 3.946769250026664, SD: 0.0
+Using NN, predicted ATE: 4.0340496226151785, SD: 0.0
+-------------------------------------------------
+Using SAE E2E, MSE: 2.057599015319264, SD: 0.0
+Using SAE E2E, true ATE: 3.946769250026664, SD: 0.0
+Using SAE E2E, predicted ATE: 3.762041920820872, SD: 0.0
+-------------------------------------------------
+
+-------------------------------------------------
+Using SAE stacked all layer active, MSE: 2.140900898145028, SD: 0.0
+Using SAE stacked all layer active, true ATE: 3.946769250026664, SD: 0.0
+Using SAE, stacked all layer active predicted ATE: 4.09441550095876, SD: 0.0
+-------------------------------------------------
+
+-------------------------------------------------
+Using SAE stacked cur layer active, MSE: 2.1116243921022444, SD: 0.0
+Using SAE stacked cur layer active, true ATE: 3.946769250026664, SD: 0.0
+Using SAE stacked cur layer active, predicted ATE: 3.938031892379125, SD: 0.0
+-------------------------------------------------
+Using Logistic Regression, MSE: 6.610869096085984, SD: 0.0
+Using Logistic Regression, true ATE: 3.946769250026664, SD: 0.0
+Using Logistic Regression, predicted ATE: 1.853936070203781, SD: 0.0
+-------------------------------------------------
+Using Lasso Logistic Regression, MSE: 7.077304826013163, SD: 0.0
+Using Lasso Logistic Regression, true ATE: 3.946769250026664, SD: 0.0
+Using Lasso Logistic Regression, predicted ATE: 1.7476338315010072, SD: 0.0
+##################################################{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+Iter: 1, MSE_Sparse_e2e: 2.153111192424738, MSE_Sparse_stacked_all_layer_active: 2.3977625648069956, MSE_Sparse_stacked_cur_layer_active: 2.339603398442894, MSE_NN: 2.1673736154968193, MSE_LR: 7.138206768963252, MSE_LR_Lasso: 5.442944628664019
+
+##################################################
+
+Using NN, MSE: 2.1673736154968193, SD: 0.0
+Using NN, true ATE: 4.077142439060003, SD: 0.0
+Using NN, predicted ATE: 4.038562636375428, SD: 0.0
+-------------------------------------------------
+Using SAE E2E, MSE: 2.153111192424738, SD: 0.0
+Using SAE E2E, true ATE: 4.077142439060003, SD: 0.0
+Using SAE E2E, predicted ATE: 4.226394581794739, SD: 0.0
+-------------------------------------------------
+
+-------------------------------------------------
+Using SAE stacked all layer active, MSE: 2.3977625648069956, SD: 0.0
+Using SAE stacked all layer active, true ATE: 4.077142439060003, SD: 0.0
+Using SAE, stacked all layer active predicted ATE: 3.711465433438619, SD: 0.0
+-------------------------------------------------
+
+-------------------------------------------------
+Using SAE stacked cur layer active, MSE: 2.339603398442894, SD: 0.0
+Using SAE stacked cur layer active, true ATE: 4.077142439060003, SD: 0.0
+Using SAE stacked cur layer active, predicted ATE: 3.919671211242676, SD: 0.0
+-------------------------------------------------
+Using Logistic Regression, MSE: 7.138206768963252, SD: 0.0
+Using Logistic Regression, true ATE: 4.077142439060003, SD: 0.0
+Using Logistic Regression, predicted ATE: 1.8970617926120759, SD: 0.0
+-------------------------------------------------
+Using Lasso Logistic Regression, MSE: 5.442944628664019, SD: 0.0
+Using Lasso Logistic Regression, true ATE: 4.077142439060003, SD: 0.0
+Using Lasso Logistic Regression, predicted ATE: 2.310105346441269, SD: 0.0
+##################################################{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
