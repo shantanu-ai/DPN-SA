@@ -329,7 +329,7 @@ class Experiments:
         if running_mode == "original_data":
             run_parameters["input_nodes"] = 25
             run_parameters["consolidated_file_path"] = "./MSE/Results_consolidated.csv"
-
+            run_parameters["classifier_epoch"] = 50
             # NN
             run_parameters["nn_prop_file"] = "./MSE/NN_Prop_score_{0}.csv"
             run_parameters["nn_iter_file"] = "./MSE/ITE/ITE_NN_iter_{0}.csv"
@@ -353,9 +353,9 @@ class Experiments:
             run_parameters["is_synthetic"] = False
 
         elif running_mode == "synthetic_data":
-            run_parameters["input_nodes"] = 225
+            run_parameters["input_nodes"] = 100
             run_parameters["consolidated_file_path"] = "./MSE_Augmented/Results_consolidated.csv"
-
+            run_parameters["classifier_epoch"] = 50
             # NN
             run_parameters["nn_prop_file"] = "./MSE_Augmented/NN_Prop_score_{0}.csv"
             run_parameters["nn_iter_file"] = "./MSE_Augmented/ITE/ITE_NN_iter_{0}.csv"

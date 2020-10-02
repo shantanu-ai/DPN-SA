@@ -144,8 +144,7 @@ class DataLoader:
 
         return np_X, np_treatment_Y
 
-    @staticmethod
-    def __convert_to_numpy_augmented(df):
+    def __convert_to_numpy_augmented(self, df):
         covariates_X = df.iloc[:, 5:]
         treatment_Y = df.iloc[:, 0:1]
         outcomes_Y = df.iloc[:, 1:3]
@@ -154,17 +153,20 @@ class DataLoader:
         np_std = np.std(np_covariates_X, axis=0)
         np_outcomes_Y = Utils.convert_df_to_np_arr(outcomes_Y)
 
-        noise = np.empty([747, 25])
-        id = -1
-        for std in np_std:
-            id += 1
-            noise[:, id] = np.random.normal(0, 1.96 * std)
+        noise1 = self.get_noise(np_std, error=1.96)
+        noise2 = self.get_noise(np_std, error=2.00)
+        # noise3 = self.get_noise(np_std, error=2.45)
 
-        random_correlated = np_covariates_X + noise
+        random_correlated1 = np_covariates_X + noise1
+        random_correlated2 = np_covariates_X + noise2
+        # random_correlated3 = np_covariates_X + noise3
 
-        random_X = np.random.permutation(np.random.random((747, 175)) * 10)
+        random_X = np.random.permutation(np.random.random((747, 25)) * 10)
         np_covariates_X = np.concatenate((np_covariates_X, random_X), axis=1)
-        np_covariates_X = np.concatenate((np_covariates_X, random_correlated), axis=1)
+        np_covariates_X = np.concatenate((np_covariates_X, random_correlated1), axis=1)
+        np_covariates_X = np.concatenate((np_covariates_X, random_correlated2), axis=1)
+        # np_covariates_X = np.concatenate((np_covariates_X, random_correlated3), axis=1)
+
         np_X = Utils.concat_np_arr(np_covariates_X, np_outcomes_Y, axis=1)
 
         np_treatment_Y = Utils.convert_df_to_np_arr(treatment_Y)
@@ -172,12 +174,22 @@ class DataLoader:
         return np_X, np_treatment_Y
 
     @staticmethod
+    def get_noise(np_std, error):
+        noise = np.empty([747, 25])
+        id = -1
+        for std in np_std:
+            id += 1
+            noise[:, id] = np.random.normal(0, error * std)
+
+        return noise
+
+    @staticmethod
     def __preprocess_data_for_DCN(df_X, treatment_index, is_synthetic):
         df = df_X[df_X.iloc[:, -2] == treatment_index]
 
         if is_synthetic:
             # for synthetic dataset #covariates: 225
-            df_X = df.iloc[:, 0:225]
+            df_X = df.iloc[:, 0:100]
         else:
             # for original dataset #covariates: 25
             df_X = df.iloc[:, 0:25]

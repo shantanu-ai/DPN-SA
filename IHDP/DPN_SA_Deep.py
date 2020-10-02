@@ -65,6 +65,7 @@ class DPN_SA_Deep:
                                             dL,
                                             iter_id, device,
                                             run_parameters["input_nodes"],
+                                            run_parameters["classifier_epoch"],
                                             is_synthetic)
 
         # using Logistic Regression
@@ -285,7 +286,9 @@ class DPN_SA_Deep:
     def __train_propensity_net_SAE(self,
                                    ps_train_set, np_covariates_X_train, np_covariates_Y_train,
                                    dL,
-                                   iter_id, device, input_nodes, is_synthetic):
+                                   iter_id, device, input_nodes,
+                                   classifier_epoch,
+                                   is_synthetic):
         # !!! best parameter list
         train_parameters_SAE = {
             "epochs": 400,
@@ -296,6 +299,7 @@ class DPN_SA_Deep:
             "sparsity_probability": 0.8,
             "weight_decay": 0.0003,
             "BETA": 0.1,
+            "classifier_epoch": classifier_epoch,
             "input_nodes": input_nodes
         }
 
