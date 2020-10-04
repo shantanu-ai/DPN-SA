@@ -18,6 +18,7 @@ causal AI, biomedical informatics, deep learning, multitask learning, sparse aut
 
 [pytorch 1.3.1](https://pytorch.org/get-started/previous-versions/)
 
+Update the DCN Model path
 
 ## How to run
 To reproduce the experiments mentioned in the paper for DCN-PD, Logistic regression, Logistic regression Lasso 
