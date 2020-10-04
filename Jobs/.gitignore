@@ -1,6 +1,5 @@
 *.ipynb_checkpoints
 *.ipynb
-/Propensity_Model/
-/DCNModel/
 _pycache_/
 *.pyc
+*.pth
