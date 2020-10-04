@@ -26,6 +26,7 @@ from collections import OrderedDict
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torch.optim as optim
 
 from DCN import DCN
@@ -65,6 +66,7 @@ class DCN_network:
         dataset_loss = 0.0
         print(".. Training started ..")
         print(device)
+
         for epoch in range(epochs):
             network.train()
             total_loss = 0
@@ -88,22 +90,23 @@ class DCN_network:
                 network.out_Y0.bias.requires_grad = False
 
                 for batch in treated_data_loader_train:
-                    covariates_X, ps_score, y_f, y_cf = batch
+                    covariates_X, ps_score, y_f = batch
+
                     covariates_X = covariates_X.to(device)
                     ps_score = ps_score.squeeze().to(device)
+                    y_f = y_f.to(device, dtype=torch.int64)
 
                     train_set_size += covariates_X.size(0)
-                    treatment_pred = network(covariates_X, ps_score)
-                    # treatment_pred[0] -> y1
-                    # treatment_pred[1] -> y0
-                    predicted_ITE = treatment_pred[0] - treatment_pred[1]
-                    true_ITE = y_f - y_cf
+                    y1_hat = network(covariates_X, ps_score)[0]
+
+                    # y_f = y_f.long()
+                    # print(y1_hat.shape)
+                    # print(y_f.shape)
+
                     if torch.cuda.is_available():
-                        loss = lossF(predicted_ITE.float().cuda(),
-                                     true_ITE.float().cuda()).to(device)
+                        loss = F.cross_entropy(y1_hat.cuda(), y_f.cuda()).to(device)
                     else:
-                        loss = lossF(predicted_ITE.float(),
-                                     true_ITE.float()).to(device)
+                        loss = F.cross_entropy(y1_hat, y_f).to(device)
                     optimizer.zero_grad()
                     loss.backward()
                     optimizer.step()
@@ -127,22 +130,19 @@ class DCN_network:
                 network.out_Y0.bias.requires_grad = True
 
                 for batch in control_data_loader_train:
-                    covariates_X, ps_score, y_f, y_cf = batch
+                    covariates_X, ps_score, y_f = batch
                     covariates_X = covariates_X.to(device)
                     ps_score = ps_score.squeeze().to(device)
+                    y_f = y_f.to(device, dtype=torch.int64)
 
                     train_set_size += covariates_X.size(0)
-                    treatment_pred = network(covariates_X, ps_score)
+                    y0_hat = network(covariates_X, ps_score)[1]
                     # treatment_pred[0] -> y1
                     # treatment_pred[1] -> y0
-                    predicted_ITE = treatment_pred[0] - treatment_pred[1]
-                    true_ITE = y_cf - y_f
                     if torch.cuda.is_available():
-                        loss = lossF(predicted_ITE.float().cuda(),
-                                     true_ITE.float().cuda()).to(device)
+                        loss = F.cross_entropy(y0_hat.cuda(), y_f.cuda()).to(device)
                     else:
-                        loss = lossF(predicted_ITE.float(),
-                                     true_ITE.float()).to(device)
+                        loss = F.cross_entropy(y0_hat, y_f).to(device)
                     optimizer.zero_grad()
                     loss.backward()
                     optimizer.step()
@@ -155,10 +155,10 @@ class DCN_network:
                 print("epoch: {0}, Treated + Control loss: {1}".format(epoch, dataset_loss))
             # if epoch % 2 == 1:
             #     print("epoch: {0}, Treated + Control loss: {1}".format(epoch, dataset_loss))
-                # if dataset_loss < min_loss:
-                #     print("Current loss: {0}, over previous: {1}, Saving model".
-                #           format(dataset_loss, min_loss))
-                #     min_loss = dataset_loss
+            # if dataset_loss < min_loss:
+            #     print("Current loss: {0}, over previous: {1}, Saving model".
+            #           format(dataset_loss, min_loss))
+            #     min_loss = dataset_loss
         torch.save(network.state_dict(), model_save_path)
 
     def eval(self, eval_parameters, device, input_nodes):
@@ -181,65 +181,82 @@ class DCN_network:
 
         ITE_dict_list = []
 
+        y_f_list = []
+        y1_hat_list = []
+        y0_hat_list = []
+        e_list = []
+        T_list = []
+
         for batch in treated_data_loader:
-            covariates_X, ps_score, y_f, y_cf = batch
+            covariates_X, ps_score, y_f, t, e = batch
             covariates_X = covariates_X.to(device)
             ps_score = ps_score.squeeze().to(device)
             treatment_pred = network(covariates_X, ps_score)
 
-            predicted_ITE = treatment_pred[0] - treatment_pred[1]
-            true_ITE = y_f - y_cf
-            if torch.cuda.is_available():
-                diff = true_ITE.float().cuda() - predicted_ITE.float().cuda()
-            else:
-                diff = true_ITE.float() - predicted_ITE.float()
+            pred_y1_hat = treatment_pred[0]
+            pred_y0_hat = treatment_pred[1]
 
+            _, y1_hat = torch.max(pred_y1_hat.data, 1)
+            _, y0_hat = torch.max(pred_y0_hat.data, 1)
+
+            predicted_ITE = y1_hat - y0_hat
             ITE_dict_list.append(self.create_ITE_Dict(covariates_X,
                                                       ps_score.item(), y_f.item(),
-                                                      y_cf.item(),
-                                                      true_ITE.item(),
-                                                      predicted_ITE.item(),
-                                                      diff.item()))
-            err_treated_list.append(diff.item())
-            true_ITE_list.append(true_ITE.item())
+                                                      y1_hat.item(),
+                                                      y0_hat.item(),
+                                                      predicted_ITE.item()))
+            y_f_list.append(y_f.item())
+            y1_hat_list.append(y1_hat.item())
+            y0_hat_list.append(y0_hat.item())
+            e_list.append(e.item())
+            T_list.append(t)
             predicted_ITE_list.append(predicted_ITE.item())
 
         for batch in control_data_loader:
-            covariates_X, ps_score, y_f, y_cf = batch
+            covariates_X, ps_score, y_f, t, e = batch
             covariates_X = covariates_X.to(device)
             ps_score = ps_score.squeeze().to(device)
+
             treatment_pred = network(covariates_X, ps_score)
 
-            predicted_ITE = treatment_pred[0] - treatment_pred[1]
-            true_ITE = y_cf - y_f
-            if torch.cuda.is_available():
-                diff = true_ITE.float().cuda() - predicted_ITE.float().cuda()
-            else:
-                diff = true_ITE.float() - predicted_ITE.float()
+            pred_y1_hat = treatment_pred[0]
+            pred_y0_hat = treatment_pred[1]
+
+            _, y1_hat = torch.max(pred_y1_hat.data, 1)
+            _, y0_hat = torch.max(pred_y0_hat.data, 1)
+
+            predicted_ITE = y1_hat - y0_hat
 
             ITE_dict_list.append(self.create_ITE_Dict(covariates_X,
                                                       ps_score.item(), y_f.item(),
-                                                      y_cf.item(),
-                                                      true_ITE.item(),
-                                                      predicted_ITE.item(),
-                                                      diff.item()))
-            err_control_list.append(diff.item())
-            true_ITE_list.append(true_ITE.item())
+                                                      y1_hat.item(),
+                                                      y0_hat.item(),
+                                                      predicted_ITE.item()))
+
+            y_f_list.append(y_f.item())
+            y1_hat_list.append(y1_hat.item())
+            y0_hat_list.append(y0_hat.item())
             predicted_ITE_list.append(predicted_ITE.item())
+            e_list.append(e.item())
+            T_list.append(t)
 
         # print(err_treated_list)
         # print(err_control_list)
         return {
-            "treated_err": err_treated_list,
-            "control_err": err_control_list,
-            "true_ITE": true_ITE_list,
             "predicted_ITE": predicted_ITE_list,
-            "ITE_dict_list": ITE_dict_list
+            "ITE_dict_list": ITE_dict_list,
+            "y1_hat_list": y1_hat_list,
+            "y0_hat_list": y0_hat_list,
+            "e_list": e_list,
+            "yf_list": y_f_list,
+            "T_list": T_list
         }
 
     @staticmethod
-    def create_ITE_Dict(covariates_X, ps_score, y_f, y_cf, true_ITE,
-                        predicted_ITE, diff):
+    def create_ITE_Dict(covariates_X, ps_score, y_f,
+                        y1_hat,
+                        y0_hat,
+                        predicted_ITE):
         result_dict = OrderedDict()
         covariate_list = [element.item() for element in covariates_X.flatten()]
         idx = 0
@@ -249,9 +266,8 @@ class DCN_network:
 
         result_dict["ps_score"] = ps_score
         result_dict["factual"] = y_f
-        result_dict["counter_factual"] = y_cf
-        result_dict["true_ITE"] = true_ITE
+        result_dict["y1_hat"] = y1_hat
+        result_dict["y0_hat"] = y0_hat
         result_dict["predicted_ITE"] = predicted_ITE
-        result_dict["diff"] = diff
 
         return result_dict

@@ -62,12 +62,16 @@ class Propensity_socre_network:
             for batch in data_loader_train:
                 covariates, treatment = batch
                 covariates = covariates.to(device)
-                treatment = treatment.squeeze().to(device)
+                treatment = treatment.squeeze().to(device, dtype=torch.int64)
 
                 covariates = covariates[:, :-2]
                 train_set_size += covariates.size(0)
 
                 treatment_pred = network(covariates)
+                # print(treatment_pred.shape)
+                # print(treatment.shape)
+                #
+                # print(x)
                 loss = F.cross_entropy(treatment_pred, treatment).to(device)
                 optimizer.zero_grad()
                 loss.backward()

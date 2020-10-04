@@ -1,0 +1,95 @@
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+Iter: 1, NN_bias_att: 0.7095238095238096,  SAE_e2e_bias_att: 0.6928571428571428,  SAE_stacked_all_layer_active_bias_att: 0.6761904761904762,  SAE_stacked_cur_layer_active_bias_att: 0.7095238095238096, LR_bias_att: 0.20714285714285713, LR_Lasso_bias_att: 0.2928571428571429, NN_policy_risk: 0.3194444444444444, SAE_e2e_policy_risk: 0.32250330687830686,  SAE_stacked_all_layer_active_policy_risk: 0.3255621693121693, SAE_stacked_cur_layer_active_policy_risk: 0.3194444444444444, LR_policy_risk: 0.4390707671957671, LR_Lasso_policy_risk: 0.375082671957672
+##################################################
+
+Using NN, bias att: 0.7095238095238096, SD: 0.0
+Using NN, policy risk: 0.3194444444444444, SD: 0.0
+-------------------------------------------------
+Using SAE E2E, bias att: 0.6928571428571428, SD: 0.0
+Using SAE E2E, policy risk: 0.32250330687830686, SD: 0.0
+-------------------------------------------------
+Using SAE stacked all layer active, bias att: 0.6761904761904762, SD: 0.0
+Using SAE stacked all layer active,  policy risk: 0.3255621693121693, SD: 0.0
+-------------------------------------------------
+Using SAE stacked cur layer active, bias att: 0.7095238095238096, SD: 0.0
+Using SAE stacked cur layer active, policy risk: 0.3194444444444444, SD: 0.3194444444444444
+-------------------------------------------------
+Using Logistic Regression, bias att: 0.20714285714285713, SD: 0.0
+Using Logistic Regression, policy risk: 0.4390707671957671, SD: 0.0
+-------------------------------------------------
+Using Lasso Logistic Regression, bias att: 0.2928571428571429, SD: 0.0
+Using Lasso Logistic Regression, policy risk: 0.375082671957672, SD: 0.0
+##################################################{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+Iter: 1, NN_bias_att: 0.29047619047619044,  SAE_e2e_bias_att: 0.2738095238095238,  SAE_stacked_all_layer_active_bias_att: 0.2571428571428571,  SAE_stacked_cur_layer_active_bias_att: 0.42380952380952375, LR_bias_att: 0.4571428571428571, LR_Lasso_bias_att: 0.3571428571428571, NN_policy_risk: 0.3585069444444444, SAE_e2e_policy_risk: 0.38011188271604934,  SAE_stacked_all_layer_active_policy_risk: 0.38814814814814813, SAE_stacked_cur_layer_active_policy_risk: 0.3548850574712644, LR_policy_risk: 0.34905660377358494, LR_Lasso_policy_risk: 0.36029411764705876
+##################################################
+
+Using NN, bias att: 0.29047619047619044, SD: 0.0
+Using NN, policy risk: 0.3585069444444444, SD: 0.0
+-------------------------------------------------
+Using SAE E2E, bias att: 0.2738095238095238, SD: 0.0
+Using SAE E2E, policy risk: 0.38011188271604934, SD: 0.0
+-------------------------------------------------
+Using SAE stacked all layer active, bias att: 0.2571428571428571, SD: 0.0
+Using SAE stacked all layer active,  policy risk: 0.38814814814814813, SD: 0.0
+-------------------------------------------------
+Using SAE stacked cur layer active, bias att: 0.42380952380952375, SD: 0.0
+Using SAE stacked cur layer active, policy risk: 0.3548850574712644, SD: 0.3548850574712644
+-------------------------------------------------
+Using Logistic Regression, bias att: 0.4571428571428571, SD: 0.0
+Using Logistic Regression, policy risk: 0.34905660377358494, SD: 0.0
+-------------------------------------------------
+Using Lasso Logistic Regression, bias att: 0.3571428571428571, SD: 0.0
+Using Lasso Logistic Regression, policy risk: 0.36029411764705876, SD: 0.0
+##################################################

@@ -23,20 +23,24 @@ SOFTWARE.
 """
 
 import math
-
-import numpy as np
-import sklearn.model_selection as sklearn
-import torch
-import torch.nn.functional as F
-from torch.distributions import Bernoulli
 from collections import namedtuple
 from itertools import product
+
+import numpy as np
 import pandas as pd
+import sklearn.model_selection as sklearn
+import torch
+from torch.distributions import Bernoulli
+
 
 class Utils:
     @staticmethod
     def convert_df_to_np_arr(data):
         return data.to_numpy()
+
+    @staticmethod
+    def convert_to_col_vector(np_arr):
+        return np_arr.reshape(np_arr.shape[0], 1)
 
     @staticmethod
     def test_train_split(covariates_X, treatment_Y, split_size=0.8):
@@ -50,13 +54,35 @@ class Utils:
         return processed_dataset
 
     @staticmethod
-    def convert_to_tensor_DCN(X, ps_score, Y_f, Y_cf):
+    def convert_to_tensor_DCN(X, ps_score, Y_f):
         tensor_x = torch.stack([torch.Tensor(i) for i in X])
         tensor_ps_score = torch.from_numpy(ps_score)
         tensor_y_f = torch.from_numpy(Y_f)
-        tensor_y_cf = torch.from_numpy(Y_cf)
         processed_dataset = torch.utils.data.TensorDataset(tensor_x, tensor_ps_score,
-                                                           tensor_y_f, tensor_y_cf)
+                                                           tensor_y_f)
+        return processed_dataset
+
+    @staticmethod
+    def create_tensors_from_tuple_test(group, t):
+        np_df_X = group[0]
+        np_ps_score = group[1]
+        np_df_Y_f = group[2]
+        np_df_e = group[3]
+        tensor = Utils.convert_to_tensor_DCN_test(np_df_X, np_ps_score,
+                                                  np_df_Y_f, t, np_df_e)
+
+        return tensor
+
+    @staticmethod
+    def convert_to_tensor_DCN_test(X, ps_score, Y_f, t, e):
+        tensor_x = torch.stack([torch.Tensor(i) for i in X])
+        tensor_ps_score = torch.from_numpy(ps_score)
+        tensor_y_f = torch.from_numpy(Y_f)
+        tensor_t = torch.from_numpy(t)
+        tensor_e = torch.from_numpy(e)
+        processed_dataset = torch.utils.data.TensorDataset(tensor_x, tensor_ps_score,
+                                                           tensor_y_f, tensor_t,
+                                                           tensor_e)
         return processed_dataset
 
     @staticmethod
