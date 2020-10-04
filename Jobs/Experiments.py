@@ -59,7 +59,6 @@ class Experiments:
         file1.write("\n")
         for iter_id in range(iterations):
             print("########### 400 epochs ###########")
-            iter_id += 1
             print("--" * 20)
             print("iter_id: {0}".format(iter_id))
             print("--" * 20)
