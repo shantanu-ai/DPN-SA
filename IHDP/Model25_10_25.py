@@ -65,7 +65,7 @@ class Model_25_1_25:
             # load data for propensity network
             dL = DataLoader()
             np_covariates_X_train, np_covariates_X_test, np_covariates_Y_train, np_covariates_Y_test = \
-                dL.preprocess_data_from_csv(csv_path, split_size)
+                dL.preprocess_data_from_csv_augmented(csv_path, split_size)
 
             trained_models = self.__train_eval_DCN(iter_id,
                                                    np_covariates_X_train,

@@ -1,33 +1,25 @@
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
 
-{'batch_size': 32, 'weight_decay': 0.0003, 'lr': 0.001, 'sparsity_probability': 0.8, 'epochs': 2000, 'shuffle': True, 'BETA': 0.1}
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
 
+Iter: 0, NN_bias_att: 0.19285714285714287,  SAE_e2e_bias_att: 0.20952380952380953,  SAE_stacked_all_layer_active_bias_att: 0.3261904761904762,  SAE_stacked_cur_layer_active_bias_att: 0.2595238095238095, LR_bias_att: 0.29285714285714287, LR_Lasso_bias_att: 0.24285714285714285, NN_policy_risk: 0.2832407407407407, SAE_e2e_policy_risk: 0.27758215962441324,  SAE_stacked_all_layer_active_policy_risk: 0.2513227513227514, SAE_stacked_cur_layer_active_policy_risk: 0.2717803030303031, LR_policy_risk: 0.4076492537313433, LR_Lasso_policy_risk: 0.26875000000000004Iter: 1, NN_bias_att: 0.42380952380952375,  SAE_e2e_bias_att: 0.29047619047619044,  SAE_stacked_all_layer_active_bias_att: 0.29047619047619044,  SAE_stacked_cur_layer_active_bias_att: 0.29047619047619044, LR_bias_att: 0.3571428571428571, LR_Lasso_bias_att: 0.34047619047619043, NN_policy_risk: 0.33939393939393936, SAE_e2e_policy_risk: 0.3619162640901771,  SAE_stacked_all_layer_active_policy_risk: 0.41314553990610337, SAE_stacked_cur_layer_active_policy_risk: 0.344758064516129, LR_policy_risk: 0.34837962962962965, LR_Lasso_policy_risk: 0.3676215277777778Iter: 2, NN_bias_att: 0.06473079249848757,  SAE_e2e_bias_att: 0.005444646098003658,  SAE_stacked_all_layer_active_bias_att: 0.005444646098003658,  SAE_stacked_cur_layer_active_bias_att: 0.022988505747126464, LR_bias_att: 0.012099213551119148, LR_Lasso_bias_att: 0.005444646098003658, NN_policy_risk: 0.26157407407407407, SAE_e2e_policy_risk: 0.29182816537467704,  SAE_stacked_all_layer_active_policy_risk: 0.3119281045751634, SAE_stacked_cur_layer_active_policy_risk: 0.30925925925925923, LR_policy_risk: 0.275, LR_Lasso_policy_risk: 0.3017241379310345Iter: 3, NN_bias_att: 0.06655974338412182,  SAE_e2e_bias_att: 0.014835605453087333,  SAE_stacked_all_layer_active_bias_att: 0.1700080192461908,  SAE_stacked_cur_layer_active_bias_att: 0.04931836407377699, LR_bias_att: 0.04931836407377699, LR_Lasso_bias_att: 0.20449077786688044, NN_policy_risk: 0.20214992389649933, SAE_e2e_policy_risk: 0.20950704225352113,  SAE_stacked_all_layer_active_policy_risk: 0.2053359449192782, SAE_stacked_cur_layer_active_policy_risk: 0.20495756172839508, LR_policy_risk: 0.21590909090909083, LR_Lasso_policy_risk: 0.20316537467700257Iter: 4, NN_bias_att: 0.20809614168247947,  SAE_e2e_bias_att: 0.2277039848197344,  SAE_stacked_all_layer_active_bias_att: 0.07084123972169518,  SAE_stacked_cur_layer_active_bias_att: 0.1688804554079697, LR_bias_att: 0.20809614168247947, LR_Lasso_bias_att: 0.2473118279569893, NN_policy_risk: 0.1513888888888888, SAE_e2e_policy_risk: 0.18921232876712335,  SAE_stacked_all_layer_active_policy_risk: 0.20616319444444453, SAE_stacked_cur_layer_active_policy_risk: 0.19204429083461338, LR_policy_risk: 0.17458920187793425, LR_Lasso_policy_risk: 0.17165798611111116Iter: 5, NN_bias_att: 0.030291109362706542,  SAE_e2e_bias_att: 0.06254917387883557,  SAE_stacked_all_layer_active_bias_att: 0.07867820613690009,  SAE_stacked_cur_layer_active_bias_att: 0.08261211644374507, LR_bias_att: 0.014162077104642026, LR_Lasso_bias_att: 0.014162077104642026, NN_policy_risk: 0.2405149051490515, SAE_e2e_policy_risk: 0.23712737127371275,  SAE_stacked_all_layer_active_policy_risk: 0.23611111111111116, SAE_stacked_cur_layer_active_policy_risk: 0.2464256535947712, LR_policy_risk: 0.24572649572649574, LR_Lasso_policy_risk: 0.24572649572649574Iter: 6, NN_bias_att: 0.06878306878306883,  SAE_e2e_bias_att: 0.005291005291005346,  SAE_stacked_all_layer_active_bias_att: 0.0846560846560847,  SAE_stacked_cur_layer_active_bias_att: 0.0846560846560847, LR_bias_att: 0.02116402116402122, LR_Lasso_bias_att: 0.1481481481481482, NN_policy_risk: 0.2950102880658436, SAE_e2e_policy_risk: 0.3087606837606838,  SAE_stacked_all_layer_active_policy_risk: 0.2929526748971193, SAE_stacked_cur_layer_active_policy_risk: 0.2929526748971193, LR_policy_risk: 0.29423868312757195, LR_Lasso_policy_risk: 0.2847222222222222Iter: 7, NN_bias_att: 0.10527355322931076,  SAE_e2e_bias_att: 0.0069128974916058405,  SAE_stacked_all_layer_active_bias_att: 0.08888011060635995,  SAE_stacked_cur_layer_active_bias_att: 0.023306340114556665, LR_bias_att: 0.058660873000197435, LR_Lasso_bias_att: 0.03969978273750749, NN_policy_risk: 0.31618139223560915, SAE_e2e_policy_risk: 0.3232931726907631,  SAE_stacked_all_layer_active_policy_risk: 0.32546854082998655, SAE_stacked_cur_layer_active_policy_risk: 0.29797586047586044, LR_policy_risk: 0.3088450292397661, LR_Lasso_policy_risk: 0.3303540809327845Iter: 8, NN_bias_att: 0.059980525803310536,  SAE_e2e_bias_att: 0.01382667964946438,  SAE_stacked_all_layer_active_bias_att: 0.04459591041869515,  SAE_stacked_cur_layer_active_bias_att: 0.04771178188899716, LR_bias_att: 0.03232716650438178, LR_Lasso_bias_att: 0.001557935735151006, NN_policy_risk: 0.27575597749648384, SAE_e2e_policy_risk: 0.27461322081575257,  SAE_stacked_all_layer_active_policy_risk: 0.27768987341772156, SAE_stacked_cur_layer_active_policy_risk: 0.28712832550860734, LR_policy_risk: 0.28450292397660826, LR_Lasso_policy_risk: 0.2765471167369902Iter: 9, NN_bias_att: 0.12460468058191017,  SAE_e2e_bias_att: 0.14421252371916507,  SAE_stacked_all_layer_active_bias_att: 0.06578115117014546,  SAE_stacked_cur_layer_active_bias_att: 0.09108159392789375, LR_bias_att: 0.08538899430740036, LR_Lasso_bias_att: 0.2814674256799494, NN_policy_risk: 0.2971285892634207, SAE_e2e_policy_risk: 0.27640716374269003,  SAE_stacked_all_layer_active_policy_risk: 0.2823033707865168, SAE_stacked_cur_layer_active_policy_risk: 0.284019975031211, LR_policy_risk: 0.2960858585858587, LR_Lasso_policy_risk: 0.25055555555555553
+##################################################
 
-Using NN, MSE: 	2.22385076044, SD: 0.21009534654454
-Using NN, true ATE: 4.02284368879, SD: 0.11266462686742
-Using NN, predicted ATE: 3.83214897547 , SD: 0.1769813213337
+Using NN, bias att: 0.13449862819920622, SD: 0.11121557086743535
+Using NN, policy risk: 0.2862338719204551, SD: 0.052904557001754365
 -------------------------------------------------
+Using SAE E2E, bias att: 0.09807765164009016, SD: 0.1044795873129686
+Using SAE E2E, policy risk: 0.27502475723935144, SD: 0.04939799347487112
 -------------------------------------------------
-Using SAE E2E, MSE: 2.0904303975195035, SD: 0.2215699290211687
-Using SAE E2E, true ATE: 4.021455693944934, SD: 0.1107592873878856
-Using SAE E2E, predicted ATE: 3.8354459592928487, SD: 0.2055198147009625
+Using SAE stacked all layer active, bias att: 0.12255520347207416, SD: 0.10104566243116346
+Using SAE stacked all layer active,  policy risk: 0.2802421106210196, SD: 0.05896403040199265
 -------------------------------------------------
-
+Using SAE stacked cur layer active, bias att: 0.11205552422601503, SD: 0.09096860520171787
+Using SAE stacked cur layer active, policy risk: 0.27313019688762685, SD: 0.27313019688762685
 -------------------------------------------------
-Using SAE stacked all layer active, MSE: 2.098888862156189, SD: 0.1946676619544233
-Using SAE stacked all layer active, true ATE: 4.021455693944934, SD: 0.1107592873878856
-Using SAE, stacked all layer active predicted ATE: 4.004035617117086, SD: 0.19111472283885686
+Using Logistic Regression, bias att: 0.11312168513880186, SD: 0.11985815387979214
+Using Logistic Regression, policy risk: 0.28509261668042984, SD: 0.062002676832348114
 -------------------------------------------------
-
--------------------------------------------------
-Using SAE stacked cur layer active, MSE: 2.1057810963122665, SD: 0.20161829711777193
-Using SAE stacked cur layer active, true ATE: 4.021455693944934, SD: 0.1107592873878856
-Using SAE stacked cur layer active, predicted ATE: 4.022886713154117, SD: 0.19143721211034176
--------------------------------------------------
-Using Logistic Regression, MSE: 6.017665851559434, SD: 1.1796549390425874
-Using Logistic Regression, true ATE: 4.021455693944934, SD: 0.1107592873878856
-Using Logistic Regression, predicted ATE: 2.1009673353826006, SD: 0.2937567843824025
--------------------------------------------------
-Using Lasso Logistic Regression, MSE: 5.885933472119564, SD: 1.2102616859072808
-Using Lasso Logistic Regression, true ATE: 4.021455693944934, SD: 0.1107592873878856
-Using Lasso Logistic Regression, predicted ATE: 2.1382624552230043, SD: 0.29121300698641717
+Using Lasso Logistic Regression, bias att: 0.15256159546606046, SD: 0.12170182271325203
+Using Lasso Logistic Regression, policy risk: 0.2777824497670974, SD: 0.054355689721242564
 ##################################################
