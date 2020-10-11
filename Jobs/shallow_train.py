@@ -166,7 +166,7 @@ class shallow_train:
                 covariates = covariates.to(device)
                 train_set_size += covariates.size(0)
 
-                treatment = treatment.squeeze().to(device)
+                treatment = treatment.squeeze().to(device, dtype=torch.int64)
                 covariates = covariates[:, :-2]
                 treatment_pred = sparse_classifier(covariates).to(device)
 

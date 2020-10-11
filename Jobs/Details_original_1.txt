@@ -1,0 +1,21 @@
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+Without batch norm
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+Without batch norm
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+Without batch norm
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+Without batch norm
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+Without batch norm
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+Without batch norm
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+Without batch norm
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+Without batch norm
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+Without batch norm
+Iter: 0, SAE_e2e_bias_att: 0.0761904761904762,  SAE_e2e_policy_risk: 0.314318783068783, Using SAE E2E, bias att: 0.0761904761904762, SD: 0.0
+Using SAE E2E, policy risk: 0.314318783068783, SD: 0.0
+-------------------------------------------------

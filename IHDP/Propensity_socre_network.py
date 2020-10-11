@@ -68,8 +68,8 @@ class Propensity_socre_network:
                 train_set_size += covariates.size(0)
 
                 treatment_pred = network(covariates)
-                print(treatment_pred)
-                print(treatment)
+                # print(treatment_pred)
+                # print(treatment)
                 loss = F.cross_entropy(treatment_pred, treatment).to(device)
                 optimizer.zero_grad()
                 loss.backward()

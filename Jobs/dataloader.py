@@ -44,6 +44,7 @@ class DataLoader:
         train_arr = np.load(train_path)
         test_arr = np.load(test_path)
         np_train_X = train_arr['x'][:, :, iter_id]
+        print(np_train_X.shape)
         np_train_T = Utils.convert_to_col_vector(train_arr['t'][:, iter_id])
         np_train_e = Utils.convert_to_col_vector(train_arr['e'][:, iter_id])
         np_train_yf = Utils.convert_to_col_vector(train_arr['yf'][:, iter_id])

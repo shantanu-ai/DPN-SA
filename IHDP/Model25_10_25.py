@@ -188,7 +188,8 @@ class Model_25_1_25:
         print("############### DCN Training using SAE ###############")
         data_loader_dict_SAE = dL.prepare_tensor_for_DCN(np_covariates_X_train,
                                                          np_covariates_Y_train,
-                                                         ps_score_list_SAE)
+                                                         ps_score_list_SAE,
+                                                         is_synthetic=True)
 
         self.__train_DCN(data_loader_dict_SAE, model_path, dL, device)
 
@@ -216,9 +217,10 @@ class Model_25_1_25:
             "treated_batch_size": 1,
             "control_batch_size": 1,
             "shuffle": True,
-            "treated_set": tensor_treated,
-            "control_set": tensor_control,
-            "model_save_path": model_path
+            "treated_set_train": tensor_treated,
+            "control_set_train": tensor_control,
+            "model_save_path": model_path,
+            "input_nodes": 100
         }
 
         # train DCN network
@@ -262,7 +264,8 @@ class Model_25_1_25:
         # load data for ITE network using SAE
         data_loader_dict_SAE = dL.prepare_tensor_for_DCN(np_covariates_X_test,
                                                          np_covariates_Y_test,
-                                                         ps_score_list_SAE)
+                                                         ps_score_list_SAE,
+                                                         is_synthetic=True)
         MSE_SAE, true_ATE_SAE, predicted_ATE_SAE, ITE_dict_list = self.__do_test_DCN(data_loader_dict_SAE,
                                                                                      dL, device,
                                                                                      model_path)
@@ -291,11 +294,12 @@ class Model_25_1_25:
         DCN_test_parameters = {
             "treated_set": tensor_treated,
             "control_set": tensor_control,
-            "model_save_path": model_path
+            "model_save_path": model_path,
+            "input_nodes": 100
         }
 
         dcn = DCN_network()
-        response_dict = dcn.eval(DCN_test_parameters, device)
+        response_dict = dcn.eval(DCN_test_parameters, device, input_nodes=100)
         err_treated = [ele ** 2 for ele in response_dict["treated_err"]]
         err_control = [ele ** 2 for ele in response_dict["control_err"]]
 
