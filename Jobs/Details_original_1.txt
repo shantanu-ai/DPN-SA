@@ -19,3 +19,27 @@ Without batch norm
 Iter: 0, SAE_e2e_bias_att: 0.0761904761904762,  SAE_e2e_policy_risk: 0.314318783068783, Using SAE E2E, bias att: 0.0761904761904762, SD: 0.0
 Using SAE E2E, policy risk: 0.314318783068783, SD: 0.0
 -------------------------------------------------
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+Without batch norm
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+Without batch norm
+Iter: 0, SAE_e2e_bias_att: 0.09285714285714286,  SAE_e2e_policy_risk: 0.30952380952380953, 
+Iter: 1, SAE_e2e_bias_att: 0.29047619047619044,  SAE_e2e_policy_risk: 0.44047619047619047, 
+Iter: 2, SAE_e2e_bias_att: 0.005444646098003658,  SAE_e2e_policy_risk: 0.3017241379310345, 
+Iter: 3, SAE_e2e_bias_att: 0.04931836407377699,  SAE_e2e_policy_risk: 0.2093023255813954, 
+Iter: 4, SAE_e2e_bias_att: 0.11005692599620498,  SAE_e2e_policy_risk: 0.24731182795698925,
+ Iter: 5, SAE_e2e_bias_att: 0.0019669551534224894,  SAE_e2e_policy_risk: 0.24390243902439024,
+  Iter: 6, SAE_e2e_bias_att: 0.005291005291005346,  SAE_e2e_policy_risk: 0.2962962962962963, 
+  Iter: 7, SAE_e2e_bias_att: 0.09144775824609908,  SAE_e2e_policy_risk: 0.3373493975903614, 
+  Iter: 8, SAE_e2e_bias_att: 0.01694255111976639,  SAE_e2e_policy_risk: 0.2784810126582279,
+Using SAE E2E, bias att: 0.07375572659017914, SD: 0.08647143376191593
+Using SAE E2E, policy risk: 0.2960408263376328, SD: 0.06298762655266983
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+Without batch norm
+{'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+Without batch norm
+Iter: 0, SAE_e2e_bias_att: 0.09285714285714286,  SAE_e2e_policy_risk: 0.30952380952380953, Iter: 1, SAE_e2e_bias_att: 0.29047619047619044,  SAE_e2e_policy_risk: 0.44047619047619047, Iter: 2, SAE_e2e_bias_att: 0.06473079249848757,  SAE_e2e_policy_risk: 0.31034482758620685, Iter: 3, SAE_e2e_bias_att: 0.06655974338412182,  SAE_e2e_policy_risk: 0.20784883720930236, Iter: 4, SAE_e2e_bias_att: 0.11005692599620498,  SAE_e2e_policy_risk: 0.24731182795698925, {'epochs': 200, 'lr': 0.0001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.08, 'weight_decay': 0.0003, 'BETA': 0.4}
+Without batch norm
+Iter: 0, SAE_e2e_bias_att: 0.09285714285714286,  SAE_e2e_policy_risk: 0.30952380952380953, Iter: 1, SAE_e2e_bias_att: 0.3071428571428571,  SAE_e2e_policy_risk: 0.449631860776439, Iter: 2, SAE_e2e_bias_att: 0.06473079249848757,  SAE_e2e_policy_risk: 0.31034482758620685, Iter: 3, SAE_e2e_bias_att: 0.39414595028067356,  SAE_e2e_policy_risk: 0.2149547803617572, Iter: 4, SAE_e2e_bias_att: 0.11005692599620498,  SAE_e2e_policy_risk: 0.24731182795698925, Iter: 5, SAE_e2e_bias_att: 0.04642014162077106,  SAE_e2e_policy_risk: 0.23882113821138207, Iter: 6, SAE_e2e_bias_att: 0.02116402116402122,  SAE_e2e_policy_risk: 0.29423868312757195, Iter: 7, SAE_e2e_bias_att: 0.09144775824609908,  SAE_e2e_policy_risk: 0.3373493975903614, Iter: 8, SAE_e2e_bias_att: 0.01694255111976639,  SAE_e2e_policy_risk: 0.2784810126582279, Using SAE E2E, bias att: 0.1272120156584471, SD: 0.12481952828383089
+Using SAE E2E, policy risk: 0.29785081531030505, SD: 0.0651397338091689
+-------------------------------------------------

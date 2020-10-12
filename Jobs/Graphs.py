@@ -34,14 +34,19 @@ from dataloader import DataLoader
 class Graphs:
     def draw_scatter_plots(self):
         device = Utils.get_device()
-        csv_path = "Dataset/ihdp_sample.csv"
+        train_path = "Dataset/jobs_DW_bin.new.10.train.npz"
         dL = DataLoader()
-        np_covariates_X, np_covariates_Y = dL.preprocess_for_graphs(csv_path)
+        np_covariates_X, np_covariates_Y = dL.preprocess_for_graphs(train_path)
         ps_train_set = dL.convert_to_tensor(np_covariates_X, np_covariates_Y)
         ps_list_nn = self.__train_propensity_net_NN(ps_train_set, device)
         ps_list_SAE = self.__train_propensity_net_SAE(ps_train_set, device)
         ps_list_LR = self.__train_propensity_net_LR(np_covariates_X, np_covariates_Y)
         ps_list_LR_lasso = self.__train_propensity_net_LR_Lasso(np_covariates_X, np_covariates_Y)
+
+        print(len(ps_list_nn))
+        print(len(ps_list_SAE))
+        print(len(ps_list_LR))
+        print(len(ps_list_LR_lasso))
 
         self.draw_ps_scatter_plots_all(ps_list_nn, ps_list_SAE, ps_list_LR, ps_list_LR_lasso)
 
@@ -57,11 +62,12 @@ class Graphs:
     @staticmethod
     def __train_propensity_net_NN(ps_train_set, device):
         train_parameters_NN = {
-            "epochs": 100,
+            "epochs": 50,
             "lr": 0.001,
             "batch_size": 32,
             "shuffle": True,
             "train_set": ps_train_set,
+            "input_nodes": 17,
             "model_save_path": "./Propensity_Model/Graph_NN_PS_model_epoch_{0}_lr_{1}.pth"
         }
         # ps using NN
@@ -72,7 +78,8 @@ class Graphs:
         # eval
         eval_parameters_NN = {
             "eval_set": ps_train_set,
-            "model_path": "./Propensity_Model/Graph_NN_PS_model_epoch_100_lr_0.001.pth"
+            "input_nodes": 17,
+            "model_path": "./Propensity_Model/Graph_NN_PS_model_epoch_50_lr_0.001.pth"
         }
 
         ps_score_list_NN = ps_net_NN.eval(eval_parameters_NN, device, phase="eval")
@@ -82,20 +89,22 @@ class Graphs:
     def __train_propensity_net_SAE(ps_train_set, device):
         # !!! best parameter list
         train_parameters_SAE = {
-            "epochs": 200,
-            "lr": 0.0001,
+            "epochs": 400,
+            "lr": 0.001,
             "batch_size": 32,
             "shuffle": True,
             "train_set": ps_train_set,
-            "sparsity_probability": 0.08,
+            "sparsity_probability": 0.8,
             "weight_decay": 0.0003,
-            "BETA": 0.4,
+            "BETA": 0.1,
+            "input_nodes": 17,
             "model_save_path": "./Propensity_Model/SAE_PS_model_iter_id_epoch_{0}_lr_{1}.pth"
         }
 
         ps_net_SAE = Sparse_Propensity_score()
         print("############### Propensity Score SAE net Training ###############")
-        sparse_classifier = ps_net_SAE.train(train_parameters_SAE, device, phase="train")
+        sparse_classifier, sae_classifier_stacked_all_layer_active, \
+        sae_classifier_stacked_cur_layer_active = ps_net_SAE.train(train_parameters_SAE, device, phase="train")
 
         # eval propensity network using SAE
         ps_score_list_SAE = ps_net_SAE.eval(ps_train_set, device, phase="eval",
@@ -119,7 +128,8 @@ class Graphs:
 
     @staticmethod
     def draw_ps_scatter_plots_all(ps_list_nn, ps_list_SAE, ps_list_LR, ps_list_LR_lasso):
-        X = list(range(1, 748))
+        X = list(range(1, 2571))
+        print(len(X))
         Y_nn = ps_list_nn
         y_SAE = ps_list_SAE
         y_LR = ps_list_LR
@@ -137,7 +147,7 @@ class Graphs:
     @staticmethod
     def draw_ps_scatter_plots(ps_list, title):
         fig = plt.figure()
-        X = list(range(1, 748))
+        X = list(range(1, 2571))
         Y = ps_list
         plt.scatter(X, Y, c="black", alpha=1, label=title)
         plt.legend(loc=1, facecolor='white', framealpha=0.85)

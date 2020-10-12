@@ -34,13 +34,13 @@ class shallow_net(nn.Module):
         self.training_mode = training_mode
 
         # encoder
-        self.encoder = nn.Sequential(nn.Linear(in_features=17, out_features=1),
+        self.encoder = nn.Sequential(nn.Linear(in_features=17, out_features=10),
                                      nn.Tanh()
                                      )
 
         if self.training_mode == "train":
             # decoder
-            self.decoder = nn.Sequential(nn.Linear(in_features=1, out_features=17),
+            self.decoder = nn.Sequential(nn.Linear(in_features=10, out_features=17),
                                          nn.Tanh(),
                                          nn.Linear(in_features=17, out_features=17))
 

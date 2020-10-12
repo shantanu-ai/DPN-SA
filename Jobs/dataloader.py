@@ -31,9 +31,33 @@ from Utils import Utils
 
 
 class DataLoader:
-    def preprocess_for_graphs(self, csv_path):
-        df = pd.read_csv(os.path.join(os.path.dirname(__file__), csv_path), header=None)
-        return self.__convert_to_numpy(df)
+    def preprocess_for_graphs(self, train_path, iter_id=0):
+        train_arr = np.load(train_path)
+        np_train_X = train_arr['x'][:, :, iter_id]
+        print(np_train_X.shape)
+        np_train_T = Utils.convert_to_col_vector(train_arr['t'][:, iter_id])
+        np_train_e = Utils.convert_to_col_vector(train_arr['e'][:, iter_id])
+        np_train_yf = Utils.convert_to_col_vector(train_arr['yf'][:, iter_id])
+
+        train_X = np.concatenate((np_train_X, np_train_e, np_train_yf), axis=1)
+
+        # np_test_X = test_arr['x'][:, :, iter_id]
+        # np_test_T = Utils.convert_to_col_vector(test_arr['t'][:, iter_id])
+        # np_test_e = Utils.convert_to_col_vector(test_arr['e'][:, iter_id])
+        # np_test_yf = Utils.convert_to_col_vector(test_arr['yf'][:, iter_id])
+        #
+        # test_X = np.concatenate((np_test_X, np_test_e, np_test_yf), axis=1)
+
+        print("Numpy Train Statistics:")
+        print(train_X.shape)
+        print(np_train_T.shape)
+
+        # print(" Numpy Test Statistics:")
+        # print(test_X.shape)
+        # print(np_test_T.shape)
+
+        # X -> x1.. x17, e, yf -> (19, 1)
+        return train_X, np_train_T,
 
     def prep_process_all_data(self, csv_path):
         df = pd.read_csv(os.path.join(os.path.dirname(__file__), csv_path), header=None)
