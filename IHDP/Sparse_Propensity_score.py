@@ -69,6 +69,43 @@ class Sparse_Propensity_score:
         print(".. Propensity score evaluation completed Sparse AE ..")
         return prop_score_list
 
+    @staticmethod
+    def eval_return_complete_list(eval_set, device, phase,
+                                  sparse_classifier):
+        print(".. Propensity score evaluation started using Sparse AE ..")
+        sparse_classifier.eval()
+        data_loader = torch.utils.data.DataLoader(eval_set, shuffle=False, num_workers=1)
+        total_correct = 0
+        eval_set_size = 0
+        prop_score_list = []
+        total_correct = 0
+        prop_score_list = []
+        for batch in data_loader:
+            prop_dict = {}
+            covariates, treatment = batch
+            covariates = covariates.to(device)
+            covariates = covariates[:, :-2]
+            treatment = treatment.squeeze().to(device)
+
+            eval_set_size += covariates.size(0)
+
+            treatment_pred = sparse_classifier(covariates).to(device)
+            treatment_pred_prob = F.softmax(treatment_pred, dim=1)
+            # print(treatment_pred_prob)
+            treatment_pred_prob = treatment_pred_prob.squeeze()
+            _, preds = torch.max(treatment_pred.data, 1)
+
+            prop_dict["treatment"] = treatment.item()
+            prop_dict["prop_score"] = treatment_pred_prob[1].item()
+            prop_score_list.append(prop_dict)
+            total_correct += torch.sum(preds == treatment.data)
+
+        pred_accuracy = total_correct.item() / eval_set_size
+        # print("Accuracy: {0}".format(total_correct))
+        # print("correct: {0}, accuracy: {1}".format(total_correct, pred_accuracy))
+        print(".. Propensity score evaluation completed Sparse AE ..")
+        return prop_score_list
+
     def train(self, train_parameters, device, phase):
         print(".. Training started ..")
         epochs = train_parameters["epochs"]
