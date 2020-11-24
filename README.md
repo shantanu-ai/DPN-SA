@@ -1,5 +1,8 @@
 ## Description
-Repository of Deep Propensity Network - Sparse Autoencoder (DPN-SA) to calculate propensity score using sparse autoencoder.
+Repository of Deep Propensity Network - Sparse Autoencoder (DPN-SA) to calculate propensity score using sparse autoencoder - Paper under review at Journal of the American Medical Informatics Association.
+
+## Introduction
+A deep learning model - deep propensity network using a sparse autoencoder (DPN-SA), for calculating Propensity Score Mathcing(PSN) to tackle the problems of high dimensionality and residual confounding.
 
 ## Requirements and setup
 pytorch - 1.3.1 <br/>
