@@ -2,7 +2,9 @@
 Repository of Deep Propensity Network - Sparse Autoencoder (DPN-SA) to calculate propensity score using sparse autoencoder - Paper under review at Journal of the American Medical Informatics Association.
 
 ## Introduction
-A deep learning model - deep propensity network using a sparse autoencoder (DPN-SA), for calculating Propensity Score Mathcing(PSN) to tackle the problems of high dimensionality and residual confounding.
+A deep learning model - deep propensity network using a sparse autoencoder (DPN-SA), for calculating Propensity Score Mathcing(PSN) to tackle the problems of high dimensionality and residual confounding. It uses a sparse autoencoder in place the Propensity dropout module in Deep counterfactual network - Propensity dropout architecture(DCN-PD). 
+The original paper of DCN-PD can be founed [here](https://arxiv.org/pdf/1706.05966.pdf).
+The original implemetation of DCN-PD in pytorch can be found [here](https://github.com/Shantanu48114860/Deep-Counterfactual-Networks-with-Propensity-Dropout).
 
 ## Requirements and setup
 pytorch - 1.3.1 <br/>
