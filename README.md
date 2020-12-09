@@ -8,6 +8,15 @@ The original paper of DCN-PD can be founed [here](https://arxiv.org/pdf/1706.059
 
 The original implemetation of DCN-PD in pytorch can be found [here](https://github.com/Shantanu48114860/Deep-Counterfactual-Networks-with-Propensity-Dropout).
 
+## Contributors
+[Shantanu Ghosh](https://www.linkedin.com/in/shantanu-ghosh-b369783a/)
+
+[Jiang Bian](http://jiangbian.me/)
+
+[Yi Guo](https://hobi.med.ufl.edu/profile/guo-yi/)
+
+[Mattia Prosperi](https://epidemiology.phhp.ufl.edu/profile/prosperi-mattia/)
+
 ## Requirements and setup
 pytorch - 1.3.1 <br/>
 numpy - 1.17.2 <br/>
