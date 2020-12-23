@@ -55,7 +55,7 @@ Consolidated results will be available in textfile in /Details_original.txt and 
 
 The details of each run will be avalable in csv files in the following locations:
 
-/MSE/Results_consolidated.csv and /MSE_Augmented/Results_consolidated_NN.csv
+/MSE/Results_consolidated.csv
 
 
 
