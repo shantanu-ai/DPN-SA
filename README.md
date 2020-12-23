@@ -8,6 +8,9 @@ The original paper of DCN-PD can be founed [here](https://arxiv.org/pdf/1706.059
 
 The original implemetation of DCN-PD in pytorch can be found [here](https://github.com/Shantanu48114860/Deep-Counterfactual-Networks-with-Propensity-Dropout).
 
+# Architecture
+<img src="https://github.com/Shantanu48114860/DPN-SA/blob/master/Pic.png">
+
 ## Contributors
 [Shantanu Ghosh](https://www.linkedin.com/in/shantanu-ghosh-b369783a/)
 
