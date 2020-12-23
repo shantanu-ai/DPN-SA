@@ -47,7 +47,9 @@ command:
 ## Output
 After the run, the outputs will be generated in the following location:
 
-<b>[IHDP](https://github.com/Shantanu48114860/DPN-SA/tree/master/MSE) </b>
+<b>[IHDP](https://github.com/Shantanu48114860/DPN-SA/tree/master/IHDP/MSE) </b>
+
+<b>[Jobs](https://github.com/Shantanu48114860/DPN-SA/tree/master/Jobs/MSE)</b>
 
 Consolidated results will be available in textfile in /Details_original.txt and /Details_augmented.txt files.
 
