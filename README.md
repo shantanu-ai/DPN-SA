@@ -6,8 +6,6 @@ A deep learning model - deep propensity network using a sparse autoencoder (DPN-
 
 The original paper of DCN-PD can be founed [here](https://arxiv.org/pdf/1706.05966.pdf).
 
-The original implemetation of DCN-PD in pytorch can be found [here](https://github.com/Shantanu48114860/Deep-Counterfactual-Networks-with-Propensity-Dropout).
-
 ## Objective
 Drawing causal estimates from observational data is problematic, because datasets often contain underlying bias, e.g., discrimination in treatment assignment. To examine causal effects, it is important to evaluate what-if scenarios—the so-called counterfactuals. We propose a novel deep learning architecture for propensity score matching (PSM) and counterfactual prediction—the deep propensity network using a sparse autoencoder (DPN-SA)—to tackle the problems of high dimensionality, nonlinear/nonparallel treatment assignment, and residual confounding when estimating treatment effects.
 
