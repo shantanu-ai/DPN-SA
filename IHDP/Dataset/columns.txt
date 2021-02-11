@@ -1,1 +1,0 @@
-treatment, y_factual, y_cfactual, mu0, mu1, x1, …, x25

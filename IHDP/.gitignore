@@ -1,5 +1,0 @@
-*.ipynb_checkpoints
-*.ipynb
-_pycache_/
-*.pyc
-*.pth
