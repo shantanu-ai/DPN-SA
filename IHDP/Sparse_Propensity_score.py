@@ -49,7 +49,7 @@ class Sparse_Propensity_score:
         for batch in data_loader:
             covariates, treatment = batch
             covariates = covariates.to(device)
-            covariates = covariates[:, :-2]
+            covariates = covariates[:, :-4]
             treatment = treatment.squeeze().to(device)
 
             eval_set_size += covariates.size(0)
@@ -84,7 +84,7 @@ class Sparse_Propensity_score:
             prop_dict = {}
             covariates, treatment = batch
             covariates = covariates.to(device)
-            covariates = covariates[:, :-2]
+            covariates = covariates[:, :-4]
             treatment = treatment.squeeze().to(device)
 
             eval_set_size += covariates.size(0)
@@ -238,7 +238,7 @@ class Sparse_Propensity_score:
                 counter += 1
                 covariates, _ = batch
                 covariates = covariates.to(device)
-                covariates = covariates[:, :-2]
+                covariates = covariates[:, :-4]
                 train_set_size += covariates.size(0)
 
                 treatment_pred = network(covariates)
@@ -281,7 +281,7 @@ class Sparse_Propensity_score:
                 train_set_size += covariates.size(0)
 
                 treatment = treatment.squeeze().to(device)
-                covariates = covariates[:, :-2]
+                covariates = covariates[:, :-4]
                 treatment_pred = sparse_classifier(covariates).to(device)
 
                 loss = criterion(treatment_pred, treatment)

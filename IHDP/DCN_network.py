@@ -88,22 +88,19 @@ class DCN_network:
                 network.out_Y0.bias.requires_grad = False
 
                 for batch in treated_data_loader_train:
-                    covariates_X, ps_score, y_f, y_cf = batch
+                    covariates_X, ps_score, y_f, _, mu0, mu1 = batch
                     covariates_X = covariates_X.to(device)
                     ps_score = ps_score.squeeze().to(device)
 
                     train_set_size += covariates_X.size(0)
-                    treatment_pred = network(covariates_X, ps_score)
-                    # treatment_pred[0] -> y1
-                    # treatment_pred[1] -> y0
-                    predicted_ITE = treatment_pred[0] - treatment_pred[1]
-                    true_ITE = y_f - y_cf
+                    y1_hat = network(covariates_X, ps_score)[0].squeeze(-1)
+
                     if torch.cuda.is_available():
-                        loss = lossF(predicted_ITE.float().cuda(),
-                                     true_ITE.float().cuda()).to(device)
+                        loss = lossF(y1_hat.float().cuda(),
+                                     y_f.float().cuda()).to(device)
                     else:
-                        loss = lossF(predicted_ITE.float(),
-                                     true_ITE.float()).to(device)
+                        loss = lossF(y1_hat.float(),
+                                     y_f.float()).to(device)
                     optimizer.zero_grad()
                     loss.backward()
                     optimizer.step()
@@ -127,7 +124,7 @@ class DCN_network:
                 network.out_Y0.bias.requires_grad = True
 
                 for batch in control_data_loader_train:
-                    covariates_X, ps_score, y_f, y_cf = batch
+                    covariates_X, ps_score, y_f,  _, mu0, mu1 = batch
                     covariates_X = covariates_X.to(device)
                     ps_score = ps_score.squeeze().to(device)
 
@@ -135,14 +132,16 @@ class DCN_network:
                     treatment_pred = network(covariates_X, ps_score)
                     # treatment_pred[0] -> y1
                     # treatment_pred[1] -> y0
-                    predicted_ITE = treatment_pred[0] - treatment_pred[1]
-                    true_ITE = y_cf - y_f
+                    # predicted_ITE = treatment_pred[0] - treatment_pred[1]
+                    # true_ITE = y_cf - y_f
+
+                    y0_hat = network(covariates_X, ps_score)[1].squeeze(-1)
                     if torch.cuda.is_available():
-                        loss = lossF(predicted_ITE.float().cuda(),
-                                     true_ITE.float().cuda()).to(device)
+                        loss = lossF(y0_hat.float().cuda(),
+                                     y_f.float().cuda()).to(device)
                     else:
-                        loss = lossF(predicted_ITE.float(),
-                                     true_ITE.float()).to(device)
+                        loss = lossF(y0_hat.float(),
+                                     y_f.float()).to(device)
                     optimizer.zero_grad()
                     loss.backward()
                     optimizer.step()
@@ -182,13 +181,13 @@ class DCN_network:
         ITE_dict_list = []
 
         for batch in treated_data_loader:
-            covariates_X, ps_score, y_f, y_cf = batch
+            covariates_X, ps_score, y_f, y_cf, mu0, mu1 = batch
             covariates_X = covariates_X.to(device)
             ps_score = ps_score.squeeze().to(device)
             treatment_pred = network(covariates_X, ps_score)
 
             predicted_ITE = treatment_pred[0] - treatment_pred[1]
-            true_ITE = y_f - y_cf
+            true_ITE = mu1 - mu0
             if torch.cuda.is_available():
                 diff = true_ITE.float().cuda() - predicted_ITE.float().cuda()
             else:
@@ -205,13 +204,13 @@ class DCN_network:
             predicted_ITE_list.append(predicted_ITE.item())
 
         for batch in control_data_loader:
-            covariates_X, ps_score, y_f, y_cf = batch
+            covariates_X, ps_score, y_f, y_cf, mu0, mu1 = batch
             covariates_X = covariates_X.to(device)
             ps_score = ps_score.squeeze().to(device)
             treatment_pred = network(covariates_X, ps_score)
 
             predicted_ITE = treatment_pred[0] - treatment_pred[1]
-            true_ITE = y_cf - y_f
+            true_ITE = mu1 - mu0
             if torch.cuda.is_available():
                 diff = true_ITE.float().cuda() - predicted_ITE.float().cuda()
             else:

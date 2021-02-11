@@ -39,6 +39,10 @@ class Utils:
         return data.to_numpy()
 
     @staticmethod
+    def convert_to_col_vector(np_arr):
+        return np_arr.reshape(np_arr.shape[0], 1)
+
+    @staticmethod
     def test_train_split(covariates_X, treatment_Y, split_size=0.8):
         return sklearn.train_test_split(covariates_X, treatment_Y, train_size=split_size)
 
@@ -50,13 +54,16 @@ class Utils:
         return processed_dataset
 
     @staticmethod
-    def convert_to_tensor_DCN(X, ps_score, Y_f, Y_cf):
+    def convert_to_tensor_DCN(X, ps_score, Y_f, Y_cf, Y_mu0, Y_mu1):
         tensor_x = torch.stack([torch.Tensor(i) for i in X])
         tensor_ps_score = torch.from_numpy(ps_score)
         tensor_y_f = torch.from_numpy(Y_f)
         tensor_y_cf = torch.from_numpy(Y_cf)
+        tensor_y_mu0 = torch.from_numpy(Y_cf)
+        tensor_y_mu1 = torch.from_numpy(Y_cf)
         processed_dataset = torch.utils.data.TensorDataset(tensor_x, tensor_ps_score,
-                                                           tensor_y_f, tensor_y_cf)
+                                                           tensor_y_f, tensor_y_cf,
+                                                           tensor_y_mu0, tensor_y_mu1)
         return processed_dataset
 
     @staticmethod

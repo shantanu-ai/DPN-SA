@@ -6,3 +6,69 @@
 
 {'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
 
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+{'epochs': 400, 'lr': 0.001, 'batch_size': 32, 'shuffle': True, 'sparsity_probability': 0.8, 'weight_decay': 0.0003, 'BETA': 0.1}
+
+Iter: 1, MSE_Sparse_e2e: 16.120251841055918, MSE_Sparse_stacked_all_layer_active: 15.020289734216812, MSE_Sparse_stacked_cur_layer_active: 15.807713283227223, MSE_NN: 13.264118793655667, MSE_LR: 10.135406677818388, MSE_LR_Lasso: 11.249202159761017
+
+##################################################
+
+Using NN, MSE: 13.264118793655667, SD: 0.0
+Using NN, true ATE: 0.0, SD: 0.0
+Using NN, predicted ATE: -3.4819782066345213, SD: 0.0
+-------------------------------------------------
+Using SAE E2E, MSE: 16.120251841055918, SD: 0.0
+Using SAE E2E, true ATE: 0.0, SD: 0.0
+Using SAE E2E, predicted ATE: -3.990644677480062, SD: 0.0
+-------------------------------------------------
+
+-------------------------------------------------
+Using SAE stacked all layer active, MSE: 15.020289734216812, SD: 0.0
+Using SAE stacked all layer active, true ATE: 0.0, SD: 0.0
+Using SAE, stacked all layer active predicted ATE: -3.805030970573425, SD: 0.0
+-------------------------------------------------
+
+-------------------------------------------------
+Using SAE stacked cur layer active, MSE: 15.807713283227223, SD: 0.0
+Using SAE stacked cur layer active, true ATE: 0.0, SD: 0.0
+Using SAE stacked cur layer active, predicted ATE: -3.9102952829996744, SD: 0.0
+-------------------------------------------------
+Using Logistic Regression, MSE: 10.135406677818388, SD: 0.0
+Using Logistic Regression, true ATE: 0.0, SD: 0.0
+Using Logistic Regression, predicted ATE: -3.0811983728408814, SD: 0.0
+-------------------------------------------------
+Using Lasso Logistic Regression, MSE: 11.249202159761017, SD: 0.0
+Using Lasso Logistic Regression, true ATE: 0.0, SD: 0.0
+Using Lasso Logistic Regression, predicted ATE: -3.2766799910863242, SD: 0.0
+##################################################

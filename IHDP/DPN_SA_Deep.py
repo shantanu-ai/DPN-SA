@@ -39,7 +39,7 @@ class DPN_SA_Deep:
         print("----------- Training and evaluation phase ------------")
         ps_train_set = dL.convert_to_tensor(np_covariates_X_train, np_covariates_Y_train)
 
-        # using NN
+        # using Feed forward neural nets
         start = datetime.now()
         self.__train_propensity_net_NN(ps_train_set,
                                        np_covariates_X_train,
@@ -461,8 +461,11 @@ class DPN_SA_Deep:
         np_ps_score = group[1]
         np_df_Y_f = group[2]
         np_df_Y_cf = group[3]
+        np_df_Y_mu0 = group[4]
+        np_df_Y_mu1 = group[5]
         tensor = dL.convert_to_tensor_DCN(np_df_X, np_ps_score,
-                                          np_df_Y_f, np_df_Y_cf)
+                                          np_df_Y_f, np_df_Y_cf,
+                                          np_df_Y_mu0, np_df_Y_mu1)
         return tensor
 
     def __test_DCN_NN(self, iter_id, np_covariates_X_test, np_covariates_Y_test, dL, device, ps_test_set,
@@ -566,16 +569,22 @@ class DPN_SA_Deep:
         np_treated_ps_score = treated_group[1]
         np_treated_df_Y_f = treated_group[2]
         np_treated_df_Y_cf = treated_group[3]
+        np_treated_df_Y_mu0 = treated_group[4]
+        np_treated_df_Y_mu1 = treated_group[5]
         tensor_treated = dL.convert_to_tensor_DCN(np_treated_df_X, np_treated_ps_score,
-                                                  np_treated_df_Y_f, np_treated_df_Y_cf)
+                                                  np_treated_df_Y_f, np_treated_df_Y_cf,
+                                                  np_treated_df_Y_mu0, np_treated_df_Y_mu1)
 
         control_group = data_loader_dict["control_data"]
         np_control_df_X = control_group[0]
         np_control_ps_score = control_group[1]
         np_control_df_Y_f = control_group[2]
         np_control_df_Y_cf = control_group[3]
+        np_control_df_Y_mu0 = treated_group[4]
+        np_control_df_Y_mu1 = treated_group[5]
         tensor_control = dL.convert_to_tensor_DCN(np_control_df_X, np_control_ps_score,
-                                                  np_control_df_Y_f, np_control_df_Y_cf)
+                                                  np_control_df_Y_f, np_control_df_Y_cf,
+                                                  np_control_df_Y_mu0, np_control_df_Y_mu1)
 
         DCN_test_parameters = {
             "treated_set": tensor_treated,

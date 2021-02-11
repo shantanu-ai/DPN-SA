@@ -64,7 +64,7 @@ class Propensity_socre_network:
                 covariates = covariates.to(device)
                 treatment = treatment.squeeze().to(device)
 
-                covariates = covariates[:, :-2]
+                covariates = covariates[:, :-4]
                 train_set_size += covariates.size(0)
 
                 treatment_pred = network(covariates)
@@ -102,7 +102,7 @@ class Propensity_socre_network:
         for batch in data_loader:
             covariates, treatment = batch
             covariates = covariates.to(device)
-            covariates = covariates[:, :-2]
+            covariates = covariates[:, :-4]
             treatment = treatment.squeeze().to(device)
 
             eval_set_size += covariates.size(0)
@@ -137,7 +137,7 @@ class Propensity_socre_network:
             prop_dict = {}
             covariates, treatment = batch
             covariates = covariates.to(device)
-            covariates = covariates[:, :-2]
+            covariates = covariates[:, :-4]
             treatment = treatment.squeeze().to(device)
 
             eval_set_size += covariates.size(0)

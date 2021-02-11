@@ -22,9 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import os
-
 import numpy as np
+import os
 import pandas as pd
 
 from Utils import Utils
@@ -86,49 +85,53 @@ class DataLoader:
         # print("ps_np_covariates_X: {0}".format(ps_np_covariates_X.shape))
         # print("ps_np_treatment_Y: {0}".format(ps_np_treatment_Y.shape))
         X = Utils.concat_np_arr(ps_np_covariates_X, ps_np_treatment_Y, axis=1)
-
+        # print(ps_np_covariates_X.shape)
         # col of X -> x1 .. x25, Y_f, Y_cf, T, Ps
         X = Utils.concat_np_arr(X, np.array([ps_list]).T, axis=1)
         # print("Big X: {0}".format(X.shape))
         df_X = pd.DataFrame(X)
-        treated_df_X, treated_ps_score, treated_df_Y_f, treated_df_Y_cf = \
+        treated_df_X, treated_ps_score, treated_df_Y_f, treated_df_Y_cf, treated_df_mu0, treated_df_mu1 = \
             self.__preprocess_data_for_DCN(df_X, treatment_index=1,
                                            is_synthetic=is_synthetic)
 
-        control_df_X, control_ps_score, control_df_Y_f, control_df_Y_cf = \
+        control_df_X, control_ps_score, control_df_Y_f, control_df_Y_cf, control_df_mu0, control_df_mu1 = \
             self.__preprocess_data_for_DCN(df_X, treatment_index=0,
                                            is_synthetic=is_synthetic)
 
-        np_treated_df_X, np_treated_ps_score, np_treated_df_Y_f, np_treated_df_Y_cf = \
+        np_treated_df_X, np_treated_ps_score, np_treated_df_Y_f, np_treated_df_Y_cf, np_treated_df_mu0, np_treated_df_mu1 = \
             self.__convert_to_numpy_DCN(treated_df_X, treated_ps_score, treated_df_Y_f,
-                                        treated_df_Y_cf)
+                                        treated_df_Y_cf, treated_df_mu0, treated_df_mu1)
 
-        np_control_df_X, np_control_ps_score, np_control_df_Y_f, np_control_df_Y_cf = \
+        np_control_df_X, np_control_ps_score, np_control_df_Y_f, np_control_df_Y_cf, np_control_df_mu0, np_control_df_mu1 = \
             self.__convert_to_numpy_DCN(control_df_X, control_ps_score, control_df_Y_f,
-                                        control_df_Y_cf)
+                                        control_df_Y_cf, control_df_mu0, control_df_mu1)
 
-        # print(".. Treated Statistics ..")
-        # print(np_treated_df_X.shape)
+        print(".. Treated Statistics ..")
+        print(np_treated_df_X.shape)
 
-        # print(".. Control Statistics ..")
-        # print(np_control_df_X.shape)
+        print(".. Control Statistics ..")
+        print(np_control_df_X.shape)
 
         return {
             "treated_data": (np_treated_df_X, np_treated_ps_score,
-                             np_treated_df_Y_f, np_treated_df_Y_cf),
+                             np_treated_df_Y_f, np_treated_df_Y_cf,
+                             np_treated_df_mu0, np_treated_df_mu1),
             "control_data": (np_control_df_X, np_control_ps_score,
-                             np_control_df_Y_f, np_control_df_Y_cf)
+                             np_control_df_Y_f, np_control_df_Y_cf,
+                             np_control_df_mu0, np_control_df_mu1)
         }
 
     @staticmethod
     def convert_to_tensor_DCN(np_df_X,
                               np_ps_score,
                               np_df_Y_f,
-                              np_df_Y_cf):
+                              np_df_Y_cf,
+                              np_df_Y_mu0, np_df_Y_mu1):
         return Utils.convert_to_tensor_DCN(np_df_X,
                                            np_ps_score,
                                            np_df_Y_f,
-                                           np_df_Y_cf)
+                                           np_df_Y_cf,
+                                           np_df_Y_mu0, np_df_Y_mu1)
 
     @staticmethod
     def __convert_to_numpy(df):
@@ -136,10 +139,14 @@ class DataLoader:
         treatment_Y = df.iloc[:, 0:1]
         outcomes_Y = df.iloc[:, 1:3]
 
+        mu0 = df.iloc[:, 3]
+        mu1 = df.iloc[:, 4]
+
         np_covariates_X = Utils.convert_df_to_np_arr(covariates_X)
         np_outcomes_Y = Utils.convert_df_to_np_arr(outcomes_Y)
-        np_X = Utils.concat_np_arr(np_covariates_X, np_outcomes_Y, axis=1)
-
+        np_mu0 = Utils.convert_to_col_vector(Utils.convert_df_to_np_arr(mu0))
+        np_mu1 = Utils.convert_to_col_vector(Utils.convert_df_to_np_arr(mu1))
+        np_X = np.concatenate((np_covariates_X, np_outcomes_Y, np_mu0, np_mu1), axis=1)
         np_treatment_Y = Utils.convert_df_to_np_arr(treatment_Y)
 
         return np_X, np_treatment_Y
@@ -148,6 +155,9 @@ class DataLoader:
         covariates_X = df.iloc[:, 5:]
         treatment_Y = df.iloc[:, 0:1]
         outcomes_Y = df.iloc[:, 1:3]
+
+        mu0 = df.iloc[:, 3]
+        mu1 = df.iloc[:, 4]
 
         np_covariates_X = Utils.convert_df_to_np_arr(covariates_X)
         np_std = np.std(np_covariates_X, axis=0)
@@ -195,21 +205,25 @@ class DataLoader:
             df_X = df.iloc[:, 0:25]
 
         ps_score = df.iloc[:, -1]
-        df_Y_f = df.iloc[:, -4:-3]
-        df_Y_cf = df.iloc[:, -3:-2]
+        df_mu0 = df.iloc[:, -3]
+        df_mu1 = df.iloc[:, -2]
+        df_Y_f = df.iloc[:, -5]
+        df_Y_cf = df.iloc[:, -4]
 
-        return df_X, ps_score, df_Y_f, df_Y_cf
+        return df_X, ps_score, df_Y_f, df_Y_cf, df_mu0, df_mu1
 
     @staticmethod
-    def __convert_to_numpy_DCN(df_X, ps_score, df_Y_f, df_Y_cf):
+    def __convert_to_numpy_DCN(df_X, ps_score, df_Y_f, df_Y_cf, df_mu0, df_mu1):
         np_df_X = Utils.convert_df_to_np_arr(df_X)
         np_ps_score = Utils.convert_df_to_np_arr(ps_score)
         np_df_Y_f = Utils.convert_df_to_np_arr(df_Y_f)
         np_df_Y_cf = Utils.convert_df_to_np_arr(df_Y_cf)
+        np_df_mu0 = Utils.convert_df_to_np_arr(df_mu0)
+        np_df_mu1 = Utils.convert_df_to_np_arr(df_mu1)
 
         # print("np_df_X: {0}".format(np_df_X.shape))
         # print("np_ps_score: {0}".format(np_ps_score.shape))
         # print("np_df_Y_f: {0}".format(np_df_Y_f.shape))
         # print("np_df_Y_cf: {0}".format(np_df_Y_cf.shape))
 
-        return np_df_X, np_ps_score, np_df_Y_f, np_df_Y_cf
+        return np_df_X, np_ps_score, np_df_Y_f, np_df_Y_cf, np_df_mu0, np_df_mu1
