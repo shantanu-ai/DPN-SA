@@ -16,6 +16,10 @@ Drawing causal estimates from observational data is problematic, because dataset
 ## Materials and methods
 We used two randomized prospective datasets, a semi-synthetic one with nonlinear/nonparallel treatment selection bias and simulated counterfactual outcomes from the Infant Health and Development Program (IHDP), and a real-world dataset from the LaLonde’s employment training program. We compared different configurations of the DPN-SA against logistic regression and LASSO, as well as deep counterfactual networks with propensity dropout (DCN-PD). Models’ performance were assessed in terms of average treatment effects (ATE), mean squared error (MSE) in precision on effect’s heterogeneity, and average treatment effect on the treated (ATT), over multiple training/test runs.
 
+## Jobs dataset
+The original Jobs dataset will be found at the website:
+https://www.fredjo.com/
+
 ## Results
 The DPN-SA outperformed logistic regression and LASSO by 36-63%, and DCN-PD by 6-10% across all datasets. All deep learning architectures yielded ATE close to the true ones with low variance. Results were also robust to noise-injection and addition of correlated variables.
 
