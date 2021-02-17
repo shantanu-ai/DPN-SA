@@ -75,7 +75,7 @@ The details of each run will be avalable in csv files in the following locations
 
 ## Citation
 
-@misc{lia_corrales_2015_15991,
+    @misc{lia_corrales_2015_15991,
         author       = {Lia Corrales},
         title        = {{dust: Calculate the intensity of dust scattering halos in the X-ray}},
         month        = mar,
