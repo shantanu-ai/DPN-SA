@@ -73,6 +73,24 @@ The details of each run will be avalable in csv files in the following locations
 
 /MSE/Results_consolidated.csv
 
+## Citation
+
+@article{10.1093/jamia/ocaa346,
+    author = {Ghosh, Shantanu and Bian, Jiang and Guo, Yi and Prosperi, Mattia},
+    title = "{Deep propensity network using a sparse autoencoder for estimation of treatment effects}",
+    journal = {Journal of the American Medical Informatics Association},
+    year = {2021},
+    month = {02},
+    abstract = "{Drawing causal estimates from observational data is problematic, because datasets often contain underlying bias (eg, discrimination in treatment assignment). To examine causal effects, it is important to evaluate what-if scenarios—the so-called “counterfactuals.” We propose a novel deep learning architecture for propensity score matching and counterfactual prediction—the deep propensity network using a sparse autoencoder (DPN-SA)—to tackle the problems of high dimensionality, nonlinear/nonparallel treatment assignment, and residual confounding when estimating treatment effects.We used 2 randomized prospective datasets, a semisynthetic one with nonlinear/nonparallel treatment selection bias and simulated counterfactual outcomes from the Infant Health and Development Program and a real-world dataset from the LaLonde’s employment training program. We compared different configurations of the DPN-SA against logistic regression and LASSO as well as deep counterfactual networks with propensity dropout (DCN-PD). Models’ performances were assessed in terms of average treatment effects, mean squared error in precision on effect’s heterogeneity, and average treatment effect on the treated, over multiple training/test runs.The DPN-SA outperformed logistic regression and LASSO by 36\\%–63\\%, and DCN-PD by 6\\%–10\\% across all datasets. All deep learning architectures yielded average treatment effects close to the true ones with low variance. Results were also robust to noise-injection and addition of correlated variables. Code is publicly available at https://github.com/Shantanu48114860/DPN-SA.Deep sparse autoencoders are particularly suited for treatment effect estimation studies using electronic health records because they can handle high-dimensional covariate sets, large sample sizes, and complex heterogeneity in treatment assignments.}",
+    issn = {1527-974X},
+    doi = {10.1093/jamia/ocaa346},
+    url = {https://doi.org/10.1093/jamia/ocaa346},
+    note = {ocaa346},
+    eprint = {https://academic.oup.com/jamia/advance-article-pdf/doi/10.1093/jamia/ocaa346/36288828/ocaa346.pdf},
+}
+
+
+
 
 
 ## License & copyright
