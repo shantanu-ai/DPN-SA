@@ -75,6 +75,17 @@ The details of each run will be avalable in csv files in the following locations
 
 ## Citation
 
+@misc{lia_corrales_2015_15991,
+        author       = {Lia Corrales},
+        title        = {{dust: Calculate the intensity of dust scattering halos in the X-ray}},
+        month        = mar,
+        year         = 2015,
+        doi          = {10.5281/zenodo.15991},
+        version      = {1.0},
+        publisher    = {Zenodo},
+        url          = {https://doi.org/10.5281/zenodo.15991}
+        }
+
 @article{10.1093/jamia/ocaa346,
     author = {Ghosh, Shantanu and Bian, Jiang and Guo, Yi and Prosperi, Mattia},
     title = "{Deep propensity network using a sparse autoencoder for estimation of treatment effects}",
