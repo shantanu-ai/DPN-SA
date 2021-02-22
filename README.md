@@ -1,7 +1,7 @@
 # Deep Propensity Network - Sparse Autoencoder (DPN-SA) - Implementation for real world Jobs dataset
 
 ## Description
-Official repository of [Deep Propensity Network - Sparse Autoencoder (DPN-SA)](https://academic.oup.com/jamia/advance-article/doi/10.1093/jamia/ocaa346/6139936?guestAccessKey=6d8842f9-78b2-4178-912e-a76faf52c3bd#supplementary-data).
+Official repository of [Deep Propensity Network - Sparse Autoencoder (DPN-SA)](https://academic.oup.com/jamia/advance-article/doi/10.1093/jamia/ocaa346/6139936?guestAccessKey=6d8842f9-78b2-4178-912e-a76faf52c3bd#supplementary-data), Journal of the American Medical Informatics Association.
 ## Citation
 
     @article{10.1093/jamia/ocaa346,
