@@ -84,6 +84,11 @@ The details of each run will be avalable in csv files in the following locations
 
 /MSE/Results_consolidated.csv
 
+## Contact
+beinghshantanu2406@gmail.com 
+
+shantanughosh@ufl.edu
+
 ## License & copyright
 © DISL, University of Florida
 
